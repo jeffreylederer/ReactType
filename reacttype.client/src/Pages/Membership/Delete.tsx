@@ -1,5 +1,10 @@
-const MembershipDelete = () => {
+import { useLocation, useNavigate } from "react-router-dom";
 
+
+
+const MembershipDelete = () => {
+    const location = useLocation();
+    const id: string = location.state;
 
     return (
         <>

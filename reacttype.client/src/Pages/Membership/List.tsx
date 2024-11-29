@@ -21,6 +21,7 @@ function Membership() {
 
     const contents = membership === undefined
         ? <p><em>Loading ...</em></p>
+     
         : <table className="table table-striped" aria-labelledby="tableLabel">
             <thead>
                 <tr>
@@ -38,7 +39,8 @@ function Membership() {
                         <td>{item.shortname}</td>
                         <td>{item.nickName}</td>
                         <td>{item.wheelchair ? "yes" : "no"}</td>
-                        <td><Link to="/Membership/Update" state={ item.id }>Update</Link>
+                        <td><Link to="/Membership/Update" state={item.id}>Update</Link>|  
+                            <Link to="/Membership/Delete" state={item.id}>Delete</Link>
                         </td>
                         
                     </tr>
@@ -49,7 +51,8 @@ function Membership() {
     return (
         <div>
             <h1 id="tableLabel">Membership</h1>
-            <p>This component demonstrates fetching data from the server.</p>
+            
+            <Link to="/Membership/Create">Add</Link>
             {contents}
         </div>
     );

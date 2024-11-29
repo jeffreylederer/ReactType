@@ -7,6 +7,7 @@ import {
 import Membership from "./Pages/Membership/List.tsx";
 import MembershipDelete from "./Pages/Membership/Delete.tsx";
 import MembershipUpdate from "./Pages/Membership/Update.tsx";
+import MembershipCreate from "./Pages/Membership/Create.tsx";
 
 //import About from "./about.jsx";
 //import Contact from "./contact.jsx";
@@ -25,6 +26,7 @@ function RouteMenu() {
           <Route  path="/Membership" element={<Membership />} />
           <Route path="/Membership/Delete" element={<MembershipDelete />} />
           <Route path="/Membership/Update" element={<MembershipUpdate />} />
+          <Route path="/Membership/Create" element={<MembershipCreate />} />
 
           {/*<Route*/}
           {/*    exact*/}
