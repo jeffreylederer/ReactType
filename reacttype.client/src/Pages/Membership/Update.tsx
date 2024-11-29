@@ -1,31 +1,63 @@
 import { useLocation } from "react-router-dom";
 import { useEffect, useState } from 'react';
+import { useForm, SubmitHandler } from "react-hook-form"
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
 
-interface IMebership {
+interface IMembership {
     id: number;
     firstName: string;
     lastName: string;
     fullName: string;
     shortname: string;
     nickName: string;
-    wheelchair: boolean;
-}
+    wheelchair: boolean;                
+};
 
 
 const MembershipUpdate = () => {
-    const [membership, setmembership] = useState<IMebership>();
+    const [membership, setMembership] = useState(
+        {
+            id: 0,
+            firstName: '',
+            lastName: '',
+            fullName: '',
+            shortname: '',
+            nickName: '',
+            wheelchair: false
+        }
+    );
     const location = useLocation();
     const id: string = location.state;
+
+    const { register, handleSubmit } = useForm<IMembership>()
+
+    const onSubmit: SubmitHandler<IMembership> = (data) => console.log(data)
+    
    
+    
 
     useEffect(() => {
         GetData();
-    }, []);
+        
+     }, []);
 
+    function OnChange(e: React.ChangeEvent<HTMLInputElement>) {
+        setMembership(membership => ({ ...membership, [e.currentTarget.name]: e.currentTarget.value }));
+    }
 
     return (
         <>
-            <h1>{membership?.fullName}</h1>
+            <form onSubmit={handleSubmit(onSubmit)} >
+                <div className="form-group">
+                    <input {...register("id")} type="hidden" value={membership.id} onChange={OnChange} />
+                
+                <input type="text" {...register('firstName', { required: true })} value={membership.firstName}
+                        onChange={OnChange}/>
+                <br/>
+                    <input type="submit" />
+                </div>
+            </form>
         </>
     );
 
@@ -44,7 +76,8 @@ const MembershipUpdate = () => {
                     return Promise.reject(error);
                 }
 
-                setmembership(data);
+                setMembership(data);
+                
             })
             .catch(errormsg => {
                 console.log('There was an error!', errormsg.toString());
