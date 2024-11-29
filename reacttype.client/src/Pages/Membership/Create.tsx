@@ -63,29 +63,48 @@ const MembershipDelete = () => {
                 <input {...register("id")} type="hidden" value={membership.id} onChange={OnChange} />
                 <input {...register("nickName")} type="hidden" value={membership.nickName} onChange={OnChange} />
                 <input {...register("fullName")} type="hidden" value={membership.fullName} onChange={OnChange} />
-                <Container fluid>
+                <Container >
                     <Row>
                         <Col><label>First Name:</label></Col>
 
-                        <Col><input type="text" {...register('firstName', { required: true, maxLength: 50 })} value={membership.firstName}
-                            onChange={OnChange} />
-                            {errors.firstName.type === 'required' ?
-                                'This field is required.' :
-                                'Maximum length is 50 character'
-                        }
+                        <Col><input type="text" {...register('firstName', {
+                            required: 'First Name is required!',
+                            max: {
+                                value: 50,
+                                message: "Maximum number of characters is 50."
+                            }
+                        })} value={membership.firstName}
+                            onChange={OnChange} style={{ width: '350px' }}
+                        />
+                            {errors.firstName && <p>{errors.firstName.message}</p>}
                         </Col>
                     </Row>
                     <Row>
                         <Col><label>Last Name:</label></Col>
 
-                        <Col><input type="text" {...register('lastName', { required: "Last Name is required", maxLength: 50 })} value={membership.lastName}
-                            onChange={OnChange} /></Col>
+                        <Col><input type="text" {...register('lastName', {
+                            required: 'Last Name is required!',
+                            max: {
+                                value: 50,
+                                message: "Maximum number of characters is 50."
+                            }
+                        })} value={membership.lastName} style={{ width: '350px' }}
+                            onChange={OnChange} />
+                            {errors.lastName && <p>{errors.lastName.message}</p>}
+                        </Col>
                     </Row>
                     <Row>
                         <Col><label>Short Name:</label></Col>
 
-                        <Col><input type="text" {...register('shortname', { required: false, maxLength: 25 })} value={membership.shortname}
-                            onChange={OnChange} /></Col>
+                        <Col><input type="text" {...register('shortname', {
+                            max: {
+                                value: 25,
+                                message: "Maximum number of characters is 25."
+                            }
+                        })} value={membership.shortname} style={{ width: '350px' }}
+                            onChange={OnChange} />
+                            {errors.shortname && <p>{errors.shortname.message}</p>}
+                        </Col>
                     </Row>
                     <Row>
                         <Col><label>Wheel Chair:</label></Col>
@@ -99,6 +118,7 @@ const MembershipDelete = () => {
                             <input type="submit" />
                         </Col>
                     </Row>
+                
 
                 </Container>
             </form>
