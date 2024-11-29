@@ -1,8 +1,10 @@
 import { useLocation } from "react-router-dom";
 import { useEffect, useState } from 'react';
 import { useForm, SubmitHandler } from "react-hook-form"
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import Container from 'react-bootstrap/Container';
+
 
 interface IMembership {
     id: number;
@@ -43,20 +45,51 @@ const MembershipUpdate = () => {
      }, []);
 
     function OnChange(e: React.ChangeEvent<HTMLInputElement>) {
-        setMembership(membership => ({ ...membership, [e.currentTarget.name]: e.currentTarget.value }));
+        setMembership({ ...membership, [e.target.name]: e.target.value });
+    }
+
+    function OnChecked(e: React.ChangeEvent<HTMLInputElement>) {
+        setMembership({ ...membership, [e.target.name]: e.target.checked });
     }
 
     return (
         <>
             <form onSubmit={handleSubmit(onSubmit)} >
-                <div className="form-group">
-                    <input {...register("id")} type="hidden" value={membership.id} onChange={OnChange} />
                 
-                <input type="text" {...register('firstName', { required: true })} value={membership.firstName}
-                        onChange={OnChange}/>
-                <br/>
-                    <input type="submit" />
-                </div>
+                    <input {...register("id")} type="hidden" value={membership.id} onChange={OnChange} />
+                    <Container fluid>
+                        <Row>
+                            <Col><label>First Name:</label></Col>
+                    
+                            <Col><input type="text" {...register('firstName', { required:"First Name is required", maxLength:50  })} value={membership.firstName}
+                                    onChange={OnChange}/></Col>
+                    </Row>
+                    <Row>
+                        <Col><label>Last Name:</label></Col>
+
+                        <Col><input type="text" {...register('lastName', { required: "Last Name is required", maxLength: 50 })} value={membership.lastName}
+                            onChange={OnChange} /></Col>
+                    </Row>
+                    <Row>
+                        <Col><label>Short Name:</label></Col>
+
+                        <Col><input type="text" {...register('shortname', { required: false, maxLength: 25 })} value={membership.shortname}
+                            onChange={OnChange} /></Col>
+                    </Row>
+                    <Row>
+                        <Col><label>Wheel Chair:</label></Col>
+
+                        <Col style={{textAlign: "left"} }>
+                            <input type="checkbox" {...register('wheelchair', { required: true })} checked={membership.wheelchair}
+                                onChange={OnChecked} /></Col>
+                    </Row>
+                        <Row>
+                        <Col >
+                                <input type="submit" />
+                            </Col>
+                    </Row>
+
+                 </Container>
             </form>
         </>
     );
