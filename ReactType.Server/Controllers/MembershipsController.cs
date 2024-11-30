@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -7,8 +8,10 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ReactApp1.Server.Models;
 
+// https://medium.com/@hassanjabbar2017/performing-crud-operations-using-react-with-net-core-a-step-by-step-guide-0176efa86934
 namespace ReactType.Server.Controllers
 {
+    
     public class MembershipsController : Controller
     {
         private readonly DbLeagueApp _context;
@@ -20,17 +23,18 @@ namespace ReactType.Server.Controllers
 
         // GET: Memberships
         [HttpGet]
-        [Route("api/Membership/Get")]
+        [Route("api/Memberships/Get")]
         public async Task<IEnumerable<Membership>> Get()
         {
-            var list = await _context.Memberships.ToArrayAsync();
+            var list = await _context.Memberships.ToListAsync();
+            list.Sort((a, b) => a.LastName.CompareTo(b.LastName));
             return list;
         }
 
         // GET: Memberships/Details/5
-        [HttpGet]
-        [Route("api/Membership/Details/{id}")]
-        public async Task<Membership?> Details(int? id)
+        [HttpGet()]
+        [Route("api/Memberships/Details/{id}")]
+        public async Task<Membership?> Get(int? id)
         {
             if (id == null)
             {
@@ -47,112 +51,80 @@ namespace ReactType.Server.Controllers
             return list;
         }
 
-       
 
-        // GET: Memberships/Create
-        public IActionResult Create()
-        {
-            return View();
-        }
+
 
         // POST: Memberships/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,FirstName,LastName,FullName,Shortname,NickName,Wheelchair")] Membership membership)
+        //[Bind("Id,FirstName,LastName,FullName,Shortname,NickName,Wheelchair")]
+        [HttpPut]
+        //[ValidateAntiForgeryToken]
+        [Route("api/Memberships/Create")]
+        public async Task<ActionResult<Membership>> Create(Membership item)
         {
-            if (ModelState.IsValid)
-            {
-                _context.Add(membership);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            return View(membership);
+            _context.Memberships.Add(item);
+            await _context.SaveChangesAsync();
+
+            return CreatedAtAction(nameof(Membership), new { id = item.Id }, item);
         }
 
-        // GET: Memberships/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
 
-            var membership = await _context.Memberships.FindAsync(id);
-            if (membership == null)
-            {
-                return NotFound();
-            }
-            return View(membership);
-        }
 
         // POST: Memberships/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,FirstName,LastName,FullName,Shortname,NickName,Wheelchair")] Membership membership)
+        [HttpPut]   
+        //[ValidateAntiForgeryToken]
+        [Route("api/Memberships/Edit")]
+        public async Task<IActionResult> Edit(Membership item)
         {
-            if (id != membership.Id)
+            //if (id != item.Id)
+            //{
+            //    return BadRequest();
+            //}
+
+            _context.Entry(item).State = EntityState.Modified;
+
+            try
             {
-                return NotFound();
+                await _context.SaveChangesAsync();
+            }
+            //catch (DbUpdateConcurrencyException)
+            //{
+            //    if (!MembershipExists(id))
+            //    {
+            //        return NotFound();
+            //    }
+            //    else
+            //    {
+            //        throw;
+            //    }
+            //}
+            catch(Exception ex)
+            {
+                var mess = ex.Message;
             }
 
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(membership);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!MembershipExists(membership.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            return View(membership);
+            return NoContent();
         }
 
+       
         // GET: Memberships/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        [HttpDelete]
+        [Route("api/Memberships/Delete/{id}")]
+        public async Task<IActionResult> Delete(int id)
         {
-            if (id == null)
+            var item = await _context.Memberships.FindAsync(id);
+            if (item == null)
             {
                 return NotFound();
             }
 
-            var membership = await _context.Memberships
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (membership == null)
-            {
-                return NotFound();
-            }
-
-            return View(membership);
-        }
-
-        // POST: Memberships/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var membership = await _context.Memberships.FindAsync(id);
-            if (membership != null)
-            {
-                _context.Memberships.Remove(membership);
-            }
-
+            _context.Memberships.Remove(item);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+
+            return NoContent();
         }
 
         private bool MembershipExists(int id)

@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
-import {  Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import axios from "axios";
 
 interface IMebership {
     id: number;
@@ -25,6 +26,7 @@ function Membership() {
         : <table className="table table-striped" aria-labelledby="tableLabel">
             <thead>
                 <tr>
+                    <th>Id</th>
                     <th>Name</th>
                     <th>Short Name</th>
                     <th>Nick Name</th>
@@ -35,12 +37,13 @@ function Membership() {
             <tbody>
                 {membership.map(item =>
                     <tr key={item.id}>
+                        <td>{item.id}</td>
                         <td>{item.fullName}</td>
                         <td>{item.shortname}</td>
                         <td>{item.nickName}</td>
                         <td>{item.wheelchair ? "yes" : "no"}</td>
-                        <td><Link to="/Membership/Update" state={item.id}>Update</Link>|  
-                            <Link to="/Membership/Delete" state={item.id}>Delete</Link>
+                        <td><Link to="/Membership/Update" state={ item.id.toString() }>Update</Link>|  
+                            <Link to="/Membership/Delete" state={ item.id.toString() }>Delete</Link>
                         </td>
                         
                     </tr>
@@ -51,29 +54,19 @@ function Membership() {
     return (
         <div>
             <h1 id="tableLabel">Membership</h1>
-            
             <Link to="/Membership/Create">Add</Link>
             {contents}
         </div>
     );
 
     async function GetData() {
-        fetch('https://localhost:7002/api/Membership/Get')
-            .then(async response => {
-                const data = await response.json();
-
-                // check for error response
-                if (!response.ok) {
-                    // get error message from body or default to response statusText
-                    const error = (data && data.message) || response.statusText;
-                    return Promise.reject(error);
-                }
-
-                setmembership(data);
+        axios.get("https://localhost:7002/api/Memberships/Get")
+            .then(response => {
+                setmembership(response.data);
             })
-            .catch(errormsg => {
-                 console.log('There was an error!', errormsg.toString());
-            });
+            .catch(error => {
+                console.error('Error fetching data: ', error);
+            })
     }
 }
 

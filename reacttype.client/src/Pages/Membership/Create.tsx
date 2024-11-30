@@ -1,24 +1,25 @@
 import { useNavigate } from "react-router-dom";
 import { useState } from 'react';
-import { useForm, SubmitHandler } from "react-hook-form"
+import { useForm, SubmitHandler } from "react-hook-form";
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
+import axios from "axios";
+
+const MembershipCreate = () => {
+
+    interface IMembership {
+        id: number;
+        firstName: string;
+        lastName: string;
+        fullName: string;
+        shortname: string;
+        nickName: string;
+        wheelchair: boolean;
+    };
 
 
 
-interface IMembership {
-    id: number;
-    firstName: string;
-    lastName: string;
-    fullName: string;
-    shortname: string;
-    nickName: string;
-    wheelchair: boolean;
-};
-
-
-const MembershipDelete = () => {
     const [membership, setMembership] = useState(
         {
             id: 0,
@@ -34,14 +35,20 @@ const MembershipDelete = () => {
 
     const { register, handleSubmit, formState: { errors } } = useForm<IMembership>()
 
-    const onSubmit: SubmitHandler<IMembership> = (data) => updateData(data)
+    const onSubmit: SubmitHandler<IMembership> = (data) => CreateData(data)
 
     const navigate = useNavigate();
 
-    function updateData(data: IMembership) {
-        console.log(data);
-        navigate("/Membership");
-
+    function CreateData(data: IMembership) {
+        axios.post('https://localhost:7002/api/Memberships/Create', data)
+            .then((response) => {
+                console.log(response.data);
+                navigate("/Membership");
+                console.log('Record created successfully: ', response.data);
+             })
+            .catch(error => {
+                console.log('Error creating record: ', error);
+            });
     }
 
 
@@ -68,49 +75,67 @@ const MembershipDelete = () => {
                         <Col><label>First Name:</label></Col>
 
                         <Col><input type="text" {...register('firstName', {
-                            required: 'First Name is required!',
-                            max: {
-                                value: 50,
-                                message: "Maximum number of characters is 50."
-                            }
-                        })} value={membership.firstName}
-                            onChange={OnChange} style={{ width: '350px' }}
-                        />
-                            {errors.firstName && <p>{errors.firstName.message}</p>}
+                            required: true,
+                            maxLength: 50
+                            
+                        })} value={membership.firstName} title="firstName" placeholder=""
+                            onChange={OnChange} style={{ width: '350px' }} />
+                            {errors.firstName && errors.firstName.type === "required" && (
+                                <p>This is required</p>
+                            )}
+                            {errors.firstName && errors.firstName.type === "maxLength" && (
+                                <p>Max length exceeded</p>
+                            )}
+                            {!errors.firstName && (
+                                <p> </p>
+                            )}
                         </Col>
                     </Row>
                     <Row>
                         <Col><label>Last Name:</label></Col>
 
                         <Col><input type="text" {...register('lastName', {
-                            required: 'Last Name is required!',
-                            max: {
-                                value: 50,
-                                message: "Maximum number of characters is 50."
-                            }
-                        })} value={membership.lastName} style={{ width: '350px' }}
+                                required: true,
+                                maxLength: 50
+                        })} value={membership.lastName} title="lastName" placeholder=""
+                            style={{ width: '350px' }}
                             onChange={OnChange} />
-                            {errors.lastName && <p>{errors.lastName.message}</p>}
+                            {errors.lastName && errors.lastName.type === "required" && (
+                                <p>This is required</p>
+                            )}
+                            {errors.lastName && errors.lastName.type === "maxLength" && (
+                                <p>Max length exceeded</p>
+                            )}
+                            {!errors.lastName && (
+                                <p> </p>
+                            )}
                         </Col>
                     </Row>
                     <Row>
                         <Col><label>Short Name:</label></Col>
 
                         <Col><input type="text" {...register('shortname', {
-                            max: {
-                                value: 25,
-                                message: "Maximum number of characters is 25."
-                            }
-                        })} value={membership.shortname} style={{ width: '350px' }}
+                                maxLength:25
+                        })} value={membership.shortname} title="shortname" placeholder=""
+                            style={{ width: '350px' }}
                             onChange={OnChange} />
-                            {errors.shortname && <p>{errors.shortname.message}</p>}
+                            
+                            {errors.lastName && errors.lastName.type === "maxLength" && (
+                                <p>Max length exceeded</p>
+                            )}
+                            {!errors.shortname && (
+                                <p> </p>
+                            )}
+
                         </Col>
                     </Row>
                     <Row>
                         <Col><label>Wheel Chair:</label></Col>
 
                         <Col style={{ textAlign: "left" }}>
-                            <input type="checkbox" {...register('wheelchair', { required: true })} checked={membership.wheelchair}
+                            <input type="checkbox" {...register('wheelchair')}
+                                title="wheelchair" placeholder=""
+                                checked={membership.wheelchair}
                                 onChange={OnChecked} /></Col>
                     </Row>
                     <Row>
@@ -132,4 +157,4 @@ const MembershipDelete = () => {
 
 
 
-export default MembershipDelete;
+export default MembershipCreate;
