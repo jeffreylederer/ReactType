@@ -11,7 +11,8 @@ using ReactApp1.Server.Models;
 // https://medium.com/@hassanjabbar2017/performing-crud-operations-using-react-with-net-core-a-step-by-step-guide-0176efa86934
 namespace ReactType.Server.Controllers
 {
-    
+    [ApiController]
+    [Route("api/memberships")]
     public class MembershipsController : Controller
     {
         private readonly DbLeagueApp _context;
@@ -23,7 +24,6 @@ namespace ReactType.Server.Controllers
 
         // GET: Memberships
         [HttpGet]
-        [Route("api/Memberships/Get")]
         public async Task<IEnumerable<Membership>> Get()
         {
             var list = await _context.Memberships.ToListAsync();
@@ -32,8 +32,7 @@ namespace ReactType.Server.Controllers
         }
 
         // GET: Memberships/Details/5
-        [HttpGet()]
-        [Route("api/Memberships/Details/{id}")]
+        [HttpGet("{id}")]
         public async Task<Membership?> Get(int? id)
         {
             if (id == null)
@@ -58,15 +57,15 @@ namespace ReactType.Server.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         //[Bind("Id,FirstName,LastName,FullName,Shortname,NickName,Wheelchair")]
-        [HttpPut]
+        [HttpPost]
         //[ValidateAntiForgeryToken]
-        [Route("api/Memberships/Create")]
-        public async Task<ActionResult<Membership>> Create(Membership item)
+
+        public async Task Create(Membership item)
         {
             _context.Memberships.Add(item);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(Membership), new { id = item.Id }, item);
+           
         }
 
 
@@ -74,15 +73,14 @@ namespace ReactType.Server.Controllers
         // POST: Memberships/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPut]   
         //[ValidateAntiForgeryToken]
-        [Route("api/Memberships/Edit")]
-        public async Task<IActionResult> Edit(Membership item)
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Edit(int id, Membership item)
         {
-            //if (id != item.Id)
-            //{
-            //    return BadRequest();
-            //}
+            if (id != item.Id)
+            {
+                return BadRequest();
+            }
 
             _context.Entry(item).State = EntityState.Modified;
 
@@ -90,29 +88,27 @@ namespace ReactType.Server.Controllers
             {
                 await _context.SaveChangesAsync();
             }
-            //catch (DbUpdateConcurrencyException)
-            //{
-            //    if (!MembershipExists(id))
-            //    {
-            //        return NotFound();
-            //    }
-            //    else
-            //    {
-            //        throw;
-            //    }
-            //}
-            catch(Exception ex)
+            catch (DbUpdateConcurrencyException)
             {
-                var mess = ex.Message;
+                if (!MembershipExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
             }
-
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
             return NoContent();
         }
 
-       
+
         // GET: Memberships/Delete/5
-        [HttpDelete]
-        [Route("api/Memberships/Delete/{id}")]
+        [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
             var item = await _context.Memberships.FindAsync(id);

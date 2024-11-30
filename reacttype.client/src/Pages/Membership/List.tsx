@@ -60,7 +60,7 @@ function Membership() {
     );
 
     async function GetData() {
-        axios.get("https://localhost:7002/api/Memberships/Get")
+        axios.get("https://localhost:7002/api/memberships")
             .then(response => {
                 setmembership(response.data);
             })

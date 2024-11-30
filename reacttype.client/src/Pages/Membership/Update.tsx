@@ -36,7 +36,7 @@ const MembershipUpdate = () => {
 
     const { register, handleSubmit, formState: { errors } } = useForm<IMembership>()
 
-    const onSubmit: SubmitHandler<IMembership> = (data) => updateData(data)
+    const onSubmit: SubmitHandler<IMembership> = (data) =>updateData(data)
 
     const navigate = useNavigate();
     
@@ -45,7 +45,7 @@ const MembershipUpdate = () => {
 
     useEffect(() => {
         GetData();
-        
+        setMembership({ ...membership, [id]: id});
      }, []);
 
     function OnChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -58,7 +58,7 @@ const MembershipUpdate = () => {
 
     return (
         <>
-           
+            <p>ID: {membership.id}</p>
             <form onSubmit={handleSubmit(onSubmit)} >
 
                 
@@ -147,26 +147,28 @@ const MembershipUpdate = () => {
 
 
     async function GetData() {
-        const url: string = 'https://localhost:7002/api/Memberships/Details/';
+        const url: string = 'https://localhost:7002/api/Memberships/';
         const num: string = id.toString();
         const fullUrl = url.concat(num);
         axios.get(fullUrl)
             .then(response => {
+                
                 setMembership(response.data);
                
-                console.log('Product updated successfully: ', response.data);
+                console.log('Record aquired successfully: ', response.data);
             })
             .catch(error => {
-                console.error('Error updating record: ', error);
+                console.error('Error aquiring record: ', error);
             });
 
     }
 
     function updateData(data: IMembership) {
-        //const url: string = 'https://localhost:7002/api/Memberships/Edit/';
-        //const num: string = id.toString();
-        //const fullUrl = url.concat(num);
-        axios.put('https://localhost:7002/api/Memberships/Edit', data)
+        const url: string = 'https://localhost:7002/api/Memberships/';
+        const num: string = id.toString();
+        const fullUrl = url.concat(num);
+
+          axios.put(fullUrl, membership)
             .then(response => {
                 console.log('Record updated successfully: ', response.data);
                 navigate("/Membership");

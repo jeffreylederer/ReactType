@@ -40,7 +40,7 @@ const MembershipCreate = () => {
     const navigate = useNavigate();
 
     function CreateData(data: IMembership) {
-        axios.post('https://localhost:7002/api/Memberships/Create', data)
+        axios.post('https://localhost:7002/api/Memberships', data)
             .then((response) => {
                 console.log(response.data);
                 navigate("/Membership");
@@ -86,9 +86,7 @@ const MembershipCreate = () => {
                             {errors.firstName && errors.firstName.type === "maxLength" && (
                                 <p>Max length exceeded</p>
                             )}
-                            {!errors.firstName && (
-                                <p> </p>
-                            )}
+                            
                         </Col>
                     </Row>
                     <Row>
@@ -106,9 +104,7 @@ const MembershipCreate = () => {
                             {errors.lastName && errors.lastName.type === "maxLength" && (
                                 <p>Max length exceeded</p>
                             )}
-                            {!errors.lastName && (
-                                <p> </p>
-                            )}
+                            
                         </Col>
                     </Row>
                     <Row>
@@ -123,9 +119,7 @@ const MembershipCreate = () => {
                             {errors.lastName && errors.lastName.type === "maxLength" && (
                                 <p>Max length exceeded</p>
                             )}
-                            {!errors.shortname && (
-                                <p> </p>
-                            )}
+                            
 
                         </Col>
                     </Row>

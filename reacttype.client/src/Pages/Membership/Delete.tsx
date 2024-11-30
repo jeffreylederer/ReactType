@@ -65,7 +65,7 @@ const MembershipDelete = () => {
     );
 
     async function GetData() {
-        const url: string = 'https://localhost:7002/api/Memberships/Details/';
+        const url: string = 'https://localhost:7002/api/Memberships/';
         const num: string = id.toString();
         const fullUrl = url.concat(num);
         axios.get(fullUrl)
@@ -80,7 +80,7 @@ const MembershipDelete = () => {
     }
 
     async function DeleteItem() {
-        const url: string = 'https://localhost:7002/api/Memberships/Delete/';
+        const url: string = 'https://localhost:7002/api/Memberships/';
         const num: string = id.toString();
         const fullUrl = url.concat(num);
         axios.delete(fullUrl)
