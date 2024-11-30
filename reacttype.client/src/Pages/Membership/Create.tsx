@@ -5,41 +5,34 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
 import axios from "axios";
+import { FormData } from "./FormData.tsx";
 
 const MembershipCreate = () => {
 
-    interface IMembership {
-        id: number;
-        firstName: string;
-        lastName: string;
-        fullName: string;
-        shortname: string;
-        nickName: string;
-        wheelchair: boolean;
-    };
-
-
-
-    const [membership, setMembership] = useState(
-        {
-            id: 0,
-            firstName: '',
-            lastName: '',
-            fullName: '',
-            shortname: '',
-            nickName: '',
-            wheelchair: false
-        }
-    );
     
 
-    const { register, handleSubmit, formState: { errors } } = useForm<IMembership>()
 
-    const onSubmit: SubmitHandler<IMembership> = (data) => CreateData(data)
+
+    const [membership, setMembership] = useState<FormData>({
+        id: 0,
+        firstName: '',
+        lastName: '',
+        fullName: '',
+        shortname: '',
+        nickName: '',
+        wheelchair: false
+    });
+       
+
+    
+
+    const { register, handleSubmit, formState: { errors } } = useForm<FormData>()
+
+    const onSubmit: SubmitHandler<FormData> = (data) => CreateData(data)
 
     const navigate = useNavigate();
 
-    function CreateData(data: IMembership) {
+    function CreateData(data: FormData) {
         axios.post('https://localhost:7002/api/Memberships', data)
             .then((response) => {
                 console.log(response.data);

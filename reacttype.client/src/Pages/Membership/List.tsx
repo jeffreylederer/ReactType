@@ -1,19 +1,12 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from "axios";
+import { FormData } from "./FormData.tsx";
 
-interface IMebership {
-    id: number;
-    firstName: string;
-    lastName: string;
-    fullName: string;
-    shortname: string;
-    nickName: string;
-    wheelchair: boolean;
-}
+
 
 function Membership() {
-    const [membership, setmembership] = useState<IMebership[]>();
+    const [membership, setmembership] = useState<FormData[]>();
   
 
     useEffect(() => {

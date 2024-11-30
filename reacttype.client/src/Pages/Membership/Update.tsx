@@ -5,18 +5,10 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
 import axios from "axios";
+import { FormData } from "./FormData.tsx";
 
 
 
-interface IMembership {
-    id: number;
-    firstName: string;
-    lastName: string;
-    fullName: string;
-    shortname: string;
-    nickName: string;
-    wheelchair: boolean;                
-};
 
 
 const MembershipUpdate = () => {
@@ -34,9 +26,9 @@ const MembershipUpdate = () => {
     const location = useLocation();
     const id: number = location.state;
 
-    const { register, handleSubmit, formState: { errors } } = useForm<IMembership>()
+    const { register, handleSubmit, formState: { errors } } = useForm<FormData>()
 
-    const onSubmit: SubmitHandler<IMembership> = (data) =>updateData(data)
+    const onSubmit: SubmitHandler<FormData> = (data) =>updateData(data)
 
     const navigate = useNavigate();
     
@@ -157,7 +149,7 @@ const MembershipUpdate = () => {
 
     }
 
-    function updateData(data: IMembership) {
+    function updateData(data: FormData) {
         const url: string = 'https://localhost:7002/api/Memberships/';
         const num: string = id.toString();
         const fullUrl = url.concat(num);

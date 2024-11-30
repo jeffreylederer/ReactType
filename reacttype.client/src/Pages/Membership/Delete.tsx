@@ -4,6 +4,7 @@ import axios from "axios";
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
+import { FormData } from "./FormData.tsx";
 
 
 
@@ -11,17 +12,9 @@ const MembershipDelete = () => {
     const location = useLocation();
     const id: number = location.state;
 
-    const [membership, setMembership] = useState<IMebership>();
+    const [membership, setMembership] = useState<FormData>();
 
-    interface IMebership {
-        id: number;
-        firstName: string;
-        lastName: string;
-        fullName: string;
-        shortname?: string;
-        nickName?: string;
-        wheelchair: boolean;
-    }
+    
     const navigate = useNavigate();
 
     useEffect(() => {
