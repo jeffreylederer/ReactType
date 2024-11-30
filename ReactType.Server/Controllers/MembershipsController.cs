@@ -122,8 +122,15 @@ namespace ReactType.Server.Controllers
             }
 
             _context.Memberships.Remove(item);
-            await _context.SaveChangesAsync();
-
+            try
+            {
+                await _context.SaveChangesAsync();
+                return NoContent();
+            }
+            catch(Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
             return NoContent();
         }
 

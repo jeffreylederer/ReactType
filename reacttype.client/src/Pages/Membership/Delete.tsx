@@ -1,8 +1,9 @@
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from 'react';
 import axios from "axios";
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import Container from 'react-bootstrap/Container';
 
 
 
@@ -10,19 +11,18 @@ const MembershipDelete = () => {
     const location = useLocation();
     const id: number = location.state;
 
-   
+    const [membership, setMembership] = useState<IMebership>();
 
-    const [membership, setMembership] = useState(
-        {
-            id: 0,
-            firstName: '',
-            lastName: '',
-            fullName: '',
-            shortname: '',
-            nickName: '',
-            wheelchair: false
-        }
-    );
+    interface IMebership {
+        id: number;
+        firstName: string;
+        lastName: string;
+        fullName: string;
+        shortname?: string;
+        nickName?: string;
+        wheelchair: boolean;
+    }
+    const navigate = useNavigate();
 
     useEffect(() => {
         GetData();
@@ -30,37 +30,38 @@ const MembershipDelete = () => {
 
     const contents = membership === undefined
         ? <p><em>Loading ...</em></p> :
-        <div>
+        
+        <Container>
             <Row>
-                <Col><label>First Name:</label></Col>
+                <Col style={{width: "200px"}}><label>First Name:</label></Col>
 
-                <Col>{membership.firstName }</Col>
+                <Col style={{ textAlign: "left" }}>{membership.firstName}</Col>
             </Row>
             <Row>
-                <Col><label>Last Name:</label></Col>
-                <Col>{membership.lastName}</Col>
+                <Col style={{ width: "200px" }}><label>Last Name:</label></Col>
+                <Col style={{ textAlign: "left" }}>{membership.lastName}</Col>
               
             </Row>
             <Row>
-                <Col><label>Short Name:</label></Col>
-                <Col>{membership.shortname}</Col>
+                <Col style={{ width: "200px" }}><label>Short Name:</label></Col>
+                <Col style={{ textAlign: "left" }}>{membership.shortname == null ? "" : membership.shortname}</Col>
               </Row>
             <Row>
-                <Col><label>Wheel Chair:</label></Col>
-                <Col>{membership.wheelchair?"Yes":"No"}</Col>
+                <Col style={{ width: "200px" }}><label>Wheel Chair:</label></Col>
+                <Col style={{ textAlign: "left" }}>{membership.wheelchair?"Yes":"No"}</Col>
             </Row>
             <Row>
-                <Col >
-                    <input type="submit" onClick={DeleteItem }>Delete Record</input>
+                <Col style={{ width: "300px" }}>
+                    <input type='button' onClick={DeleteItem } value="Delete Record" />
                 </Col>
             </Row>
-        </div>
-
+        </Container>
+        
     return (
-        <>
+        <div>
         <h1>Delete</h1>
-            {contents}
-        </>
+            {contents }
+        </div>
     );
 
     async function GetData() {
@@ -69,11 +70,13 @@ const MembershipDelete = () => {
         const fullUrl = url.concat(num);
         axios.get(fullUrl)
             .then(response => {
-               setMembership(response.data);
+                setMembership(response.data);
+                console.log('Record aquired successfully: ', response.data);
             })
             .catch(error => {
-                console.error('Error updating product: ', error);
+                console.error('Error aquiring record: ', error);
             });
+
     }
 
     async function DeleteItem() {
@@ -83,6 +86,7 @@ const MembershipDelete = () => {
         axios.delete(fullUrl)
             .then(response => {
                 console.log(response.statusText);
+                navigate("/Membership");
             })
             .catch(error => {
                 console.error('Error fetching data: ', error);
