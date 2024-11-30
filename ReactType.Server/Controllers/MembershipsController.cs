@@ -12,8 +12,8 @@ using ReactApp1.Server.Models;
 namespace ReactType.Server.Controllers
 {
     [ApiController]
-    [Route("api/memberships")]
-    public class MembershipsController : Controller
+    [Route("api/[controller]")]
+    public class MembershipsController : ControllerBase
     {
         private readonly DbLeagueApp _context;
 
