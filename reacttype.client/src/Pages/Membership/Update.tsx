@@ -81,9 +81,7 @@ const MembershipUpdate = () => {
                             {errors.firstName && errors.firstName.type === "maxLength" && (
                                 <p>Max length exceeded</p>
                             )}
-                            {!errors.firstName && (
-                                <p></p>
-                            )}
+                            
                         </Col>
                     </Row>
                     <Row>
@@ -101,9 +99,7 @@ const MembershipUpdate = () => {
                             {errors.lastName && errors.lastName.type === "maxLength" && (
                                 <p>Max length exceeded</p>
                             )}
-                            {!errors.lastName && (
-                                <p></p>
-                            )}
+                            
                         </Col>
                     </Row>
                     <Row>
@@ -118,9 +114,7 @@ const MembershipUpdate = () => {
                             {errors.lastName && errors.lastName.type === "maxLength" && (
                                 <p>Max length exceeded</p>
                             )}
-                            {!errors.shortname && (
-                                <p></p>
-                            )}
+                            
 
                         </Col>
                     </Row>
