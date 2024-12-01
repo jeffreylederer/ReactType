@@ -1,5 +1,4 @@
 import { useNavigate } from "react-router-dom";
-import { useState } from 'react';
 import { useForm, SubmitHandler } from "react-hook-form";
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -9,23 +8,8 @@ import { FormData } from "./FormData.tsx";
 
 const MembershipCreate = () => {
 
-    
-
-
-
-    const [membership, setMembership] = useState<FormData>({
-        id: 0,
-        firstName: '',
-        lastName: '',
-        fullName: '',
-        shortname: '',
-        nickName: '',
-        wheelchair: false
-    });
+     
        
-
-    
-
     const { register, handleSubmit, formState: { errors } } = useForm<FormData>()
 
     const onSubmit: SubmitHandler<FormData> = (data) => CreateData(data)
@@ -44,25 +28,16 @@ const MembershipCreate = () => {
             });
     }
 
-
-    
-
-    function OnChange(e: React.ChangeEvent<HTMLInputElement>) {
-        setMembership({ ...membership, [e.target.name]: e.target.value });
-    }
-
-    function OnChecked(e: React.ChangeEvent<HTMLInputElement>) {
-        setMembership({ ...membership, [e.target.name]: e.target.checked });
-    }
+  
 
     return (
         <>
 
             <form onSubmit={handleSubmit(onSubmit)} >
 
-                <input {...register("id")} type="hidden" value={membership.id} onChange={OnChange} />
-                <input {...register("nickName")} type="hidden" value={membership.nickName} onChange={OnChange} />
-                <input {...register("fullName")} type="hidden" value={membership.fullName} onChange={OnChange} />
+                <input {...register("id")} type="hidden"  />
+                <input {...register("nickName")} type="hidden"   />
+                <input {...register("fullName")} type="hidden"   />
                 <Container >
                     <Row>
                         <Col><label>First Name:</label></Col>
@@ -71,8 +46,8 @@ const MembershipCreate = () => {
                             required: true,
                             maxLength: 50
                             
-                        })} value={membership.firstName} title="firstName" placeholder=""
-                            onChange={OnChange} style={{ width: '350px' }} />
+                        })}  title="firstName" placeholder=""
+                             style={{ width: '350px' }} />
                             {errors.firstName && errors.firstName.type === "required" && (
                                 <p>This is required</p>
                             )}
@@ -88,9 +63,9 @@ const MembershipCreate = () => {
                         <Col><input type="text" {...register('lastName', {
                                 required: true,
                                 maxLength: 50
-                        })} value={membership.lastName} title="lastName" placeholder=""
+                        })}  title="lastName" placeholder=""
                             style={{ width: '350px' }}
-                            onChange={OnChange} />
+                             />
                             {errors.lastName && errors.lastName.type === "required" && (
                                 <p>This is required</p>
                             )}
@@ -105,9 +80,9 @@ const MembershipCreate = () => {
 
                         <Col><input type="text" {...register('shortname', {
                                 maxLength:25
-                        })} value={membership.shortname} title="shortname" placeholder=""
+                        })}  title="shortname" placeholder=""
                             style={{ width: '350px' }}
-                            onChange={OnChange} />
+                             />
                             
                             {errors.lastName && errors.lastName.type === "maxLength" && (
                                 <p>Max length exceeded</p>
@@ -122,8 +97,8 @@ const MembershipCreate = () => {
                         <Col style={{ textAlign: "left" }}>
                             <input type="checkbox" {...register('wheelchair')}
                                 title="wheelchair" placeholder=""
-                                checked={membership.wheelchair}
-                                onChange={OnChecked} /></Col>
+                                />
+                        </Col>
                     </Row>
                     <Row>
                         <Col >

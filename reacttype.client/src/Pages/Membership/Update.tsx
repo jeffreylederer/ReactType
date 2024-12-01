@@ -40,14 +40,7 @@ const MembershipUpdate = () => {
         setMembership({ ...membership, [id]: id});
      }, []);
 
-    function OnChange(e: React.ChangeEvent<HTMLInputElement>) {
-        setMembership({ ...membership, [e.target.name]: e.target.value });
-    }
-
-    function OnChecked(e: React.ChangeEvent<HTMLInputElement>) {
-        setMembership({ ...membership, [e.target.name]: e.target.checked });
-    }
-
+    
     return (
         <>
             <p>ID: {membership.id}</p>
@@ -55,9 +48,9 @@ const MembershipUpdate = () => {
 
                 
                 <Container >
-                    <input {...register("id")} type="hidden" value={membership.id} />
-                    <input {...register("nickName")} type="hidden" value={membership.nickName} />
-                    <input {...register("fullName")} type="hidden" value={membership.fullName}  />
+                    <input {...register("id")} type="hidden" defaultValue={membership.id} />
+                    <input {...register("nickName")} type="hidden" defaultValue={membership.nickName}  />
+                    <input {...register("fullName")} type="hidden" defaultValue={membership.fullName}  />
                     <Row>
                         <Col><label>First Name:</label></Col>
 
@@ -65,8 +58,8 @@ const MembershipUpdate = () => {
                             required: true,
                             maxLength: 50
 
-                        })} value={membership.firstName} title="firstName" placeholder=""
-                            onChange={OnChange} style={{ width: '350px' }} />
+                        })} defaultValue={membership.firstName} title="firstName" placeholder=""
+                            style={{ width: '350px' }} />
                             {errors.firstName && errors.firstName.type === "required" && (
                                 <p>This is required</p>
                             )}
@@ -82,9 +75,9 @@ const MembershipUpdate = () => {
                         <Col><input type="text" {...register('lastName', {
                             required: true,
                             maxLength: 50
-                        })} value={membership.lastName} title="lastName" placeholder=""
+                        })} defaultValue={membership.lastName} title="lastName" placeholder=""
                             style={{ width: '350px' }}
-                            onChange={OnChange} />
+                            />
                             {errors.lastName && errors.lastName.type === "required" && (
                                 <p>This is required</p>
                             )}
@@ -99,9 +92,9 @@ const MembershipUpdate = () => {
 
                         <Col><input type="text" {...register('shortname', {
                             maxLength: 25
-                        })} value={membership.shortname} title="shortname" placeholder=""
+                        })} defaultValue={membership.shortname} title="shortname" placeholder=""
                             style={{ width: '350px' }}
-                            onChange={OnChange} />
+                            />
 
                             {errors.lastName && errors.lastName.type === "maxLength" && (
                                 <p>Max length exceeded</p>
@@ -117,7 +110,7 @@ const MembershipUpdate = () => {
                             <input type="checkbox" {...register('wheelchair')}
                                 title="wheelchair" placeholder=""
                                 checked={membership.wheelchair}
-                                onChange={OnChecked} /></Col>
+                                 /></Col>
                     </Row>
                     <Row>
                         <Col >
@@ -149,12 +142,14 @@ const MembershipUpdate = () => {
 
     }
 
-    function updateData(data: FormData) {
+    function updateData(data:FormData) {
         const url: string = 'https://localhost:7002/api/Memberships/';
         const num: string = id.toString();
         const fullUrl = url.concat(num);
-
-          axios.put(fullUrl, membership)
+        data.id = id;
+        data.fullName = membership.firstName;
+        data.nickName = membership.nickName;
+          axios.put(fullUrl, data)
             .then(response => {
                 console.log('Record updated successfully: ', response.data);
                 navigate("/Membership");
