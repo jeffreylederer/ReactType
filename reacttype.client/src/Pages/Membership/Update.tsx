@@ -5,8 +5,9 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
 import axios from "axios";
-import { FormData } from "./FormData.tsx";
-
+import { UpdateFormData, UpdateFormDataSchema } from "./UpdateFormData.tsx";
+import { zodResolver } from '@hookform/resolvers/zod';
+import { Checkbox, Label, TextInput } from "flowbite-react";
 
 
 
@@ -26,13 +27,25 @@ const MembershipUpdate = () => {
     const location = useLocation();
     const id: number = location.state;
 
-    const { register, handleSubmit, formState: { errors } } = useForm<FormData>()
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+    } = useForm<UpdateFormData>({
+        resolver: zodResolver(UpdateFormDataSchema),
+    });
 
-    const onSubmit: SubmitHandler<FormData> = (data) =>updateData(data)
+    const onSubmit: SubmitHandler<UpdateFormData> = (data) =>updateData(data)
 
     const navigate = useNavigate();
     
-    
+    function OnChange(e: React.ChangeEvent<HTMLInputElement>) {
+        setMembership({ ...membership, [e.target.name]: e.target.value });
+    }
+
+    function OnChecked(e: React.ChangeEvent<HTMLInputElement>) {
+        setMembership({ ...membership, [e.target.name]: e.target.checked });
+    }
     
 
     useEffect(() => {
@@ -43,80 +56,52 @@ const MembershipUpdate = () => {
     
     return (
         <>
-            <p>ID: {membership.id}</p>
+    
             <form onSubmit={handleSubmit(onSubmit)} >
 
                 
-                <Container >
-                    <input {...register("id")} type="hidden" defaultValue={membership.id} />
-                    <input {...register("nickName")} type="hidden" defaultValue={membership.nickName}  />
-                    <input {...register("fullName")} type="hidden" defaultValue={membership.fullName}  />
-                    <Row>
-                        <Col><label>First Name:</label></Col>
 
-                        <Col><input type="text" {...register('firstName', {
-                            required: true,
-                            maxLength: 50
+                    <input type="hidden" {...register("id", { valueAsNumber: true })} value={membership.id} />
+                    <TextInput {...register("nickName")} type="hidden" />
+                    <TextInput {...register("fullName")} type="hidden" />
+                    <Container >
+                        <Row>
+                            <Col style={{ width: '15%' }}><Label>First Name:</Label></Col>
 
-                        })} defaultValue={membership.firstName} title="firstName" placeholder=""
-                            style={{ width: '350px' }} />
-                            {errors.firstName && errors.firstName.type === "required" && (
-                                <p>This is required</p>
-                            )}
-                            {errors.firstName && errors.firstName.type === "maxLength" && (
-                                <p>Max length exceeded</p>
-                            )}
-                            
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col><label>Last Name:</label></Col>
+                        <Col><TextInput type="text" {...register('firstName')} style={{ width: '85%' }} value={membership.firstName} onChange={OnChange} />
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col style={{ width: '15%' }}><Label>Last Name:</Label></Col>
 
-                        <Col><input type="text" {...register('lastName', {
-                            required: true,
-                            maxLength: 50
-                        })} defaultValue={membership.lastName} title="lastName" placeholder=""
-                            style={{ width: '350px' }}
-                            />
-                            {errors.lastName && errors.lastName.type === "required" && (
-                                <p>This is required</p>
-                            )}
-                            {errors.lastName && errors.lastName.type === "maxLength" && (
-                                <p>Max length exceeded</p>
-                            )}
-                            
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col><label>Short Name:</label></Col>
+                        <Col><TextInput  {...register('lastName')} style={{ width: '85%' }} value={membership.lastName}  onChange={OnChange}/>
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col style={{ width: '15%' }}><Label>Short Name:</Label></Col>
+                        <Col><TextInput {...register('shortname')} style={{ width: '85%' }} value={membership.shortname}  onChange={OnChange}/>
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col style={{ width: '15%' }}><Label>Wheel Chair:</Label></Col>
 
-                        <Col><input type="text" {...register('shortname', {
-                            maxLength: 25
-                        })} defaultValue={membership.shortname} title="shortname" placeholder=""
-                            style={{ width: '350px' }}
-                            />
-
-                            {errors.lastName && errors.lastName.type === "maxLength" && (
-                                <p>Max length exceeded</p>
-                            )}
-                            
-
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col><label>Wheel Chair:</label></Col>
-
-                        <Col style={{ textAlign: "left" }}>
-                            <input type="checkbox" {...register('wheelchair')}
-                                title="wheelchair" placeholder=""
+                        <Col style={{ textAlign: "left", width: '85%' }}>
+                            <Checkbox {...register('wheelchair')}
+                                
                                 checked={membership.wheelchair}
-                                 /></Col>
-                    </Row>
-                    <Row>
-                        <Col >
-                            <input type="submit" />
-                        </Col>
-                    </Row>
+                                onChange={OnChecked} />
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col style={{ textAlign: "center", width: '100%' }}>
+                                <TextInput type="submit" />
+                            </Col>
+                        </Row>
+                        {errors.firstName && <p className="errorMessage">{errors.firstName.message}</p>}
+                        {errors.lastName && <p className="errorMessage">{errors.lastName.message}</p>}
+                    {errors.shortname && <p className="errorMessage">{errors.shortname.message}</p>}
+                    {errors.id && <p className="errorMessage">{errors.id.message}</p>}
+                        
 
 
                 </Container>
@@ -131,8 +116,9 @@ const MembershipUpdate = () => {
         const fullUrl = url.concat(num);
         axios.get(fullUrl)
             .then(response => {
-                
+
                 setMembership(response.data);
+               
                
                 console.log('Record aquired successfully: ', response.data);
             })
@@ -142,13 +128,11 @@ const MembershipUpdate = () => {
 
     }
 
-    function updateData(data:FormData) {
+    function updateData(data: UpdateFormData) {
         const url: string = 'https://localhost:7002/api/Memberships/';
         const num: string = id.toString();
         const fullUrl = url.concat(num);
         data.id = id;
-        data.fullName = membership.firstName;
-        data.nickName = membership.nickName;
           axios.put(fullUrl, data)
             .then(response => {
                 console.log('Record updated successfully: ', response.data);
