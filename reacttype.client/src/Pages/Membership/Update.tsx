@@ -31,8 +31,10 @@ const MembershipUpdate = () => {
         register,
         handleSubmit,
         formState: { errors },
+        
     } = useForm<UpdateFormData>({
         resolver: zodResolver(UpdateFormDataSchema),
+       
     });
 
     const onSubmit: SubmitHandler<UpdateFormData> = (data) =>updateData(data)
@@ -51,61 +53,67 @@ const MembershipUpdate = () => {
     useEffect(() => {
         GetData();
         setMembership({ ...membership, [id]: id});
-     }, []);
+    }, []);
 
+    const contents = membership === undefined
+        ? <p><em>Loading ...</em></p> :
+
+        <form onSubmit={handleSubmit(onSubmit)} >
+
+
+
+            <input type="hidden" {...register("id", { valueAsNumber: true })} value={membership.id} />
+            <TextInput {...register("nickName")} type="hidden" />
+            <TextInput {...register("fullName")} type="hidden" />
+            <Container >
+                <Row>
+                    <Col style={{ width: '15%' }}><Label>First Name:</Label></Col>
+
+                    <Col><TextInput type="text" {...register('firstName')} style={{ width: '85%' }} value={membership.firstName}  onChange={OnChange} />
+                    </Col>
+                </Row>
+                <Row>
+                    <Col style={{ width: '15%' }}><Label>Last Name:</Label></Col>
+
+                    <Col><TextInput  {...register('lastName')} style={{ width: '85%' }} value={membership.lastName} onChange={OnChange} />
+                    </Col>
+                </Row>
+                <Row>
+                    <Col style={{ width: '15%' }}><Label>Short Name:</Label></Col>
+                    <Col><TextInput {...register('shortname')} style={{ width: '85%' }} value={membership.shortname} onChange={OnChange} />
+                    </Col>
+                </Row>
+                <Row>
+                    <Col style={{ width: '15%' }}><Label>Wheel Chair:</Label></Col>
+
+                    <Col style={{ textAlign: "left", width: '85%' }}>
+                        <Checkbox {...register('wheelchair')}
+
+                            checked={membership.wheelchair}
+                            onChange={OnChecked} />
+                    </Col>
+                </Row>
+                <Row>
+                    <Col style={{ textAlign: "center", width: '100%' }}>
+                        <TextInput type="submit" />
+                    </Col>
+                </Row>
+                {errors.firstName && <p className="errorMessage">{errors.firstName.message}</p>}
+                {errors.lastName && <p className="errorMessage">{errors.lastName.message}</p>}
+                {errors.shortname && <p className="errorMessage">{errors.shortname.message}</p>}
+                {errors.id && <p className="errorMessage">{errors.id.message}</p>}
+
+
+
+            </Container>
+        </form>
     
     return (
         <>
-    
-            <form onSubmit={handleSubmit(onSubmit)} >
+        <h1>Update record</h1>
+            {contents}
 
-                
-
-                    <input type="hidden" {...register("id", { valueAsNumber: true })} value={membership.id} />
-                    <TextInput {...register("nickName")} type="hidden" />
-                    <TextInput {...register("fullName")} type="hidden" />
-                    <Container >
-                        <Row>
-                            <Col style={{ width: '15%' }}><Label>First Name:</Label></Col>
-
-                        <Col><TextInput type="text" {...register('firstName')} style={{ width: '85%' }} value={membership.firstName} onChange={OnChange} />
-                            </Col>
-                        </Row>
-                        <Row>
-                            <Col style={{ width: '15%' }}><Label>Last Name:</Label></Col>
-
-                        <Col><TextInput  {...register('lastName')} style={{ width: '85%' }} value={membership.lastName}  onChange={OnChange}/>
-                            </Col>
-                        </Row>
-                        <Row>
-                            <Col style={{ width: '15%' }}><Label>Short Name:</Label></Col>
-                        <Col><TextInput {...register('shortname')} style={{ width: '85%' }} value={membership.shortname}  onChange={OnChange}/>
-                            </Col>
-                        </Row>
-                        <Row>
-                            <Col style={{ width: '15%' }}><Label>Wheel Chair:</Label></Col>
-
-                        <Col style={{ textAlign: "left", width: '85%' }}>
-                            <Checkbox {...register('wheelchair')}
-                                
-                                checked={membership.wheelchair}
-                                onChange={OnChecked} />
-                            </Col>
-                        </Row>
-                        <Row>
-                            <Col style={{ textAlign: "center", width: '100%' }}>
-                                <TextInput type="submit" />
-                            </Col>
-                        </Row>
-                        {errors.firstName && <p className="errorMessage">{errors.firstName.message}</p>}
-                        {errors.lastName && <p className="errorMessage">{errors.lastName.message}</p>}
-                    {errors.shortname && <p className="errorMessage">{errors.shortname.message}</p>}
-                    {errors.id && <p className="errorMessage">{errors.id.message}</p>}
-                        
-
-
-                </Container>
-            </form>
+            
         </>
     );
 
