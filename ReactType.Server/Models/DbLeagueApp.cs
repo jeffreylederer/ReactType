@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 
-namespace ReactApp1.Server.Models;
+namespace ReactType.Server.Models;
 
 public partial class DbLeagueApp : DbContext
 {
@@ -66,11 +66,6 @@ public partial class DbLeagueApp : DbContext
             entity.Property(e => e.StartWeek).HasDefaultValue(1);
             entity.Property(e => e.TiePoints).HasDefaultValue((short)1);
             entity.Property(e => e.WinPoints).HasDefaultValue((short)1);
-
-            entity.HasOne(d => d.StartWeekNavigation).WithMany(p => p.Leagues)
-                .HasForeignKey(d => d.StartWeek)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_League_RinkOrder");
         });
 
         modelBuilder.Entity<Logging>(entity =>

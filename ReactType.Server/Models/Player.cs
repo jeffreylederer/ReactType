@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace ReactApp1.Server.Models;
+namespace ReactType.Server.Models;
 
 public partial class Player
 {

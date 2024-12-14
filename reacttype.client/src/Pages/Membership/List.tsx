@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from "axios";
-import { FormData } from "./FormData.tsx";
+import { UpdateFormData } from "./UpdateFormData.tsx";
 
 
 
 function Membership() {
-    const [membership, setmembership] = useState<FormData[]>();
+    const [membership, setmembership] = useState<UpdateFormData[]>();
   
 
     useEffect(() => {
@@ -19,7 +19,6 @@ function Membership() {
         : <table className="table table-striped" aria-labelledby="tableLabel">
             <thead>
                 <tr>
-                    <th>Id</th>
                     <th>Name</th>
                     <th>Short Name</th>
                     <th>Nick Name</th>
@@ -30,7 +29,6 @@ function Membership() {
             <tbody>
                 {membership.map(item =>
                     <tr key={item.id}>
-                        <td>{item.id}</td>
                         <td>{item.fullName}</td>
                         <td>{item.shortname}</td>
                         <td>{item.nickName}</td>

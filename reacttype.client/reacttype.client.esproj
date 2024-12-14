@@ -9,10 +9,6 @@
     <BuildOutputFolder>$(MSBuildProjectDirectory)\dist</BuildOutputFolder>
   </PropertyGroup>
   <ItemGroup>
-    <None Remove="src\Pages\NewFolder\**" />
-    <TypeScriptConfiguration Remove="src\Pages\NewFolder\**" />
-  </ItemGroup>
-  <ItemGroup>
     <None Remove="src\Pages\Membership\Update - Copy.tsx" />
   </ItemGroup>
   <ItemGroup>

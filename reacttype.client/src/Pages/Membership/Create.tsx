@@ -43,7 +43,7 @@ const MembershipCreate = () => {
 
     return (
         <>
-        <h1>Create record</h1>
+
             <form onSubmit={handleSubmit(onSubmit)} >
 
 

@@ -41,13 +41,7 @@ const MembershipUpdate = () => {
 
     const navigate = useNavigate();
     
-    function OnChange(e: React.ChangeEvent<HTMLInputElement>) {
-        setMembership({ ...membership, [e.target.name]: e.target.value });
-    }
-
-    function OnChecked(e: React.ChangeEvent<HTMLInputElement>) {
-        setMembership({ ...membership, [e.target.name]: e.target.checked });
-    }
+    
     
 
     useEffect(() => {
@@ -55,7 +49,7 @@ const MembershipUpdate = () => {
         setMembership({ ...membership, [id]: id});
     }, []);
 
-    const contents = membership === undefined
+    const contents = membership.id === 0
         ? <p><em>Loading ...</em></p> :
 
         <form onSubmit={handleSubmit(onSubmit)} >
@@ -69,18 +63,18 @@ const MembershipUpdate = () => {
                 <Row>
                     <Col style={{ width: '15%' }}><Label>First Name:</Label></Col>
 
-                    <Col><TextInput type="text" {...register('firstName')} style={{ width: '85%' }} value={membership.firstName}  onChange={OnChange} />
+                    <Col><TextInput type="text" {...register('firstName')} style={{ width: '85%' }} defaultValue={membership.firstName}  />
                     </Col>
                 </Row>
                 <Row>
                     <Col style={{ width: '15%' }}><Label>Last Name:</Label></Col>
 
-                    <Col><TextInput  {...register('lastName')} style={{ width: '85%' }} value={membership.lastName} onChange={OnChange} />
+                    <Col><TextInput  {...register('lastName')} style={{ width: '85%' }} defaultValue={membership.lastName} />
                     </Col>
                 </Row>
                 <Row>
                     <Col style={{ width: '15%' }}><Label>Short Name:</Label></Col>
-                    <Col><TextInput {...register('shortname')} style={{ width: '85%' }} value={membership.shortname} onChange={OnChange} />
+                    <Col><TextInput {...register('shortname')} style={{ width: '85%' }} defaultValue={membership.shortname} />
                     </Col>
                 </Row>
                 <Row>
@@ -89,8 +83,8 @@ const MembershipUpdate = () => {
                     <Col style={{ textAlign: "left", width: '85%' }}>
                         <Checkbox {...register('wheelchair')}
 
-                            checked={membership.wheelchair}
-                            onChange={OnChecked} />
+                            defaultChecked={membership.wheelchair}
+                             />
                     </Col>
                 </Row>
                 <Row>

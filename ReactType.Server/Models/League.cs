@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace ReactApp1.Server.Models;
+namespace ReactType.Server.Models;
 
 public partial class League
 {
@@ -34,8 +34,6 @@ public partial class League
     public virtual ICollection<Player> Players { get; set; } = new List<Player>();
 
     public virtual ICollection<Schedule> Schedules { get; set; } = new List<Schedule>();
-
-    public virtual RinkOrder StartWeekNavigation { get; set; } = null!;
 
     public virtual ICollection<Team> Teams { get; set; } = new List<Team>();
 

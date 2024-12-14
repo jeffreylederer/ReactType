@@ -7,24 +7,24 @@ namespace ReactType.Server.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class LeaguesController : ControllerBase
+    public class RinkOrdersController : ControllerBase
     {
         private readonly DbLeagueApp _context;
         
 
 
-        public LeaguesController(DbLeagueApp context)
+        public RinkOrdersController(DbLeagueApp context)
         {
             _context = context;
         }
 
-        // GET: Leagues
+        // GET: RinkOrder
         [HttpGet]
-        public async Task<IEnumerable<League>> Get()
+        public async Task<IEnumerable<RinkOrder>> Get()
         {
             try
             {
-                var list = await _context.Leagues.ToArrayAsync();
+                var list = await _context.RinkOrders.ToArrayAsync();
                 return list;
             }
             catch(Exception ex)
@@ -35,31 +35,31 @@ namespace ReactType.Server.Controllers
 
 
 
-        // GET: Leagues/Details/5
+        // GET: RinkOrders/Details/5
         [HttpGet("{id}")]
-        public async Task<League?> Details(int? id)
+        public async Task<RinkOrder?> Details(int? id)
         {
             if (id == null)
             {
                 return null;
             }
 
-            var league = await _context.Leagues.FindAsync(id.Value);
-            if (league == null)
+            var RinkOrder = await _context.RinkOrders.FindAsync(id.Value);
+            if (RinkOrder == null)
             {
                 return null;
             }
-            return league;
+            return RinkOrder;
 
         }
 
-        // GET: Leagues/Create
+        // GET: RinkOrders/Create
         [HttpPost]
-        public async Task Create(League item)
+        public async Task Create(RinkOrder item)
         {
             try
             {
-                _context.Leagues.Add(item);
+                _context.RinkOrders.Add(item);
                 await _context.SaveChangesAsync();
             }
             catch(Exception ex)
@@ -70,9 +70,9 @@ namespace ReactType.Server.Controllers
 
         }
 
-        // GET: Leagues/Edit/5
+        // GET: RinkOrders/Edit/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> Edit(int id, League item)
+        public async Task<IActionResult> Edit(int id, RinkOrder item)
         {
             if (id != item.Id)
             {
@@ -87,7 +87,7 @@ namespace ReactType.Server.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!LeagueExists(id))
+                if (!RinkOrderExists(id))
                 {
                     return NotFound();
                 }
@@ -103,17 +103,17 @@ namespace ReactType.Server.Controllers
             return NoContent();
         }
 
-        // GET: Leagues/Delete/5
+        // GET: RinkOrders/Delete/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            var item = await _context.Leagues.FindAsync(id);
+            var item = await _context.RinkOrders.FindAsync(id);
             if (item == null)
             {
                 return NotFound();
             }
 
-            _context.Leagues.Remove(item);
+            _context.RinkOrders.Remove(item);
             try
             {
                 await _context.SaveChangesAsync();
@@ -127,9 +127,9 @@ namespace ReactType.Server.Controllers
 
 
 
-        private bool LeagueExists(int id)
+        private bool RinkOrderExists(int id)
         {
-            return _context.Leagues.Any(e => e.Id == id);
+            return _context.RinkOrders.Any(e => e.Id == id);
         }
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using ReactApp1.Server.Models;
+using ReactType.Server.Models;
 
 // https://medium.com/@hassanjabbar2017/performing-crud-operations-using-react-with-net-core-a-step-by-step-guide-0176efa86934
 namespace ReactType.Server.Controllers
@@ -40,26 +40,20 @@ namespace ReactType.Server.Controllers
                 return null;
             }
 
-            var list = await _context.Memberships
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (list == null)
+            var membership = await _context.Memberships.FindAsync(id.Value);
+            if (membership == null)
             {
                 return null;
             }
 
-            return list;
+            return membership;
         }
 
 
 
 
-        // POST: Memberships/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        //[Bind("Id,FirstName,LastName,FullName,Shortname,NickName,Wheelchair")]
+        
         [HttpPost]
-        //[ValidateAntiForgeryToken]
-
         public async Task Create(Membership item)
         {
             _context.Memberships.Add(item);
@@ -127,7 +121,7 @@ namespace ReactType.Server.Controllers
             {
                 return StatusCode(500, ex.Message);
             }
-            return NoContent();
+
         }
 
         private bool MembershipExists(int id)

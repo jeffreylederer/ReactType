@@ -13,6 +13,7 @@ function Menu() {
                     <Nav className="me-auto">
                         <Nav.Link href="/">Home</Nav.Link>
                         <Nav.Link href="/Membership">Membership</Nav.Link>
+                        <Nav.Link href="/League">Leagues</Nav.Link>
                         <NavDropdown title="Admin" id="basic-nav-dropdown">
                             <NavDropdown.Item href="/Users">Users</NavDropdown.Item>
                             <NavDropdown.Item href="/Leagues">Leagues</NavDropdown.Item>

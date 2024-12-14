@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace ReactApp1.Server.Models;
+namespace ReactType.Server.Models;
 
 public partial class RinkOrder
 {
@@ -12,6 +12,4 @@ public partial class RinkOrder
     public string Direction { get; set; } = null!;
 
     public string Boundary { get; set; } = null!;
-
-    public virtual ICollection<League> Leagues { get; set; } = new List<League>();
 }
