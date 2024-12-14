@@ -17,8 +17,8 @@ import LeagueCreate from "./Pages/League/Create.tsx";
 import LeagueDetails from "./Pages/League/Details.tsx";
 
 
-//import About from "./about.jsx";
-//import Contact from "./contact.jsx";
+import About from "./Pages/About.tsx";
+import Contact from "./Pages/Contact.tsx";
 //import Users from "./pages/admin/users/index.jsx";
 //import ErrorLog from "./pages/admin/errorLog.jsx";
 import Home from './Pages/Home.tsx'; 
@@ -41,6 +41,8 @@ function RouteMenu() {
           <Route path="/League/Update" element={<LeagueUpdate />} />
           <Route path="/League/Create" element={<LeagueCreate />} />
           <Route path="/League/Details" element={<LeagueDetails />} />
+          <Route path="/About" element={<About />} />
+          <Route path="/Contact" element={<Contact />} />
 
          
          
