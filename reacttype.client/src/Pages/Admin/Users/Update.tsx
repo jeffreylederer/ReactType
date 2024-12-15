@@ -162,15 +162,7 @@ const UsersUpdate = () => {
             });
     }
 
-    //function Option(name: string, id: string, isSelected: boolean) {
-
-    //    if (isSelected) {
-    //        return (
-    //            <option selected value={id}>{name}</option>);
-    //    }
-    //    return (
-    //        <option value={id}>{name}</option>);
-    //}
+    
 }
 
 

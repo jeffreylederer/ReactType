@@ -20,22 +20,21 @@ import UsersDelete from "./Pages/Admin/Users/Delete.tsx";
 import UsersUpdate from "./Pages/Admin/Users/Update.tsx";
 import UsersCreate from "./Pages/Admin/Users/Create.tsx";
 
+import Players from "./Pages/League/Players/List.tsx";
+
 
 import About from "./Pages/About.tsx";
 import Contact from "./Pages/Contact.tsx";
-
-
-//import Users from "./pages/admin/users/index.jsx";
-//import ErrorLog from "./pages/admin/errorLog.jsx";
+import Welcome from "./Pages/Welcome.tsx";
 import Home from './Pages/Home.tsx'; 
+
+
+
 
 function RouteMenu() {
   return (
       <Routes>
-          <Route
-              path="/"
-              element={<Home />}
-          />
+          <Route path="/" element={<Home />} />
 
           <Route path="/Membership" element={<Membership />} />
           <Route path="/Membership/Delete" element={<MembershipDelete />} />
@@ -53,12 +52,13 @@ function RouteMenu() {
           <Route path="/Admin/Users/Update" element={<UsersUpdate />} />
           <Route path="/Admin/Users/Create" element={<UsersCreate />} />
 
-          <Route path="/About" element={<About />} />
-          <Route path="/Contact" element={<Contact />} />
+          <Route path="/League/Players" element={<Players />} />
 
-         
-         
+          <Route path="/Welcome" element={<Welcome />} />
+          <Route path="/Contact" element={<Contact />} />
+          <Route path="/About" element={<About />} />
           
+         
       </Routes>
   );
 }

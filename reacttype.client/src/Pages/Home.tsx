@@ -1,9 +1,10 @@
+import ActiveLeagues from "../ActiveLeagues.tsx";
 const Home = () => {
 
    
     return (
         <>
-            <h1>Home</h1>
+            <ActiveLeagues />
         </>
     );
 }
