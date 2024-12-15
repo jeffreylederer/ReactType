@@ -50,14 +50,14 @@ const UserCreate = () => {
                     <Row>
                         <Col style={{ width: '15%' }}><Label>User Name:</Label></Col>
 
-                        <Col><TextInput {...register('username')} style={{ width: '85%' }} placeholder='username' />
+                        <Col><TextInput {...register('username')} style={{ width: '85%' }}  />
                         </Col>
                     </Row>
 
                     <Row>
                         <Col style={{ width: '15%' }}><Label>Password:</Label></Col>
 
-                        <Col><TextInput type="password" {...register('password')} style={{ width: '85%' }} placeholder='password' />
+                        <Col><TextInput type="password" {...register('password')} style={{ width: '85%' }}  />
                         </Col>
                     </Row>
 
@@ -65,14 +65,14 @@ const UserCreate = () => {
                         <Col style={{ width: '25%' }}><Label>Active:</Label></Col>
 
                         <Col style={{ textAlign: "left", width: '75%' }}>
-                            <Checkbox {...register('isActive')} placeholder='username' />
+                            <Checkbox {...register('isActive')}  />
                         </Col>
                     </Row>
 
                     <Row>
                         <Col style={{ width: '15%' }}><Label>Display Name:</Label></Col>
 
-                        <Col><TextInput {...register('displayName')} style={{ width: '85%' }} placeholder='displayName' />
+                        <Col><TextInput {...register('displayName')} style={{ width: '85%' }}  />
                         </Col>
                     </Row>
 

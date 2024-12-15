@@ -33,8 +33,8 @@ function Membership() {
                         <td>{item.shortname}</td>
                         <td>{item.nickName}</td>
                         <td>{item.wheelchair ? "yes" : "no"}</td>
-                        <td><Link to="/Admin/Users/Update" state={ item.id.toString() }>Update</Link>|  
-                            <Link to="/Admin/Users/Delete" state={ item.id.toString() }>Delete</Link>
+                        <td><Link to="/Membership/Update" state={ item.id.toString() }>Update</Link>|  
+                            <Link to="/Membership/Delete" state={ item.id.toString() }>Delete</Link>
                         </td>
                         
                     </tr>
