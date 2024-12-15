@@ -35,9 +35,9 @@ function League() {
                         <td>{item.teamSize}</td>
                         <td>{item.divisions}</td>
                         <td>{item.playOffs ? "Yes" : "No"}</td>
-                        <td><Link to="/League/Details" state={item.id.toString()}>Details</Link>|
-                            <Link to="/League/Update" state={item.id.toString()}>Update</Link>|
-                            <Link to="/League/Delete" state={item.id.toString()}>Delete</Link>
+                        <td><Link to="/Admin/League/Details" state={item.id.toString()}>Details</Link>|
+                            <Link to="/Admin/League/Update" state={item.id.toString()}>Update</Link>|
+                            <Link to="/Admin/League/Delete" state={item.id.toString()}>Delete</Link>
                         </td>
 
                     </tr>
@@ -48,7 +48,7 @@ function League() {
     return (
         <div>
             <h1 id="tableLabel">Leagues</h1>
-            <Link to="/League/Create">Add</Link>
+            <Link to="/Admin/League/Create">Add</Link>
             {contents}
         </div>
     );

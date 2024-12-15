@@ -28,7 +28,7 @@ const LeagueCreate = () => {
         axios.post('https://localhost:7002/api/Leagues', data)
             .then((response) => {
                 console.log(response.data);
-                navigate("/League");
+                navigate("/Admin/Leagues");
                 console.log('Record created successfully: ', response.data);
             })
             .catch(error => {

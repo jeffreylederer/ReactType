@@ -111,7 +111,7 @@ const LeagueDelete = () => {
         axios.delete(fullUrl)
             .then(response => {
                 console.log(response.statusText);
-                navigate("/league");
+                navigate("/Admin/leagues");
             })
             .catch(error => {
                 console.error('Error fetching data: ', error);

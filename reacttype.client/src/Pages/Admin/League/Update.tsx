@@ -211,7 +211,7 @@ const LeagueUpdate = () => {
         axios.put(fullUrl, data)
             .then(response => {
                 console.log('Record updated successfully: ', response.data);
-                navigate("/League");
+                navigate("/Admin/Leagues");
             })
             .catch(error => {
                 console.error('Error updating record: ', error);

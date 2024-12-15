@@ -12,6 +12,7 @@ import { Checkbox, Label, TextInput, Select } from "flowbite-react";
 
 
 
+
 const UsersUpdate = () => {
 
     const [users, setUsers] = useState(
@@ -90,12 +91,15 @@ const UsersUpdate = () => {
                     <Col style={{ width: '15%' }}><Label>Role:</Label></Col>
 
                     <Col>
-                        <Select  style={{ width: '15%' }} defaultValue={users.roleId} {...register('roleId')}>
+                        <Select style={{ width: '85%' }}  {...register('roleId')} defaultValue={users.roleId }>
+                            
                             <option value="1">Observer</option>
                             <option value="2">Scorer</option>
                             <option value="3">Admin</option>
                             <option value="4">SiteAdmin</option>
+                           
                         </Select>
+                       
                     </Col>
                 </Row>
             
@@ -156,9 +160,17 @@ const UsersUpdate = () => {
             .catch(error => {
                 console.error('Error updating record: ', error);
             });
-
-
     }
+
+    //function Option(name: string, id: string, isSelected: boolean) {
+
+    //    if (isSelected) {
+    //        return (
+    //            <option selected value={id}>{name}</option>);
+    //    }
+    //    return (
+    //        <option value={id}>{name}</option>);
+    //}
 }
 
 

@@ -28,7 +28,7 @@ const UserCreate = () => {
         axios.post('https://localhost:7002/api/Users', data)
             .then((response) => {
                 console.log(response.data);
-                navigate("/Users");
+                navigate("/Admin/Users");
                 console.log('Record created successfully: ', response.data);
             })
             .catch(error => {
@@ -50,14 +50,14 @@ const UserCreate = () => {
                     <Row>
                         <Col style={{ width: '15%' }}><Label>User Name:</Label></Col>
 
-                        <Col><TextInput {...register('username')} style={{ width: '85%' }}  />
+                        <Col><TextInput {...register('username')} style={{ width: '85%' }} placeholder='username' />
                         </Col>
                     </Row>
 
                     <Row>
                         <Col style={{ width: '15%' }}><Label>Password:</Label></Col>
 
-                        <Col><TextInput type="password" {...register('password')} style={{ width: '85%' }}  />
+                        <Col><TextInput type="password" {...register('password')} style={{ width: '85%' }} placeholder='password' />
                         </Col>
                     </Row>
 
@@ -65,22 +65,22 @@ const UserCreate = () => {
                         <Col style={{ width: '25%' }}><Label>Active:</Label></Col>
 
                         <Col style={{ textAlign: "left", width: '75%' }}>
-                            <Checkbox {...register('isActive')} />
+                            <Checkbox {...register('isActive')} placeholder='username' />
                         </Col>
                     </Row>
 
                     <Row>
                         <Col style={{ width: '15%' }}><Label>Display Name:</Label></Col>
 
-                        <Col><TextInput type="number" {...register('displayName')} style={{ width: '85%' }} />
+                        <Col><TextInput {...register('displayName')} style={{ width: '85%' }} placeholder='displayName' />
                         </Col>
                     </Row>
 
                     <Row>
-                        <Col style={{ width: '15%' }}><Label>Display Name:</Label></Col>
+                        <Col style={{ width: '15%' }}><Label>Role:</Label></Col>
 
                         <Col>
-                            <Select id="countries" style={{ width: '15%' }}  {...register('roleId')}>
+                            <Select style={{ width: '85%' }}  {...register('roleId')} defaultValue="1" name='roleId'>
                                 <option value="1">Observer</option>
                                 <option value="2">Scorer</option>
                                 <option value="3">Admin</option>

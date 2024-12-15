@@ -77,7 +77,7 @@ const LeagueDetails = () => {
             </Row>
             <Row>
                 <Col style={{ width: "300px" }}>
-                    <Link to="/League/Update" state={id.toString()}>
+                    <Link to="/Admin/League/Update" state={id.toString()}>
                         <button>Update</button></Link>
                 </Col>
             </Row>

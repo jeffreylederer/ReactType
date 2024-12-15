@@ -46,7 +46,7 @@ function Users() {
     return (
         <div>
             <h1 id="tableLabel">Users</h1>
-            <Link to="/Users/Create">Add</Link>
+            <Link to="/Admin/Users/Create">Add</Link>
             {contents}
         </div>
     );
