@@ -41,6 +41,7 @@ function Players() {
             <h2 id="tableLabel">Players in league {cookies.name}</h2>
             <Link to="/League/Players/Create">Add</Link>
             {contents}
+            <p>Number of players: {player?.length}</p>
         </div>
     );
 
