@@ -16,7 +16,7 @@ const PlayersCreate = () => {
    
     
     const onSubmit: SubmitHandler<PlayerFormData> = (data) => CreateData(data)
-    const cookies = useCookies(['id'])[0];   
+    const cookies = useCookies(['id', 'name'])[0];   
     const navigate = useNavigate();
     const [membership, setmembership] = useState<UpdateFormData[]>();
 
@@ -57,7 +57,7 @@ const PlayersCreate = () => {
 
     return (
         <>
-
+            <h2>Create new player in league {cookies.name} </h2>
             <form onSubmit={handleSubmit(onSubmit)} >
                 <Container>
                     <input type="hidden" {...register("leagueid")} defaultValue={cookies.id }/>

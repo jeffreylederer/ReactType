@@ -7,7 +7,7 @@ import { useCookies } from 'react-cookie';
 
 function Players() {
     const [player, setplayer] = useState<UpdateFormData[]>();
-    const cookies = useCookies(['id'])[0];
+    const cookies = useCookies(['id','name'])[0];
 
     useEffect(() => {
         GetData();
@@ -38,7 +38,7 @@ function Players() {
 
     return (
         <div>
-            <h1 id="tableLabel">player</h1>
+            <h2 id="tableLabel">Players in league {cookies.name}</h2>
             <Link to="/League/Players/Create">Add</Link>
             {contents}
         </div>

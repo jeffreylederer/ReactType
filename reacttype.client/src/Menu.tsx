@@ -2,8 +2,11 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
+import { useCookies } from 'react-cookie';
 
 function Menu() {
+    const cookies = useCookies(['id'])[0];   
+    const hide: boolean = cookies.id === undefined;
     return (
         <Navbar expand="lg" className="bg-body-tertiary">
             <Container>
@@ -13,7 +16,7 @@ function Menu() {
                     <Nav className="me-auto">
                         {/*<Nav.Link href="/">Home</Nav.Link>*/}
                         <Nav.Link href="/Membership">Membership</Nav.Link>
-                        <NavDropdown title="League Play" id="basic-nav-dropdown">
+                        <NavDropdown title="League Play" id="basic-nav-dropdown" hidden={hide }>
                             <NavDropdown.Item href="/League/Players">Players</NavDropdown.Item>
                             <NavDropdown.Item href="/League/Schedules">Schedules</NavDropdown.Item>
                             <NavDropdown.Item href="/League/Teams">Teams</NavDropdown.Item>
