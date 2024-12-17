@@ -21,6 +21,8 @@ import UsersUpdate from "./Pages/Admin/Users/Update.tsx";
 import UsersCreate from "./Pages/Admin/Users/Create.tsx";
 
 import Players from "./Pages/League/Players/List.tsx";
+import PlayersDelete from "./Pages/League/Players/Delete.tsx";
+
 
 
 import About from "./Pages/About.tsx";
@@ -53,6 +55,7 @@ function RouteMenu() {
           <Route path="/Admin/Users/Create" element={<UsersCreate />} />
 
           <Route path="/League/Players" element={<Players />} />
+          <Route path="/League/Players/Delete" element={<PlayersDelete />} />
 
           {/*<Route path="/Welcome" element={<Welcome />} />*/}
           <Route path="/Contact" element={<Contact />} />

@@ -9,7 +9,7 @@
     <BuildOutputFolder>$(MSBuildProjectDirectory)\dist</BuildOutputFolder>
   </PropertyGroup>
   <ItemGroup>
-    <None Remove="src\Pages\Membership\Update - Copy.tsx" />
+    <None Remove="src\Pages\player\Update - Copy.tsx" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="src\Components\" />

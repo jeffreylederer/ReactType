@@ -24,12 +24,13 @@ namespace ReactType.Server.Controllers
         }
 
         // GET: Players
-        [HttpGet]
-        public async Task<IEnumerable<PlayerMembership>> Get()
+        [HttpGet("{id}")]
+        public async Task<IEnumerable<PlayerMembership>> Get(int? id)
         {
             var list = await (
                 from a in _context.Players
                 join b in _context.Memberships on a.MembershipId equals b.Id
+                where(a.Leagueid == id)
                 select new PlayerMembership()
                 {
                     id = a.Id,
@@ -43,8 +44,8 @@ namespace ReactType.Server.Controllers
         }
 
         // GET: Players/Details/5
-        [HttpGet("{id}")]
-        public async Task<PlayerMembership?> Get(int? id)
+        [HttpGet("getOne/{id}")]
+        public async Task<PlayerMembership?> GetOne(int? id)
         {
             if (id == null)
             {
