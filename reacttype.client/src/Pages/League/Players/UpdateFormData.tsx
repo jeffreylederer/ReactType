@@ -1,9 +1,11 @@
 
 
-export type UpdateFormData
-{
+export type UpdateFormData =
+    {
         id: number,
         fullName: string,
         lastName: string
-}
+ };
+
+
 

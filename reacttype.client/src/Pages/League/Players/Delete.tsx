@@ -45,7 +45,7 @@ const PlayersDelete = () => {
     );
 
     async function GetData() {
-        const url: string = 'https://localhost:7002/api/Players/GetOne/'.concat(id.toString());
+        const url: string = 'https://localhost:7002/api/Players/getOne/'.concat(id.toString());
         axios.get(url)
             .then(response => {
                 setPlayers(response.data);
@@ -62,7 +62,7 @@ const PlayersDelete = () => {
         axios.delete(url)
             .then(response => {
                 console.log(response.statusText);
-                navigate("/Players");
+                navigate("/League/Players");
             })
             .catch(error => {
                 console.error('Error fetching data: ', error);

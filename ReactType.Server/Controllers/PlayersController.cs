@@ -72,12 +72,33 @@ namespace ReactType.Server.Controllers
             return Player;
         }
 
-
-     
-        [HttpPost]
-        public async Task Create(Player item)
+        // GET: Players/Details/5
+        [HttpGet("getMembers/{id}")]
+        public async Task<IEnumerable<Membership>> GetMembers(int? id)
         {
-            _context.Players.Add(item);
+            var players = await _context.Players
+                .Where(x=>x.Leagueid == id)
+                .ToListAsync();
+            var list = new List<Membership>();
+            foreach (var member in _context.Memberships)
+            {
+                if (!players.Any(x => x.MembershipId == member.Id && x.Leagueid == id))
+                    list.Add(member);
+            }
+            list.Sort((a,b)=>a.LastName.CompareTo(b.LastName));
+            return list;
+        }
+
+
+        [HttpPost]
+        public async Task Create(CreateType item)
+        {
+            var player = new Player()
+            {
+                Leagueid = int.Parse(item.leagueid),
+                MembershipId = int.Parse(item.membershipId)
+            };
+            _context.Players.Add(player);
             await _context.SaveChangesAsync();
 
            
@@ -107,5 +128,11 @@ namespace ReactType.Server.Controllers
 
         }
         
+    }
+
+    public class CreateType
+    {
+        public string leagueid { get; set; }
+        public string membershipId { get; set; }
     }
 }

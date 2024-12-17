@@ -39,7 +39,7 @@ function Players() {
     return (
         <div>
             <h1 id="tableLabel">player</h1>
-            <Link to="/player/Create">Add</Link>
+            <Link to="/League/Players/Create">Add</Link>
             {contents}
         </div>
     );
