@@ -25,7 +25,7 @@ import Players from "./Pages/League/Players/List.tsx";
 
 import About from "./Pages/About.tsx";
 import Contact from "./Pages/Contact.tsx";
-import Welcome from "./Pages/Welcome.tsx";
+/*import Welcome from "./Pages/Welcome.tsx";*/
 import Home from './Pages/Home.tsx'; 
 
 
@@ -54,7 +54,7 @@ function RouteMenu() {
 
           <Route path="/League/Players" element={<Players />} />
 
-          <Route path="/Welcome" element={<Welcome />} />
+          {/*<Route path="/Welcome" element={<Welcome />} />*/}
           <Route path="/Contact" element={<Contact />} />
           <Route path="/About" element={<About />} />
           

@@ -1,13 +1,31 @@
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 import axios from "axios";
 import { UpdateFormData } from "./Pages/Admin/League/UpdateFormData.tsx";
-
+import { useCookies } from 'react-cookie';
 
 
 function ActiveLeagues() {
     const [league, setleague] = useState<UpdateFormData[]>();
+    const setCookie = useCookies(['id', 'name'])[1];
+    const cookie = useCookies(['id', 'name'])[0];
+    
 
+    
+
+    const buttonHandler = (event: React.MouseEvent<HTMLButtonElement>) => {
+        event.preventDefault();
+        const button: HTMLButtonElement = event.currentTarget;
+        setCookie("id", button.name);
+        const idValue:number = +button.name;
+        const result = league?.filter(function (o) { return o.id == idValue; });
+        if (result?.length == 1) {
+            const item: UpdateFormData = result[0];
+            setCookie("name", item.leagueName);
+        }
+        console.log(result);
+        
+    
+    };
 
     useEffect(() => {
         GetData();
@@ -34,7 +52,9 @@ function ActiveLeagues() {
                         <td>{item.teamSize}</td>
                         <td>{item.divisions}</td>
                         <td>{item.playOffs ? "Yes" : "No"}</td>
-                        <td><Link to="/Welcome" state={item.id.toString()}>select</Link>
+                        <td><button onClick={buttonHandler} className="button" name={item.id.toString()}>
+                            select
+                        </button>
                         </td>
 
                     </tr>
@@ -46,6 +66,8 @@ function ActiveLeagues() {
         <div>
             <h1 id="tableLabel">Select League</h1>
             {contents}
+            <p>Selected league is {cookie.name===undefined? "not selected": cookie.name}</p>
+            
         </div>
     );
 
@@ -60,6 +82,10 @@ function ActiveLeagues() {
                 console.error('Error fetching data: ', error);
             })
     }
+
+
+    
+
 }
 
 export default ActiveLeagues;

@@ -13,10 +13,6 @@ const LeagueDetails = () => {
     const id: number = location.state;
 
     const [league, setleague] = useState<FormData>();
-
-
-
-
     useEffect(() => {
         GetData();
     }, []);

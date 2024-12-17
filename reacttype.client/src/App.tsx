@@ -2,14 +2,14 @@
 
 import { BrowserRouter } from 'react-router-dom';
 import Menu from "./Menu";
-import RouteMenu from "./Routes"
-import "./App.css"
-import { useContext } from 'react';
-import { DataContext}  from "./DataContext.tsx";
+import RouteMenu from "./Routes";
+import "./App.css";
+
 
 
 function App() {
-    useContext(DataContext);
+    
+       
     return (
         <BrowserRouter>
             <Menu />

@@ -2,11 +2,11 @@ import { useLocation } from "react-router-dom";
 import axios from "axios";
 import { useState, useEffect } from 'react';
 import { UpdateFormData } from "./Admin/League/UpdateFormData.tsx";
-import { DataContext }  from "../DataContext.tsx";
 
-const Welcome = () => {
+function Welcome() {
     const location = useLocation();
     const id: number = location.state;
+
     const [league, setleague] = useState<UpdateFormData>();
     useEffect(() => {
         GetData();
@@ -18,13 +18,10 @@ const Welcome = () => {
             <h2>Welcome to {league?.leagueName}</h2>
             
         </>
-    if (league == undefined)
-        return (<></>);
-    else
         return (
-            <DataContext.Provider value={{ id: league?.id, name: league?.leagueName } }>
+            
                 {contents}
-            </DataContext.Provider>
+            
         );
 
     async function GetData() {

@@ -1,12 +1,11 @@
-import { DataContextType, DataContext } from "../../../DataContext.tsx";
-import { useContext, useState } from "react";
+import { useCookies } from 'react-cookie';
 
 function Players() {
-    const [leagueinfo] = useState<DataContextType>(useContext(DataContext));
-
+    const cookies = useCookies(['id', 'name'])[0];
+    
     return (
         <>
-            id={leagueinfo.id}, name = {leagueinfo.name }
+            id={cookies.id}, name={cookies.name}
         </>
     )
     
