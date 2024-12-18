@@ -9,12 +9,12 @@ import { UpdateFormData, UpdateFormDataSchema } from "./UpdateFormData.tsx";
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Checkbox, Label, TextInput } from "flowbite-react";
 import { Form } from "react-bootstrap";
-import { useCookies } from 'react-cookie';
+import { ConvertLeague, leagueType } from "../../leagueObject.tsx";
 
 
 const ScheduleUpdate = () => {
 
-    const cookies = useCookies(['id', 'name'])[0];
+    const league: leagueType = ConvertLeague();
     const [schedule, setSchedule] = useState(
         {
             id: 0,
@@ -102,7 +102,7 @@ const ScheduleUpdate = () => {
     
     return (
         <>
-            <h3>Update schedule for league {cookies.name}</h3>
+            <h3>Update schedule for league {league.leagueName}</h3>
             {contents}
 
             

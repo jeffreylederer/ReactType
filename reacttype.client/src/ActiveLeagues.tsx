@@ -1,32 +1,28 @@
 import { useEffect, useState } from 'react';
 import axios from "axios";
-import { UpdateFormData } from "./Pages/Admin/League/UpdateFormData.tsx";
 import { useCookies } from 'react-cookie';
+import { leagueType, ConvertLeague } from "./Pages/leagueObject.tsx";
 
 
 function ActiveLeagues() {
-    const [league, setleague] = useState<UpdateFormData[]>();
-    const setCookie = useCookies(['id', 'name'])[1];
-    const cookie = useCookies(['id', 'name'])[0];
-    const removeCookie = useCookies(['id', 'name'])[2];
-    type HideType = () => boolean;
-
-
-    
+    const [league, setleague] = useState<leagueType[]>();
+    const setCookie = useCookies(['league'])[1];
+    const cookie = useCookies(['league'])[0];
+    const removeCookie = useCookies(['league'])[2];
+ 
 
     const buttonHandler = (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
         const button: HTMLButtonElement = event.currentTarget;
-        setCookie("id", button.name);
         const idValue:number = +button.name;
         const result = league?.filter(function (o) { return o.id == idValue; });
         if (result?.length == 1) {
-            const item: UpdateFormData = result[0];
-            setCookie("name", item.leagueName);
+            const item: leagueType = result[0];
+            const league: string = JSON.stringify(item);
+            setCookie("league", league);
+            console.log(league);
         }
-        console.log(result);
-        
-    
+          
     };
 
     useEffect(() => {
@@ -68,23 +64,23 @@ function ActiveLeagues() {
         <div>
             <h1 id="tableLabel">Select League</h1>
             {contents}
-            <p>Selected league is {cookie.name===undefined? "not selected": cookie.name}</p>
+            <p>Selected league is {cookie.league === undefined ? "not selected" : ConvertLeague().leagueName}</p>
             <p><button onClick={Hide}>Unselect</button></p>
         </div>
     );
 
     function Hide() {
-        if (cookie.name !== undefined) {
-            removeCookie("id");
-            removeCookie("name");
+        if (cookie.league !== undefined) {
+            removeCookie("league");
         }
     }
 
     
+    
     async function GetData() {
         axios.get("https://localhost:7002/api/leagues")
             .then(response => {
-                const values = response.data as UpdateFormData[];
+                const values = response.data as leagueType[];
                 const results = values.filter(x => x.active);
                 setleague(results);
             })
@@ -93,9 +89,7 @@ function ActiveLeagues() {
             })
     }
 
-
-    
-
+   
 }
 
 export default ActiveLeagues;

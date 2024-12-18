@@ -2,12 +2,11 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from "axios";
 import { UpdateFormData } from "./UpdateFormData.tsx";
-import { useCookies } from 'react-cookie';
-
+import { ConvertLeague, leagueType } from "../../leagueObject.tsx";
 
 function Players() {
     const [player, setplayer] = useState<UpdateFormData[]>();
-    const cookies = useCookies(['id','name'])[0];
+    const league: leagueType = ConvertLeague();
 
     useEffect(() => {
         GetData();
@@ -38,7 +37,7 @@ function Players() {
 
     return (
         <div>
-            <h2 id="tableLabel">Players in league {cookies.name}</h2>
+            <h2 id="tableLabel">Players in league {league.leagueName}</h2>
             <Link to="/League/Players/Create">Add</Link>
             {contents}
             <p>Number of players: {player?.length}</p>
@@ -48,7 +47,7 @@ function Players() {
     async function GetData() {
        
 
-        const url: string = "https://localhost:7002/api/players/".concat(cookies.id);
+        const url: string = "https://localhost:7002/api/players/".concat(league.id.toString());
         axios.get(url)
             .then(response => {
                 setplayer(response.data);

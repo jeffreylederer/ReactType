@@ -10,10 +10,10 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Checkbox, Label, TextInput } from "flowbite-react";
 import "./FormData.css";
 import { Form } from "react-bootstrap";
-import { useCookies } from 'react-cookie';
+import { ConvertLeague, leagueType } from "../../leagueObject.tsx";
 
 const ScheduleCreate = () => {
-    const cookies = useCookies(['id', 'name'])[0];
+    const league: leagueType = ConvertLeague();
     const {
         register,
         handleSubmit,
@@ -38,17 +38,12 @@ const ScheduleCreate = () => {
             });
     }
 
-    
-
-    
-  
-
     return (
         <>
-            <h2>Create new game date for league {cookies.name}</h2>
+            <h2>Create new game date for league {league.leagueName}</h2>
             <form onSubmit={handleSubmit(onSubmit)} >
                 <Container>
-                    <input type="hidden" defaultValue={cookies.id} {...register('leagueid')} />
+                    <input type="hidden" defaultValue={league.id} {...register('leagueid')} />
                     <Row>
                         <Col style={{ width: '15%' }}><Label>Playoffs:</Label></Col>
 

@@ -5,8 +5,8 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import { useCookies } from 'react-cookie';
 
 function Menu() {
-    const cookies = useCookies(['id'])[0];   
-    const hide: boolean = cookies.id === undefined;
+    const cookies = useCookies(['league'])[0];   
+    const hide: boolean = cookies.league === undefined;
     return (
         <Navbar expand="lg" className="bg-body-tertiary">
             <Container>

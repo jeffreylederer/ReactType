@@ -5,13 +5,13 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
 import { UpdateFormData } from "./UpdateFormData.tsx";
-import { useCookies } from 'react-cookie';
+import { ConvertLeague, leagueType } from "../../leagueObject.tsx";
 
 
 const PlayersDelete = () => {
     const location = useLocation();
     const id: number = location.state;
-    const cookies = useCookies(['name'])[0];  
+    const league: leagueType = ConvertLeague();  
 
     const [players, setPlayers] = useState<UpdateFormData>();
 
@@ -40,7 +40,7 @@ const PlayersDelete = () => {
         
     return (
         <div>
-            <h2>Delete player from league {cookies.name} </h2>
+            <h2>Delete player from league {league.leagueName} </h2>
             {contents }
         </div>
     );

@@ -5,14 +5,14 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
 import { FormData } from "./FormData.tsx";
-import { useCookies } from 'react-cookie';
+import { ConvertLeague, leagueType } from "../../leagueObject.tsx";
 
 
 
 const ScheduleDelete = () => {
     const location = useLocation();
     const id: number = location.state;
-    const cookies = useCookies(['id', 'name'])[0];
+    const league: leagueType = ConvertLeague();
     const [schedule, setSchedule] = useState<FormData>();
 
     
@@ -50,7 +50,7 @@ const ScheduleDelete = () => {
         
     return (
         <div>
-            <h2>Delete game date in league {cookies.name}</h2>
+            <h2>Delete game date in league {league.leagueName}</h2>
             {contents }
         </div>
     );

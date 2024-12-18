@@ -2,12 +2,12 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from "axios";
 import { UpdateFormData } from "./UpdateFormData.tsx";
-import { useCookies } from 'react-cookie';
+import { ConvertLeague, leagueType } from "../../leagueObject.tsx";
 
 
 function Schedule() {
     const [schedule, setschedule] = useState<UpdateFormData[]>();
-    const cookies = useCookies(['id', 'name'])[0];
+    const league: leagueType = ConvertLeague();
 
     useEffect(() => {
         GetData();
@@ -42,14 +42,14 @@ function Schedule() {
 
     return (
         <div>
-            <h1 id="tableLabel">Schedule</h1>
+            <h2 id="tableLabel">Schedule for League {league.leagueName}</h2>
             <Link to="/League/Schedule/Create">Add</Link>
             {contents}
         </div>
     );
 
     async function GetData() {
-        const url: string = "https://localhost:7002/api/Schedules/".concat(cookies.id);
+        const url: string = "https://localhost:7002/api/Schedules/".concat(league.id.toString());
         axios.get(url)
             .then(response => {
                 setschedule(response.data);

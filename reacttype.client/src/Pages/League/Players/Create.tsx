@@ -7,16 +7,17 @@ import axios from "axios";
 import "./FormData.css";
 import { PlayerFormData, PlayerFormDataSchema } from "./FormData.tsx";
 import { UpdateFormData } from "../../Membership/UpdateFormData.tsx";
-import { useCookies } from 'react-cookie';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useEffect, useState } from 'react';
 import { Label, TextInput } from "flowbite-react";
+import { ConvertLeague, leagueType } from "../../leagueObject.tsx";
 
 const PlayersCreate = () => {
    
     
     const onSubmit: SubmitHandler<PlayerFormData> = (data) => CreateData(data)
-    const cookies = useCookies(['id', 'name'])[0];   
+    const league: leagueType = ConvertLeague();
+
     const navigate = useNavigate();
     const [membership, setmembership] = useState<UpdateFormData[]>();
 
@@ -33,7 +34,7 @@ const PlayersCreate = () => {
     }
 
     async function GetData() {
-        const url: string = "https://localhost:7002/api/players/getMembers/".concat(cookies.id);
+        const url: string = "https://localhost:7002/api/players/getMembers/".concat(league.id.toString());
         axios.get(url)
             .then(response => {
                 setmembership(response.data);
@@ -57,10 +58,10 @@ const PlayersCreate = () => {
 
     return (
         <>
-            <h2>Create new player in league {cookies.name} </h2>
+            <h2>Create new player in league {league.leagueName} </h2>
             <form onSubmit={handleSubmit(onSubmit)} >
                 <Container>
-                    <input type="hidden" {...register("leagueid")} defaultValue={cookies.id }/>
+                    <input type="hidden" {...register("leagueid")} defaultValue={league.id }/>
                     <Row>
                         <Col style={{ width: '15%' }}><Label>Members:</Label></Col>
 
