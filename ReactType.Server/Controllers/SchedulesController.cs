@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -26,7 +27,7 @@ namespace ReactType.Server.Controllers
         [HttpGet("{id}")]
         public async Task<IEnumerable<Schedule>> Get(int id)
         {
-            var list = await _context.Schedules.Where(x=>x.Leagueid==id).ToListAsync();
+            var list = await _context.Schedules.Where(x => x.Leagueid == id).ToListAsync();
             list.Sort((a, b) => a.GameDate.CompareTo(b.GameDate));
             return list;
         }
@@ -49,25 +50,49 @@ namespace ReactType.Server.Controllers
             return schedule;
         }
 
-       
-        [HttpPost]
-        public async Task Create(Schedule item)
-        {
-            _context.Schedules.Add(item);
-            await _context.SaveChangesAsync();
 
-           
+        [HttpPost]
+        public async Task Create(ScheduleTypeCreate item)
+        {
+            var schedule = new Schedule()
+            {
+               
+                GameDate = DateOnly.Parse(item.GameDate),
+                Cancelled = item.Cancelled,
+                PlayOffs = item.PlayOffs,
+                Leagueid = int.Parse(item.Leagueid)
+            };
+            _context.Schedules.Add(schedule);
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch(Exception ex)
+            {
+                var message = ex.Message;
+            }
+
+
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Edit(int id, Schedule item)
+        public async Task<IActionResult> Edit(int id, ScheduleType item)
         {
             if (id != item.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(item).State = EntityState.Modified;
+            var schedule = new Schedule()
+            {
+                Id = item.Id,
+                GameDate = DateOnly.Parse(item.GameDate),
+                Cancelled = item.Cancelled,
+                PlayOffs = item.PlayOffs,
+                Leagueid = item.Leagueid
+            };
+
+            _context.Entry(schedule).State = EntityState.Modified;
 
             try
             {
@@ -108,7 +133,7 @@ namespace ReactType.Server.Controllers
                 await _context.SaveChangesAsync();
                 return NoContent();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return StatusCode(500, ex.Message);
             }
@@ -119,5 +144,29 @@ namespace ReactType.Server.Controllers
         {
             return _context.Schedules.Any(e => e.Id == id);
         }
+    }
+
+    public partial class ScheduleType
+    {
+        public int Id { get; set; }
+
+        public string? GameDate { get; set; }
+
+        public int Leagueid { get; set; }
+
+        public bool Cancelled { get; set; }
+
+        public bool PlayOffs { get; set; }
+    }
+
+    public partial class ScheduleTypeCreate
+    {
+        public string? GameDate { get; set; }
+
+        public string? Leagueid { get; set; }
+
+        public bool Cancelled { get; set; }
+
+        public bool PlayOffs { get; set; }
     }
 }

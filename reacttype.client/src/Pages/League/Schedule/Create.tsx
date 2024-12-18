@@ -10,9 +10,10 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Checkbox, Label, TextInput } from "flowbite-react";
 import "./FormData.css";
 import { Form } from "react-bootstrap";
+import { useCookies } from 'react-cookie';
 
 const ScheduleCreate = () => {
-   
+    const cookies = useCookies(['id', 'name'])[0];
     const {
         register,
         handleSubmit,
@@ -29,7 +30,7 @@ const ScheduleCreate = () => {
         axios.post('https://localhost:7002/api/Schedules', data)
             .then((response) => {
                 console.log(response.data);
-                navigate("/Schedule");
+                navigate("/League/Schedules");
                 console.log('Record created successfully: ', response.data);
              })
             .catch(error => {
@@ -44,10 +45,10 @@ const ScheduleCreate = () => {
 
     return (
         <>
-
+            <h2>Create new game date for league {cookies.name}</h2>
             <form onSubmit={handleSubmit(onSubmit)} >
                 <Container>
-
+                    <input type="hidden" defaultValue={cookies.id} {...register('leagueid')} />
                     <Row>
                         <Col style={{ width: '15%' }}><Label>Playoffs:</Label></Col>
 
@@ -77,9 +78,11 @@ const ScheduleCreate = () => {
                             <TextInput type="submit" />
                         </Col>
                     </Row>
-                    {errors.gameDate && <p className="errorMessage">{errors.gameDate.message}</p>}
-                   
                     
+                    {errors.leagueid && <p className="errorMessage">{errors.leagueid.message}</p>}
+                    {errors.gameDate && <p className="errorMessage">{errors.gameDate.message}</p>}
+                    {errors.cancelled && <p className="errorMessage">{errors.cancelled.message}</p>}
+                    {errors.playOffs && <p className="errorMessage">{errors.playOffs.message}</p>}
                     
 
                 </Container>

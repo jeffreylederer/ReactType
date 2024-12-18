@@ -28,11 +28,11 @@ function Schedule() {
             <tbody>
                 {schedule.map(item =>
                     <tr key={item.id}>
-                        <td>{item.gameDate.toDateString()}</td>
+                        <td>{item.gameDate}</td>
                         <td>{item.cancelled ? "yes" : "no"}</td>
                         <td>{item.playOffs ? "yes" : "no"}</td>
-                        <td><Link to="/Schedule/Update" state={ item.id.toString() }>Update</Link>|  
-                            <Link to="/Schedule/Delete" state={ item.id.toString() }>Delete</Link>
+                        <td><Link to="/League/Schedule/Update" state={ item.id.toString() }>Update</Link>|  
+                            <Link to="/League/Schedule/Delete" state={ item.id.toString() }>Delete</Link>
                         </td>
                         
                     </tr>
@@ -43,7 +43,7 @@ function Schedule() {
     return (
         <div>
             <h1 id="tableLabel">Schedule</h1>
-            <Link to="/Schedule/Create">Add</Link>
+            <Link to="/League/Schedule/Create">Add</Link>
             {contents}
         </div>
     );

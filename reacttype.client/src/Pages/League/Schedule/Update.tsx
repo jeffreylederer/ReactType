@@ -9,16 +9,20 @@ import { UpdateFormData, UpdateFormDataSchema } from "./UpdateFormData.tsx";
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Checkbox, Label, TextInput } from "flowbite-react";
 import { Form } from "react-bootstrap";
-
+import { useCookies } from 'react-cookie';
 
 
 const ScheduleUpdate = () => {
+
+    const cookies = useCookies(['id', 'name'])[0];
     const [schedule, setSchedule] = useState(
         {
             id: 0,
             gameDate: new Date().toISOString().slice(0, 10),
             playOffs: false,
-            cancelled: false
+            cancelled: false,
+            leagueid: 0
+
 
         }
     );
@@ -29,10 +33,9 @@ const ScheduleUpdate = () => {
         register,
         handleSubmit,
         formState: { errors },
-        
+
     } = useForm<UpdateFormData>({
         resolver: zodResolver(UpdateFormDataSchema),
-       
     });
 
     const onSubmit: SubmitHandler<UpdateFormData> = (data) =>updateData(data)
@@ -44,17 +47,18 @@ const ScheduleUpdate = () => {
 
     useEffect(() => {
         GetData();
-        setSchedule({ ...schedule, [id]: id});
+        
     }, []);
 
     const contents = schedule.id === 0
         ? <p><em>Loading ...</em></p> :
 
-        <form onSubmit={handleSubmit(onSubmit)} >
+        <form onSubmit={handleSubmit(onSubmit, (errors) => console.log(errors))} >
 
 
 
-            <input type="hidden" {...register("id", { valueAsNumber: true })} defaultValue={id} />
+            <input type="hidden" {...register("id", { valueAsNumber: true })} defaultValue={schedule.id} />
+            <input type="hidden" {...register("leagueid", { valueAsNumber: true })} defaultValue={schedule.leagueid} />
            
             <Container >
                 <Row>
@@ -85,7 +89,10 @@ const ScheduleUpdate = () => {
                         <TextInput type="submit" />
                     </Col>
                 </Row>
+                {errors.id && <p className="errorMessage">{errors.id.message}</p>}
                 {errors.gameDate && <p className="errorMessage">{errors.gameDate.message}</p>}
+                {errors.cancelled && <p className="errorMessage">{errors.cancelled.message}</p>}
+                {errors.playOffs && <p className="errorMessage">{errors.playOffs.message}</p>}
                 
 
 
@@ -95,7 +102,7 @@ const ScheduleUpdate = () => {
     
     return (
         <>
-        <h1>Update record</h1>
+            <h3>Update schedule for league {cookies.name}</h3>
             {contents}
 
             
@@ -122,14 +129,15 @@ const ScheduleUpdate = () => {
     }
 
     function updateData(data: UpdateFormData) {
+        data.id = schedule.id;
+        data.leagueid = schedule.leagueid;
         const url: string = 'https://localhost:7002/api/Schedules/';
         const num: string = id.toString();
         const fullUrl = url.concat(num);
-        data.id = id;
           axios.put(fullUrl, data)
             .then(response => {
                 console.log('Record updated successfully: ', response.data);
-                navigate("/Schedule");
+                navigate("/League/Schedules");
             })
             .catch(error => {
                 console.error('Error updating record: ', error);

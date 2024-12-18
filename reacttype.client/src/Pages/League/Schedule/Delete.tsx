@@ -5,13 +5,14 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
 import { FormData } from "./FormData.tsx";
+import { useCookies } from 'react-cookie';
 
 
 
 const ScheduleDelete = () => {
     const location = useLocation();
     const id: number = location.state;
-
+    const cookies = useCookies(['id', 'name'])[0];
     const [schedule, setSchedule] = useState<FormData>();
 
     
@@ -28,7 +29,7 @@ const ScheduleDelete = () => {
             <Row>
                 <Col style={{width: "200px"}}><label>Game Date:</label></Col>
 
-                <Col style={{ textAlign: "left" }}>{schedule.gameDate.toDateString()}</Col>
+                <Col style={{ textAlign: "left" }}>{schedule.gameDate}</Col>
             </Row>
             <Row>
                 <Col style={{ width: "200px" }}><label>playOffs:</label></Col>
@@ -49,13 +50,13 @@ const ScheduleDelete = () => {
         
     return (
         <div>
-        <h1>Delete</h1>
+            <h2>Delete game date in league {cookies.name}</h2>
             {contents }
         </div>
     );
 
     async function GetData() {
-        const url: string = 'https://localhost:7002/api/Schedules/';
+        const url: string = 'https://localhost:7002/api/Schedules/getOne/';
         const num: string = id.toString();
         const fullUrl = url.concat(num);
         axios.get(fullUrl)
@@ -70,13 +71,13 @@ const ScheduleDelete = () => {
     }
 
     async function DeleteItem() {
-        const url: string = 'https://localhost:7002/api/Schedules/getOne/';
+        const url: string = 'https://localhost:7002/api/Schedules/';
         const num: string = id.toString();
         const fullUrl = url.concat(num);
         axios.delete(fullUrl)
             .then(response => {
                 console.log(response.statusText);
-                navigate("/Schedule");
+                navigate("/League/Schedules");
             })
             .catch(error => {
                 console.error('Error fetching data: ', error);

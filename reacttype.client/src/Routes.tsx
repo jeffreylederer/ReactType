@@ -68,9 +68,9 @@ function RouteMenu() {
           <Route path="/League/Players/Create" element={<PlayersCreate />} />
 
           <Route path="/League/Schedules" element={<Schedules />} />
-          <Route path="/League/Schedules/Delete" element={<SchedulesDelete />} />
-          <Route path="/League/Schedules/Create" element={<SchedulesCreate />} />
-          <Route path="/League/Schedules/Update" element={<SchedulesUpdate />} />
+          <Route path="/League/Schedule/Delete" element={<SchedulesDelete />} />
+          <Route path="/League/Schedule/Create" element={<SchedulesCreate />} />
+          <Route path="/League/Schedule/Update" element={<SchedulesUpdate />} />
 
 
           {/*<Route path="/Welcome" element={<Welcome />} />*/}
