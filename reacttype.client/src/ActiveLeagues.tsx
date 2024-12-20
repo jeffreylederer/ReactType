@@ -12,7 +12,7 @@ function ActiveLeagues() {
  
 
     const buttonHandler = (event: React.MouseEvent<HTMLButtonElement>) => {
-        event.preventDefault();
+        //event.preventDefault();
         const button: HTMLButtonElement = event.currentTarget;
         const idValue:number = +button.name;
         const result = league?.filter(function (o) { return o.id == idValue; });

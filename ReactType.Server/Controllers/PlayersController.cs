@@ -95,8 +95,8 @@ namespace ReactType.Server.Controllers
         {
             var player = new Player()
             {
-                Leagueid = int.Parse(item.leagueid),
-                MembershipId = int.Parse(item.membershipId)
+                Leagueid = item.leagueid,
+                MembershipId = item.membershipId
             };
             _context.Players.Add(player);
             await _context.SaveChangesAsync();
@@ -132,7 +132,7 @@ namespace ReactType.Server.Controllers
 
     public class CreateType
     {
-        public string leagueid { get; set; }
-        public string membershipId { get; set; }
+        public int leagueid { get; set; }
+        public int membershipId { get; set; }
     }
 }

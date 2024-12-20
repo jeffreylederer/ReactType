@@ -1,8 +1,8 @@
 import { z } from 'zod';
 
 export const PlayerFormDataSchema = z.object({
-    membershipId: z.string(),
-    leagueid: z.string()
+    membershipId: z.coerce.number(),
+    leagueid: z.coerce.number()
 
    
 });
