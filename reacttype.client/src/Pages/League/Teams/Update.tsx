@@ -9,7 +9,6 @@ import { UpdateFormData, UpdateFormDataSchema } from "./UpdateFormData.tsx";
 import { zodResolver } from '@hookform/resolvers/zod';
 import { ConvertLeague, leagueType } from "../../leagueObject.tsx";
 import { Membership } from "./Membership.tsx";
-import { TeamMember } from "./TeamMember.tsx";
 import { Label, TextInput } from "flowbite-react";
 
 const TeamUpdate = () => {
@@ -186,8 +185,9 @@ const TeamUpdate = () => {
     }
 
     function updateData(data: UpdateFormData) {
+        //const str: string = JSON.stringify(data);
         const url: string = 'https://localhost:7002/api/Teams/'.concat(id.toString());
-          axios.put(url, data)
+        axios.put(url, data)
             .then(response => {
                 console.log('Record updated successfully: ', response.data);
                 navigate("/League/Teams");

@@ -18,8 +18,8 @@ function ActiveLeagues() {
         const result = league?.filter(function (o) { return o.id == idValue; });
         if (result?.length == 1) {
             const item: leagueType = result[0];
-            const league: string = JSON.stringify(item);
-            setCookie("league", league);
+            
+            setCookie("league", item);
             console.log(league);
         }
           

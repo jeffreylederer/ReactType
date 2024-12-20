@@ -48,7 +48,7 @@ const TeamsDelete = () => {
 
             <Row>
                 <Col style={{ width: "200px" }}><label>Division:</label></Col>
-                <Col style={{ textAlign: "left" }}>{team?.division}</Col>
+                <Col style={{ textAlign: "left" }}>{team?.divisionId}</Col>
             </Row>
 
             <Row>

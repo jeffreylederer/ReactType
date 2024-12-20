@@ -22,6 +22,7 @@ const TeamsCreate = () => {
     const [membership, setMembership] = useState<Membership[]>();
 
     function CreateData(data: FormData) {
+        //const str:string = JSON.stringify(data);
         axios.post('https://localhost:7002/api/Teams/', data)
             .then((response) => {
                 console.log(response.data);

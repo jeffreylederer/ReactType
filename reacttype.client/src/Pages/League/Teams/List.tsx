@@ -34,7 +34,7 @@ function Teams() {
                         <td>{item.skip}</td>
                         <td hidden={league.teamSize < 3}>{item.viceSkip}</td>
                         <td hidden={league.teamSize < 2}>{item.lead}</td>
-                        <td>{item.division}</td>
+                        <td>{item.divisionId}</td>
                         <td><Link to="/league/Teams/Update" state={item.id.toString()}>Update</Link>|
                             <Link to="/league/Teams/Delete" state={item.id.toString()}>Delete</Link>
                         </td>
