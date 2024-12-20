@@ -9,7 +9,8 @@ import { UpdateFormData, UpdateFormDataSchema } from "./UpdateFormData.tsx";
 import { zodResolver } from '@hookform/resolvers/zod';
 import { ConvertLeague, leagueType } from "../../leagueObject.tsx";
 import { Membership } from "./Membership.tsx";
-import { Label } from "flowbite-react";
+import { TeamMember } from "./TeamMember.tsx";
+import { Label, TextInput } from "flowbite-react";
 
 const TeamUpdate = () => {
 
@@ -19,9 +20,12 @@ const TeamUpdate = () => {
             id: 0,
             leagueid: 0,
             divisionId: 0,
-            skip: 0,
-            viceSkip: 0,
-            lead: 0,
+            skipid: 0,
+            viceSkipid: 0,
+            leadid: 0,
+            skip: '',
+            viceSkip: '',
+            lead: '',
             teamNo: 0
         }
     );
@@ -42,12 +46,11 @@ const TeamUpdate = () => {
     const onSubmit: SubmitHandler<UpdateFormData> = (data) =>updateData(data)
 
     const navigate = useNavigate();
-    
-    
-    
+   
 
     useEffect(() => {
         GetData();
+        GetMembers();
         
     }, []);
 
@@ -58,52 +61,63 @@ const TeamUpdate = () => {
             <input type="hidden" {...register("id", { valueAsNumber: true })} defaultValue={team.id} />
             <input type="hidden" {...register("leagueid", { valueAsNumber: true })} defaultValue={team.leagueid} />
             <input type="hidden" {...register("teamNo", { valueAsNumber: true })} defaultValue={team.teamNo} />
-
+             <Container>
             <Row>
                 <Col style={{ width: '15%' }}><Label>Skip:</Label></Col>
                 <Col>
-                    <select style={{ width: '85%' }} defaultValue={team.skip} {...register("skip")}>
-                        <option value="0">Select member</option>
-                        {membership?.map((item) => (
-                            <option value={item.id.toString()}>{item.fullName}</option>
-                        ))}
-                        )
+                    <select style={{ width: '85%' }} defaultValue={team.skipid} {...register("skip")}>
+                            <option value="0" key="0">Select member</option>
+                            <option value={team.skipid.toString()} key={team.skipid.toString()}>{team.skip}</option>
+                            <option value={team.viceSkipid} key={team.viceSkipid==null? "viceSkip" : team.viceSkipid.toString()} hidden={league.divisions > 1}>{team.viceSkip}</option>
+                            <option value={team.leadid} key={team.leadid==null? "lead" :  team.leadid.toString()} hidden={league.divisions > 2}>{team.lead}</option>
+                            {membership?.map((item) => (
+                                <option value={item.id.toString()} key={item.id.toString()}>{item.fullName}</option>
+                            ))}
+                            )
                     </select></Col>
             </Row>
 
             <Row hidden={league.teamSize < 3}>
                 <Col style={{ width: '15%' }}><Label>Vice Skip:</Label></Col>
                 <Col>
-                    <select style={{ width: '85%' }} defaultValue={team.viceSkip} {...register("viceSkip")}>
-                        <option value="0">Select member</option>
-                        {membership?.map((item) => (
-                            <option value={item.id.toString()}>{item.fullName}</option>
-                        ))}
-                        )
+                    <select style={{ width: '85%' }} defaultValue={team.viceSkipid} {...register("viceSkip")}>
+                            <option value="0" key="0">Select member</option>
+                            <option value={team.skipid.toString()} key={team.skipid.toString()}>{team.skip}</option>
+                            <option value={team.viceSkipid} key={team.viceSkipid == null ? "viceSkip" : team.viceSkipid.toString()} hidden={league.divisions > 1}>{team.viceSkip}</option>
+                            <option value={team.leadid} key={team.leadid == null ? "lead" : team.leadid.toString()} hidden={league.divisions > 2}>{team.lead}</option>
+                            {membership?.map((item) => (
+                                <option value={item.id.toString()} key={item.id.toString()}>{item.fullName}</option>
+                            ))}
+                            )
                     </select></Col>
             </Row>
 
             <Row hidden={league.teamSize < 2}>
                 <Col style={{ width: '15%' }}><Label>Lead:</Label></Col>
                 <Col>
-                    <select style={{ width: '85%' }} {...register("lead")} defaultValue={team.lead}>
-                        <option value="0">Select Division</option>
-                        {membership?.map((item) => (
-                            <option value={item.id.toString()}>{item.fullName}</option>
-                        ))}
-                        )
+                    <select style={{ width: '85%' }} {...register("lead")} defaultValue={team.leadid}>
+                            <option value="0" key="0">Select member</option>
+                            <option value={team.skipid.toString()} key={team.skipid.toString()}>{team.skip}</option>
+                            <option value={team.viceSkipid} key={team.viceSkipid == null ? "viceSkip" : team.viceSkipid.toString()} hidden={league.divisions > 1}>{team.viceSkip}</option>
+                            <option value={team.leadid} key={team.leadid == null ? "lead" : team.leadid.toString()} hidden={league.divisions > 2}>{team.lead}</option>
+                            {membership?.map((item) => (
+                                <option value={item.id.toString()} key={item.id.toString()}>{item.fullName}</option>
+                            ))}
+                            )
                     </select></Col>
             </Row>
             <Row>
                 <Col style={{ width: '15%' }}><Label>Division:</Label></Col>
                 <Col>
-                    <select style={{ width: '85%' }} defaultValue={team.lead} {...register("divisionId")}>
-                        <option value="0">Select member</option>
-                        <option value="1">1</option>
-                        <option value="2" hidden={league.divisions > 1}>2</option>
-                        <option value="3" hidden={league.divisions > 2}>3</option>
+                    <select style={{ width: '85%' }} defaultValue={team.divisionId} {...register("divisionId")}>
+                        <option value="0" key="0">Select Devision</option>
+                        <option value="1" key="1">1</option>
+                        <option value="2" key="2" hidden={league.divisions < 2 }>2</option>
+                            <option value="3" key="3" hidden={league.divisions < 3}>3</option>
                     </select></Col>
             </Row>
+
+
 
             {
                 league.teamSize < 3 && <input type="hidden" defaultValue="0" {...register("viceSkip")} />
@@ -112,10 +126,19 @@ const TeamUpdate = () => {
                 league.teamSize < 2 && <input type="hidden" defaultValue="0" {...register("lead")} />
             }
 
+            <Row>
+                <Col style={{ textAlign: "center", width: '100%' }}>
+                    <TextInput type="submit" />
+                </Col>
+            </Row>
             
-           
-            <Container >
-                
+                {errors.skip && <p className="errorMessage">{errors.skip.message}</p>}
+                {errors.viceSkip && <p className="errorMessage">{errors.viceSkip.message}</p>}
+                {errors.lead && <p className="errorMessage">{errors.lead.message}</p>}   
+                {errors.divisionId && <p className="errorMessage">{errors.divisionId.message}</p>}  
+                {errors.id && <p className="errorMessage">{errors.id.message}</p>}
+                {errors.teamNo && <p className="errorMessage">{errors.teamNo.message}</p>}   
+                {errors.leagueid && <p className="errorMessage">{errors.leagueid.message}</p>}   
                 
 
 
@@ -125,7 +148,7 @@ const TeamUpdate = () => {
     
     return (
         <>
-            <h3>Update Team for league {league.leagueName}</h3>
+            <h3>Update Team {team.teamNo} for league {league.leagueName}</h3>
             {contents}
 
             

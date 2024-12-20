@@ -3,8 +3,11 @@ export type TeamMember = {
     skip: string,
     viceSkip: string,
     lead: string,
+    skipid: number,
+    viceSkipid: number,
+    leadid: number,
     leagueid: number,
-    division: number,
+    divisionId: number,
     teamNo: number,
     cnt : number
 

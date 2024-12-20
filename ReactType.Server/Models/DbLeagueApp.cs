@@ -25,6 +25,8 @@ public partial class DbLeagueApp : DbContext
 
     public virtual DbSet<Membership> Memberships { get; set; }
 
+    public virtual DbSet<OneTeamView> OneTeamViews { get; set; }
+
     public virtual DbSet<Player> Players { get; set; }
 
     public virtual DbSet<RinkOrder> RinkOrders { get; set; }
@@ -152,6 +154,26 @@ public partial class DbLeagueApp : DbContext
                 .HasMaxLength(25)
                 .IsUnicode(false)
                 .HasColumnName("shortname");
+        });
+
+        modelBuilder.Entity<OneTeamView>(entity =>
+        {
+            entity
+                .HasNoKey()
+                .ToView("OneTeamView");
+
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.Lead)
+                .HasMaxLength(101)
+                .IsUnicode(false);
+            entity.Property(e => e.Skip)
+                .HasMaxLength(101)
+                .IsUnicode(false)
+                .HasColumnName("skip");
+            entity.Property(e => e.Skipid).HasColumnName("skipid");
+            entity.Property(e => e.ViceSkip)
+                .HasMaxLength(101)
+                .IsUnicode(false);
         });
 
         modelBuilder.Entity<Player>(entity =>

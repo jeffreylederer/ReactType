@@ -51,7 +51,7 @@ namespace ReactType.Server.Controllers
 
         // GET: Teams/Details/5
         [HttpGet("getOne/{id}")]
-        public TeamMember? GetOne(int? id)
+        public OneTeamView? GetOne(int? id)
         {
             if (id == null)
             {
@@ -63,7 +63,7 @@ namespace ReactType.Server.Controllers
                 SqlParameter[] parameters = {
                     new SqlParameter("leagueid", id)
                 };
-                var team = _context.TeamMembers
+                var team = _context.OneTeamViews
                          .FromSqlRaw("EXEC OneTeam @leagueid", parameters)
                          .AsEnumerable()
                          .FirstOrDefault();
