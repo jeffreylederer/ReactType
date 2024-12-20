@@ -29,6 +29,12 @@ import SchedulesDelete from "./Pages/League/Schedule/Delete.tsx";
 import SchedulesCreate from "./Pages/League/Schedule/Create.tsx";
 import SchedulesUpdate from "./Pages/League/Schedule/Update.tsx";
 
+import Teams from "./Pages/League/Teams/List.tsx";
+import TeamsDelete from "./Pages/League/Teams/Delete.tsx";
+import TeamsCreate from "./Pages/League/Teams/Create.tsx";
+import TeamsUpdate from "./Pages/League/Teams/Update.tsx";
+
+
 
 
 
@@ -71,6 +77,11 @@ function RouteMenu() {
           <Route path="/League/Schedule/Delete" element={<SchedulesDelete />} />
           <Route path="/League/Schedule/Create" element={<SchedulesCreate />} />
           <Route path="/League/Schedule/Update" element={<SchedulesUpdate />} />
+
+          <Route path="/League/Teams" element={<Teams />} />
+          <Route path="/League/Teams/Delete" element={<TeamsDelete />} />
+          <Route path="/League/Teams/Create" element={<TeamsCreate />} />
+          <Route path="/League/Teams/Update" element={<TeamsUpdate />} />
 
 
           {/*<Route path="/Welcome" element={<Welcome />} />*/}

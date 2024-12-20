@@ -35,6 +35,8 @@ public partial class DbLeagueApp : DbContext
 
     public virtual DbSet<Team> Teams { get; set; }
 
+    public virtual DbSet<TeamMember> TeamMembers { get; set; }
+
     public virtual DbSet<TeamsView> TeamsViews { get; set; }
 
     public virtual DbSet<User> Users { get; set; }
@@ -244,6 +246,26 @@ public partial class DbLeagueApp : DbContext
             entity.HasOne(d => d.ViceSkipNavigation).WithMany(p => p.TeamViceSkipNavigations)
                 .HasForeignKey(d => d.ViceSkip)
                 .HasConstraintName("FK__Players1");
+        });
+
+        modelBuilder.Entity<TeamMember>(entity =>
+        {
+            entity
+                .HasNoKey()
+                .ToView("TeamMembers");
+
+            entity.Property(e => e.Cnt).HasColumnName("cnt");
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.Lead)
+                .HasMaxLength(101)
+                .IsUnicode(false);
+            entity.Property(e => e.Skip)
+                .HasMaxLength(101)
+                .IsUnicode(false)
+                .HasColumnName("skip");
+            entity.Property(e => e.ViceSkip)
+                .HasMaxLength(101)
+                .IsUnicode(false);
         });
 
         modelBuilder.Entity<TeamsView>(entity =>
