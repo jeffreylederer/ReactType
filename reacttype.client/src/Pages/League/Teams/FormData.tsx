@@ -1,7 +1,7 @@
 import { z } from 'zod';
 
 export const FormDataSchema = z.object({
-    id: z.coerce.number(),
+    id: z.coerce.number(), 
     leagueid: z.coerce.number(),
     skip: z.coerce.number(),
     viceSkip: z.coerce.number().optional(),

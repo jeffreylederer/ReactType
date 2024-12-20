@@ -85,10 +85,21 @@ namespace ReactType.Server.Controllers
 
 
         [HttpPost]
-        public async Task Create(Team item)
+        public async Task Create(TeamTypeCreate item)
         {
-            
-            _context.Teams.Add(item);
+            var teamNo = await _context.Teams.Where(x => x.Leagueid == item.Leagueid).CountAsync() + 1;
+
+            var Team = new Team()
+            {
+                Id = item.Id,
+                Skip = item.Skip == 0 ? null : item.Skip,
+                ViceSkip = item.ViceSkip == 0 ? null : item.ViceSkip,
+                Lead = item.Lead == 0 ? null : item.Lead,
+                Leagueid = item.Leagueid,
+                TeamNo = teamNo,
+                DivisionId = item.DivisionId
+            };
+            _context.Teams.Add(Team);
             try
             {
                 await _context.SaveChangesAsync();
@@ -102,17 +113,24 @@ namespace ReactType.Server.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Edit(int id, Team item)
+        public async Task<IActionResult> Edit(int id, TeamType item)
         {
             if (id != item.Id)
             {
                 return BadRequest();
             }
 
+            var teamNo = _context.Teams.Where(x => x.Leagueid == item.Leagueid).Count()+1;
+
             var Team = new Team()
             {
                 Id = item.Id,
-               
+                Skip = item.Skip==0? null:  item.Skip,
+                ViceSkip = item.ViceSkip == 0 ? null : item.ViceSkip,
+                Lead = item.Lead == 0 ? null : item.Lead,
+                Leagueid = item.Leagueid,
+                TeamNo = item.TeamNo,
+                DivisionId=item.DivisionId
             };
 
             _context.Entry(Team).State = EntityState.Modified;
@@ -173,23 +191,33 @@ namespace ReactType.Server.Controllers
     {
         public int Id { get; set; }
 
-        public string? GameDate { get; set; }
+        public int? Skip { get; set; }
+
+        public int? ViceSkip { get; set; }
+
+        public int? Lead { get; set; }
 
         public int Leagueid { get; set; }
 
-        public bool Cancelled { get; set; }
+        public int TeamNo { get; set; }
 
-        public bool PlayOffs { get; set; }
+        public short DivisionId { get; set; }
     }
 
     public partial class TeamTypeCreate
     {
-        public string? GameDate { get; set; }
+        public int Id { get; set; }
 
-        public string? Leagueid { get; set; }
+        public int? Skip { get; set; }
 
-        public bool Cancelled { get; set; }
+        public int? ViceSkip { get; set; }
 
-        public bool PlayOffs { get; set; }
+        public int? Lead { get; set; }
+
+        public int Leagueid { get; set; }
+
+        public int TeamNo { get; set; }
+
+        public short DivisionId { get; set; }
     }
 }

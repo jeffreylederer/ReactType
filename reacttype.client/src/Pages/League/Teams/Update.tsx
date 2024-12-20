@@ -57,7 +57,7 @@ const TeamUpdate = () => {
         ? <p><em>Loading ...</em></p> :
 
         <form onSubmit={handleSubmit(onSubmit, (errors) => console.log(errors))} >
-            <input type="hidden" {...register("id", { valueAsNumber: true })} defaultValue={team.id} />
+            <input type="hidden" {...register("id", { valueAsNumber: true })} defaultValue={team.id.toString()} />
             <input type="hidden" {...register("leagueid", { valueAsNumber: true })} defaultValue={team.leagueid} />
             <input type="hidden" {...register("teamNo", { valueAsNumber: true })} defaultValue={team.teamNo} />
              <Container>
@@ -112,7 +112,7 @@ const TeamUpdate = () => {
                         <option value="0" key="0">Select Devision</option>
                         <option value="1" key="1">1</option>
                         <option value="2" key="2" hidden={league.divisions < 2 }>2</option>
-                            <option value="3" key="3" hidden={league.divisions < 3}>3</option>
+                        <option value="3" key="3" hidden={league.divisions < 3}>3</option>
                     </select></Col>
             </Row>
 
@@ -131,13 +131,13 @@ const TeamUpdate = () => {
                 </Col>
             </Row>
             
-                {errors.skip && <p className="errorMessage">{errors.skip.message}</p>}
-                {errors.viceSkip && <p className="errorMessage">{errors.viceSkip.message}</p>}
-                {errors.lead && <p className="errorMessage">{errors.lead.message}</p>}   
-                {errors.divisionId && <p className="errorMessage">{errors.divisionId.message}</p>}  
-                {errors.id && <p className="errorMessage">{errors.id.message}</p>}
-                {errors.teamNo && <p className="errorMessage">{errors.teamNo.message}</p>}   
-                {errors.leagueid && <p className="errorMessage">{errors.leagueid.message}</p>}   
+                {errors.skip && <p className="errorMessage">skip: {errors.skip.message}</p>}
+                {errors.viceSkip && <p className="errorMessage">viceskip: {errors.viceSkip.message}</p>}
+                {errors.lead && <p className="errorMessage">lead: {errors.lead.message}</p>}   
+                {errors.divisionId && <p className="errorMessage">division: {errors.divisionId.message}</p>}  
+                {errors.id && <p className="errorMessage">id: {errors.id.message}</p>}
+                {errors.teamNo && <p className="errorMessage">teamNo: {errors.teamNo.message}</p>}   
+                {errors.leagueid && <p className="errorMessage">leagueid:  {errors.leagueid.message}</p>}   
                 
 
 

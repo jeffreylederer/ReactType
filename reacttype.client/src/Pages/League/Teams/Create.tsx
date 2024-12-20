@@ -93,7 +93,7 @@ const TeamsCreate = () => {
                         <Col style={{ width: '15%' }}><Label>Lead:</Label></Col>
                         <Col>
                             <select style={{ width: '85%' }} defaultValue="0" {...register("lead")}>
-                                <option value="0">Select Division</option>
+                                <option value="0">Select Member</option>
                                 {membership?.map((item) => (
                                     <option value={item.id.toString()}>{item.fullName}</option>
                                 ))}
@@ -104,10 +104,10 @@ const TeamsCreate = () => {
                         <Col style={{ width: '15%' }}><Label>Division:</Label></Col>
                         <Col>
                             <select style={{ width: '85%' }} defaultValue="0" {...register("divisionId")}>
-                                <option value="0">Select member</option>
+                                <option value="0">Select Division</option>
                                 <option value="1">1</option>
-                                <option value="2" hidden={league.divisions>1 }>2</option>
-                                <option value="3" hidden={league.divisions > 2}>3</option>
+                                <option value="2" hidden={league.divisions <2  }>2</option>
+                                <option value="3" hidden={league.divisions <3 }>3</option>
                             </select></Col>
                     </Row>
                 
@@ -117,9 +117,14 @@ const TeamsCreate = () => {
                             <TextInput type="submit" />
                         </Col>
                     </Row>
-                    {errors.skip && <p className="errorMessage">{errors.skip.message}</p>}
-                    {errors.viceSkip && <p className="errorMessage">{errors.viceSkip.message}</p>}
-                    {errors.lead && <p className="errorMessage">{errors.lead.message}</p>}
+                
+                    {errors.skip && <p className="errorMessage">skip: {errors.skip.message}</p>}
+                    {errors.viceSkip && <p className="errorMessage">viceskip: {errors.viceSkip.message}</p>}
+                    {errors.lead && <p className="errorMessage">lead: {errors.lead.message}</p>}
+                    {errors.divisionId && <p className="errorMessage">division: {errors.divisionId.message}</p>}
+                    
+                    {errors.teamNo && <p className="errorMessage">teamNo: {errors.teamNo.message}</p>}
+                    {errors.leagueid && <p className="errorMessage">leagueid:  {errors.leagueid.message}</p>}   
                   
                     {
                         league.teamSize < 3 && <input type="hidden" defaultValue="0" {...register("viceSkip")} />
