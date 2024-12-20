@@ -12,7 +12,7 @@ const TeamsDelete = () => {
     const location = useLocation();
     const id: number = location.state;
     const league: leagueType = ConvertLeague();  
-
+    const [errorMsg, SeterrorMsg] = useState("");
     const [team, setTeam] = useState<TeamMember>();
 
     
@@ -61,7 +61,9 @@ const TeamsDelete = () => {
     return (
         <div>
             <h2>Delete Team from league {league.leagueName} </h2>
-            {contents }
+            {contents}
+            <p className="errorMessage">{errorMsg}</p>
+
         </div>
     );
 
@@ -86,7 +88,7 @@ const TeamsDelete = () => {
                 navigate("/League/Teams");
             })
             .catch(error => {
-                console.error('Error fetching data: ', error);
+                SeterrorMsg(error.response.data);
             })
     }
 }

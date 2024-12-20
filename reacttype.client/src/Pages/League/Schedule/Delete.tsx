@@ -14,7 +14,7 @@ const ScheduleDelete = () => {
     const id: number = location.state;
     const league: leagueType = ConvertLeague();
     const [schedule, setSchedule] = useState<FormData>();
-
+    const [errorMsg, SeterrorMsg] = useState("");
     
     const navigate = useNavigate();
 
@@ -51,7 +51,8 @@ const ScheduleDelete = () => {
     return (
         <div>
             <h2>Delete game date in league {league.leagueName}</h2>
-            {contents }
+            {contents}
+            <p className="errorMessage">{errorMsg}</p>
         </div>
     );
 
@@ -65,7 +66,7 @@ const ScheduleDelete = () => {
                 console.log('Record aquired successfully: ', response.data);
             })
             .catch(error => {
-                console.error('Error aquiring record: ', error);
+                SeterrorMsg('Error aquiring record: '.concat(error.response.data));
             });
 
     }
@@ -80,7 +81,7 @@ const ScheduleDelete = () => {
                 navigate("/League/Schedules");
             })
             .catch(error => {
-                console.error('Error fetching data: ', error);
+                SeterrorMsg(error.response.data);
             })
     }
 }

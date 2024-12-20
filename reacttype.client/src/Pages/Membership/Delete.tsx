@@ -11,7 +11,7 @@ import { FormData } from "./FormData.tsx";
 const MembershipDelete = () => {
     const location = useLocation();
     const id: number = location.state;
-
+    const [errorMsg, SeterrorMsg] = useState("");
     const [membership, setMembership] = useState<FormData>();
 
     
@@ -53,7 +53,8 @@ const MembershipDelete = () => {
     return (
         <div>
         <h1>Delete</h1>
-            {contents }
+            {contents}
+            <p className="errorMessage">{errorMsg}</p>
         </div>
     );
 
@@ -82,7 +83,7 @@ const MembershipDelete = () => {
                 navigate("/Membership");
             })
             .catch(error => {
-                console.error('Error fetching data: ', error);
+                SeterrorMsg(error.response.data);
             })
     }
 }

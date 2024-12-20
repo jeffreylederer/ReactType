@@ -11,6 +11,7 @@ import { FormData } from "./FormData.tsx";
 const LeagueDelete = () => {
     const location = useLocation();
     const id: number = location.state;
+    const [errorMsg, SeterrorMsg] = useState("");
 
     const [league, setleague] = useState<FormData>();
 
@@ -86,6 +87,7 @@ const LeagueDelete = () => {
         <div>
             <h1>Delete</h1>
             {contents}
+            <p className="errorMessage">{errorMsg}</p>
         </div>
     );
 
@@ -114,7 +116,7 @@ const LeagueDelete = () => {
                 navigate("/Admin/leagues");
             })
             .catch(error => {
-                console.error('Error fetching data: ', error);
+                SeterrorMsg(error.response.data);
             })
     }
 }

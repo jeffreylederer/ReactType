@@ -12,6 +12,7 @@ const PlayersDelete = () => {
     const location = useLocation();
     const id: number = location.state;
     const league: leagueType = ConvertLeague();  
+    const [errorMsg, SeterrorMsg] = useState("");
 
     const [players, setPlayers] = useState<UpdateFormData>();
 
@@ -41,7 +42,8 @@ const PlayersDelete = () => {
     return (
         <div>
             <h2>Delete player from league {league.leagueName} </h2>
-            {contents }
+            {contents}
+            <p className="errorMessage">{errorMsg}</p>
         </div>
     );
 
@@ -53,7 +55,7 @@ const PlayersDelete = () => {
                 console.log('Record aquired successfully: ', response.data);
             })
             .catch(error => {
-                console.error('Error aquiring record: ', error);
+                SeterrorMsg("Player record could not be found: ".concat(error.response.data));
             });
 
     }
@@ -66,7 +68,8 @@ const PlayersDelete = () => {
                 navigate("/League/Players");
             })
             .catch(error => {
-                console.error('Error fetching data: ', error);
+                
+                SeterrorMsg(error.response.data);
             })
     }
 }

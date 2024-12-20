@@ -174,6 +174,10 @@ namespace ReactType.Server.Controllers
                 await _context.SaveChangesAsync();
                 return NoContent();
             }
+            catch (DbUpdateException ex1)
+            {
+                return StatusCode(409, "Team cannot be deleted, the team is has been assigned to a match.");
+            }
             catch (Exception ex)
             {
                 return StatusCode(500, ex.Message);

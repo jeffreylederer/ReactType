@@ -119,6 +119,10 @@ namespace ReactType.Server.Controllers
                 await _context.SaveChangesAsync();
                 return NoContent();
             }
+            catch (DbUpdateException ex1)
+            {
+                return StatusCode(409, "This league cannot be deleted, it has players and game dates assigned.");
+            }
             catch (Exception ex)
             {
                 return StatusCode(500, ex.Message);

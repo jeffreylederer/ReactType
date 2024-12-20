@@ -117,7 +117,11 @@ namespace ReactType.Server.Controllers
                 await _context.SaveChangesAsync();
                 return NoContent();
             }
-            catch(Exception ex)
+            catch (DbUpdateException ex1)
+            {
+                return StatusCode(409, "Member cannot be deleted, the member is already assign to a league.");
+            }
+            catch (Exception ex)
             {
                 return StatusCode(500, ex.Message);
             }

@@ -133,6 +133,10 @@ namespace ReactType.Server.Controllers
                 await _context.SaveChangesAsync();
                 return NoContent();
             }
+            catch (DbUpdateException ex1)
+            {
+                return StatusCode(409, "This game date cannot be deleted, this game date has matches assigned.");
+            }
             catch (Exception ex)
             {
                 return StatusCode(500, ex.Message);

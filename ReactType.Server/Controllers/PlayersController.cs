@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ReactType.Server.Models;
 using ReactType.Server.Code;
+using System.Data.Common;
 
 // https://medium.com/@hassanjabbar2017/performing-crud-operations-using-react-with-net-core-a-step-by-step-guide-0176efa86934
 namespace ReactType.Server.Controllers
@@ -120,6 +121,10 @@ namespace ReactType.Server.Controllers
             {
                 await _context.SaveChangesAsync();
                 return NoContent();
+            }
+            catch(DbUpdateException ex1)
+            {
+                return StatusCode(409, "Player cannot be deleted, the player is already on a team.");
             }
             catch(Exception ex)
             {

@@ -28,7 +28,8 @@ const TeamUpdate = () => {
             teamNo: 0
         }
     );
-
+    const [errorMsg, SeterrorMsg] = useState("");
+ 
     const [membership, setMembership] = useState<Membership[]>();
     const location = useLocation();
     const id: number = location.state;
@@ -134,7 +135,7 @@ const TeamUpdate = () => {
                 {errors.skip && <p className="errorMessage">skip: {errors.skip.message}</p>}
                 {errors.viceSkip && <p className="errorMessage">viceskip: {errors.viceSkip.message}</p>}
                 {errors.lead && <p className="errorMessage">lead: {errors.lead.message}</p>}   
-                {errors.divisionId && <p className="errorMessage">division: {errors.divisionId.message}</p>}  
+                {errors.divisionId && <p className="errorMessage">{errors.divisionId.message}</p>}  
                 {errors.id && <p className="errorMessage">id: {errors.id.message}</p>}
                 {errors.teamNo && <p className="errorMessage">teamNo: {errors.teamNo.message}</p>}   
                 {errors.leagueid && <p className="errorMessage">leagueid:  {errors.leagueid.message}</p>}   
@@ -149,7 +150,7 @@ const TeamUpdate = () => {
         <>
             <h3>Update Team {team.teamNo} for league {league.leagueName}</h3>
             {contents}
-
+            <p className="errorMessage">{errorMsg}</p>
             
         </>
     );
@@ -185,7 +186,31 @@ const TeamUpdate = () => {
     }
 
     function updateData(data: UpdateFormData) {
-        //const str: string = JSON.stringify(data);
+        switch (league.teamSize) {
+            case 1:
+                break;
+            case 2:
+                if (data.skip != 0 && data.lead != 0 && data.skip == data.lead) {
+                    SeterrorMsg("Skip and Lead have to be different members");
+                    return;
+                }
+                break;
+            case 3:
+                if (data.skip != 0 && data.lead != 0 && data.skip == data.lead) {
+                    SeterrorMsg("Skip and Lead have to be different members");
+                    return;
+                }
+                if (data.skip != 0 && data.viceSkip != 0 && data.skip == data.viceSkip) {
+                    SeterrorMsg("Skip and Vice Skip have to be different members");
+                    return;
+                }
+                if (data.viceSkip != 0 && data.lead != 0 && data.viceSkip == data.lead) {
+                    SeterrorMsg("Vice Skip and Lead have to be different members");
+                    return;
+                }
+                break;
+        }
+        SeterrorMsg("");
         const url: string = 'https://localhost:7002/api/Teams/'.concat(id.toString());
         axios.put(url, data)
             .then(response => {

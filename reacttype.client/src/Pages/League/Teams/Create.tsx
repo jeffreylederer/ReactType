@@ -17,12 +17,38 @@ const TeamsCreate = () => {
     
     const onSubmit: SubmitHandler<FormData> = (data) => CreateData(data)
     const league: leagueType = ConvertLeague();
+    const [errorMsg, SeterrorMsg] = useState("");
+
 
     const navigate = useNavigate();
     const [membership, setMembership] = useState<Membership[]>();
 
     function CreateData(data: FormData) {
-        //const str:string = JSON.stringify(data);
+        switch (league.teamSize) {
+            case 1:
+                break;
+            case 2:
+                if (data.skip != 0 && data.lead != 0 && data.skip == data.lead) {
+                    SeterrorMsg("Skip and Lead have to be  different members");
+                    return;
+                }
+                break;
+            case 3:
+                if (data.skip != 0 && data.lead != 0 && data.skip == data.lead) {
+                    SeterrorMsg("Skip and Lead have to be  different members");
+                    return;
+                }
+                if (data.skip != 0 && data.viceSkip != 0 && data.skip == data.viceSkip) {
+                    SeterrorMsg("Skip and Vice Skip have to be  different members");
+                    return;
+                }
+                if (data.viceSkip != 0 && data.lead != 0 && data.viceSkip == data.lead) {
+                    SeterrorMsg("Vice Skip and Lead have to be  different members");
+                    return;
+                }
+                break;
+        }
+        SeterrorMsg("");
         axios.post('https://localhost:7002/api/Teams/', data)
             .then((response) => {
                 console.log(response.data);
@@ -137,7 +163,7 @@ const TeamsCreate = () => {
 
                 </Container>
             </form>
-            
+            <p className="errorMessage">{errorMsg}</p>
         </>
     );
 
