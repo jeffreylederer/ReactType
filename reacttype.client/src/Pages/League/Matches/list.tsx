@@ -72,7 +72,7 @@ function Matches() {
                 <tbody>
                     {match.map(item =>
                         <tr key={item.id}>
-                            <td>{item.rink == 1 ? '' : <img src={uparrow} />} </td>
+                            <td><button hidden={item.rink == 1} style={{backgroundColor: 'white'} }><img src={uparrow}  /></button></td>
 
                             <td style={{ color: item.wheelchair1 }} >
                                 {item.team1No} ({item.team1})</td>
@@ -122,7 +122,9 @@ function Matches() {
         }
     }
 
-    
+    const UpArrowFunction = (event: React.MouseEvent<HTMLButtonElement>) => {
+        event.preventDefault();
+    }
 
 
 }
