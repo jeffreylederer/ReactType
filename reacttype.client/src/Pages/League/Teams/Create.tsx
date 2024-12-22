@@ -1,12 +1,11 @@
 import { useNavigate } from "react-router-dom";
 import { useForm, SubmitHandler } from "react-hook-form";
 import axios from "axios";
-import "./FormData.css";
 import { FormData, FormDataSchema } from "./FormData.tsx";
 import { Membership } from "./Membership.tsx";
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useEffect, useState } from 'react';
-import { Label, TextInput } from "flowbite-react";
+import { TextInput } from "flowbite-react";
 import { ConvertLeague, leagueType } from "../../leagueObject.tsx";
 
 const TeamsCreate = () => {

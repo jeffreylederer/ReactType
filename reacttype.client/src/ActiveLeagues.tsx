@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
 import axios from "axios";
 import { useCookies } from 'react-cookie';
-import { leagueType, ConvertLeague } from "./Pages/leagueObject.tsx";
+import { leagueType } from "./Pages/leagueObject.tsx";
 
 
 function ActiveLeagues() {
     const [league, setleague] = useState<leagueType[]>();
+    const [message, setMessage] = useState(league === undefined? "no league selected": 'league ${league.leagueName} selected');
     const setCookie = useCookies(['league'])[1];
     const cookie = useCookies(['league'])[0];
     const removeCookie = useCookies(['league'])[2];
@@ -21,6 +22,7 @@ function ActiveLeagues() {
             
             setCookie("league", item);
             console.log(league);
+            setMessage("league ${league.leagueName}");
         }
           
     };
@@ -64,7 +66,7 @@ function ActiveLeagues() {
         <div>
             <h1 id="tableLabel">Select League</h1>
             {contents}
-            <p>Selected league is {cookie.league === undefined ? "not selected" : ConvertLeague().leagueName}</p>
+            <p>{message}</p>
             <p><button onClick={Hide}>Unselect</button></p>
         </div>
     );
@@ -72,6 +74,7 @@ function ActiveLeagues() {
     function Hide() {
         if (cookie.league !== undefined) {
             removeCookie("league");
+            setMessage("no league selected");
         }
     }
 

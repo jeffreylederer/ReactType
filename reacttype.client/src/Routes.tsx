@@ -34,7 +34,7 @@ import TeamsDelete from "./Pages/League/Teams/Delete.tsx";
 import TeamsCreate from "./Pages/League/Teams/Create.tsx";
 import TeamsUpdate from "./Pages/League/Teams/Update.tsx";
 
-import Matches from "./Pages/League/Matches/List.tsx";
+import Matches from "./Pages/League/Matches/list.tsx";
 
 
 

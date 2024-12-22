@@ -4,7 +4,7 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import axios from "axios";
 import { UpdateFormData, UpdateFormDataSchema } from "./UpdateFormData.tsx";
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Checkbox, Label, TextInput } from "flowbite-react";
+import { Checkbox, TextInput } from "flowbite-react";
 import { Form } from "react-bootstrap";
 import { ConvertLeague, leagueType } from "../../leagueObject.tsx";
 
@@ -29,7 +29,7 @@ const ScheduleUpdate = () => {
     const {
         register,
         handleSubmit,
-        formState: { errors },
+        //formState: { errors },
 
     } = useForm<UpdateFormData>({
         resolver: zodResolver(UpdateFormDataSchema),

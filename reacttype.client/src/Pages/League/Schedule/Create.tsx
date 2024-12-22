@@ -3,8 +3,7 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import axios from "axios";
 import { FormData, FormDataSchema } from "./FormData.tsx";
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Checkbox, Label, TextInput } from "flowbite-react";
-import "./FormData.css";
+import { Checkbox, TextInput } from "flowbite-react";
 import { Form } from "react-bootstrap";
 import { ConvertLeague, leagueType } from "../../leagueObject.tsx";
 

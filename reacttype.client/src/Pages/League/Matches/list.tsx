@@ -1,10 +1,10 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState  } from 'react';
 import { MatchFormData } from "./MatchFormData.tsx";
 import axios from "axios";
 import { ConvertLeague, leagueType } from "../../leagueObject.tsx";
 import uparrow from '../../../images/uparrow.png';
 import { UpdateFormData } from "../Schedule/UpdateFormData.tsx";
-
+import { flushSync } from 'react-dom';
 function Matches() {
     const [match, setMatch] = useState<MatchFormData[]>();
     const [schedule, setSchedule] = useState<UpdateFormData[]>();
@@ -19,10 +19,12 @@ function Matches() {
     }, []);
 
     const selectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-        event.preventDefault();
+        //event.preventDefault();
         const value = event.target.value;
         const weekid: number = +value;
         GetData(weekid);
+        
+
     };
 
     const contents = schedule === undefined
@@ -97,22 +99,27 @@ function Matches() {
     async function GetData(weekid: number) {
     const url: string = "https://localhost:7002/api/matches/".concat(weekid.toString());
       axios.get(url)
-        .then(response => {
-            setMatch(response.data);
+          .then(response => {
+              flushSync(() => {
+                  setMatch(response.data);
+              });
+            
         })
         .catch(error => {
             console.error('Error fetching data: ', error);
         })
     }
     async function GetDates() {
-        const url: string = "https://localhost:7002/api/Schedules/".concat(league.id.toString());
-        axios.get(url)
-            .then(response => {
-                setSchedule(response.data);
-            })
-            .catch(error => {
-                console.error('Error fetching data: ', error);
-            })
+        if (schedule === undefined) {
+            const url: string = "https://localhost:7002/api/Schedules/".concat(league.id.toString());
+            axios.get(url)
+                .then(response => {
+                    setSchedule(response.data);
+                })
+                .catch(error => {
+                    console.error('Error fetching data: ', error);
+                })
+        }
     }
 
     
