@@ -25,6 +25,8 @@ public partial class DbLeagueApp : DbContext
 
     public virtual DbSet<Membership> Memberships { get; set; }
 
+    public virtual DbSet<OneMatchWeekView> OneMatchWeekViews { get; set; }
+
     public virtual DbSet<OneTeamView> OneTeamViews { get; set; }
 
     public virtual DbSet<Player> Players { get; set; }
@@ -154,6 +156,26 @@ public partial class DbLeagueApp : DbContext
                 .HasMaxLength(25)
                 .IsUnicode(false)
                 .HasColumnName("shortname");
+        });
+
+        modelBuilder.Entity<OneMatchWeekView>(entity =>
+        {
+            entity
+                .HasNoKey()
+                .ToView("OneMatchWeekView");
+
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.Team1)
+                .HasMaxLength(152)
+                .IsUnicode(false)
+                .HasColumnName("team1");
+            entity.Property(e => e.Team2)
+                .HasMaxLength(152)
+                .IsUnicode(false)
+                .HasColumnName("team2");
+            entity.Property(e => e.Weekid).HasColumnName("weekid");
+            entity.Property(e => e.Wheelchair1).HasColumnName("wheelchair1");
+            entity.Property(e => e.Wheelchair2).HasColumnName("wheelchair2");
         });
 
         modelBuilder.Entity<OneTeamView>(entity =>

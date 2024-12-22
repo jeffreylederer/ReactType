@@ -9,9 +9,10 @@
     <BuildOutputFolder>$(MSBuildProjectDirectory)\dist</BuildOutputFolder>
   </PropertyGroup>
   <ItemGroup>
-    <None Remove="src\Pages\player\Update - Copy.tsx" />
+    <None Remove="src\Components\**" />
+    <TypeScriptConfiguration Remove="src\Components\**" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="src\Components\" />
+    <None Remove="src\Pages\player\Update - Copy.tsx" />
   </ItemGroup>
 </Project>
