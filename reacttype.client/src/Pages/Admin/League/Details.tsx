@@ -1,17 +1,14 @@
 import { useLocation, Link } from "react-router-dom";
 import { useEffect, useState } from 'react';
 import axios from "axios";
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import Container from 'react-bootstrap/Container';
 import { FormData } from "./FormData.tsx";
-
+import { useNavigate } from "react-router-dom";
 
 
 const LeagueDetails = () => {
     const location = useLocation();
     const id: number = location.state;
-
+    const navigate = useNavigate();
     const [league, setleague] = useState<FormData>();
     useEffect(() => {
         GetData();
@@ -20,68 +17,64 @@ const LeagueDetails = () => {
     const contents = league === undefined
         ? <p><em>Loading ...</em></p> :
 
-        <Container>
-            <Row>
-                <Col style={{ width: "200px" }}><label>League Name:</label></Col>
+        <table>
+            <tr>
+                <td className="Label">Active:</td>
+                <td className="Field">{league.active?"Yes":"No"}</td>
 
-                <Col style={{ textAlign: "left" }}>{league.leagueName}</Col>
-            </Row>
-            <Row>
-                <Col style={{ width: "200px" }}><label>Active:</label></Col>
-                <Col style={{ textAlign: "left" }}>{league.active?"Yes":"No"}</Col>
-
-            </Row>
-            <Row>
-                <Col style={{ width: "200px" }}><label>Team Size:</label></Col>
-                <Col style={{ textAlign: "left" }}>{league.teamSize}</Col>
-            </Row>
-            <Row>
-                <Col style={{ width: "200px" }}><label>Ties Allowed:</label></Col>
-                <Col style={{ textAlign: "left" }}>{league.tiesAllowed ? "Yes" : "No"}</Col>
-            </Row>
-            <Row>
-                <Col style={{ width: "200px" }}><label>Points Count:</label></Col>
-                <Col style={{ textAlign: "left" }}>{league.pointsCount ? "Yes" : "No"}</Col>
-            </Row>
-            <Row>
-                <Col style={{ width: "200px" }}><label>Points for a Win:</label></Col>
-                <Col style={{ textAlign: "left" }}>{league.winPoints}</Col>
-            </Row>
-            <Row>
-                <Col style={{ width: "200px" }}><label>Points for a Tie:</label></Col>
-                <Col style={{ textAlign: "left" }}>{league.tiePoints}</Col>
-            </Row>
-            <Row>
-                <Col style={{ width: "200px" }}><label>Points for a Bye:</label></Col>
-                <Col style={{ textAlign: "left" }}>{league.byePoints}</Col>
-            </Row>
-            <Row>
-                <Col style={{ width: "200px" }}><label>Start Week:</label></Col>
-                <Col style={{ textAlign: "left" }}>{league.startWeek}</Col>
-            </Row>
-            <Row>
-                <Col style={{ width: "200px" }}><label>Points Limit:</label></Col>
-                <Col style={{ textAlign: "left" }}>{league.pointsLimit ? "Yes" : "No"}</Col>
-            </Row>
-            <Row>
-                <Col style={{ width: "200px" }}><label>Divisions:</label></Col>
-                <Col style={{ textAlign: "left" }}>{league.divisions}</Col>
-            </Row>
-            <Row>
-                <Col style={{ width: "200px" }}><label>Playoffs:</label></Col>
-                <Col style={{ textAlign: "left" }}>{league.playOffs ? "Yes" : "No"}</Col>
-            </Row>
-            <Row>
-                <Col style={{ width: "300px" }}>
+            </tr>
+            <tr>
+                <td className="Label">Team Size:</td>
+                <td className="Field">{league.teamSize}</td>
+            </tr>
+            <tr>
+                <td className="Label">Ties Allowed:</td>
+                <td className="Field">{league.tiesAllowed ? "Yes" : "No"}</td>
+            </tr>
+            <tr>
+                <td className="Label">Points Count:</td>
+                <td className="Field">{league.pointsCount ? "Yes" : "No"}</td>
+            </tr>
+            <tr>
+                <td className="Label">Points for a Win:</td>
+                <td className="Field">{league.winPoints}</td>
+            </tr>
+            <tr>
+                <td className="Label">Points for a Tie:</td>
+                <td className="Field">{league.tiePoints}</td>
+            </tr>
+            <tr>
+                <td className="Label">Points for a Bye:</td>
+                <td className="Field">{league.byePoints}</td>
+            </tr>
+            <tr>
+                <td className="Label">Start Week:</td>
+                <td className="Field">{league.startWeek}</td>
+            </tr>
+            <tr>
+                <td className="Label">Points Limit:</td>
+                <td className="Field">{league.pointsLimit ? "Yes" : "No"}</td>
+            </tr>
+            <tr>
+                <td className="Label">Divisions:</td>
+                <td className="Field">{league.divisions}</td>
+            </tr>
+            <tr>
+                <td className="Label">Playoffs:</td>
+                <td className="Field">{league.playOffs ? "Yes" : "No"}</td>
+            </tr>
+            <tr>
+                <td colSpan={1} style={{ textAlign: "center" }}>
                     <Link to="/Admin/League/Update" state={id.toString()}>
                         <button>Update</button></Link>
-                </Col>
-            </Row>
-        </Container>
+                    <button onClick={() => navigate(-1)}>Go back to list</button>
+                </td>
+            </tr>
+        </table>
 
     return (
         <div>
-            <h1>Details</h1>
+            <h3>Details for league {league?.leagueName}</h3>
             {contents}
         </div>
     );

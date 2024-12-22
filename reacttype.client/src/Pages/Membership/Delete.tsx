@@ -24,31 +24,32 @@ const MembershipDelete = () => {
     const contents = membership === undefined
         ? <p><em>Loading ...</em></p> :
         
-        <Container>
-            <Row>
-                <Col style={{width: "200px"}}><label>First Name:</label></Col>
+        <table>
+            <tr>
+                <td className="Label">First Name:</td>
 
-                <Col style={{ textAlign: "left" }}>{membership.firstName}</Col>
-            </Row>
-            <Row>
-                <Col style={{ width: "200px" }}><label>Last Name:</label></Col>
-                <Col style={{ textAlign: "left" }}>{membership.lastName}</Col>
+                <td className="Field">{membership.firstName}</td>
+            </tr>
+            <tr>
+                <td style={{ width: "200px" }}>Last Name:</td>
+                <td className="Field">{membership.lastName}</td>
               
-            </Row>
-            <Row>
-                <Col style={{ width: "200px" }}><label>Short Name:</label></Col>
-                <Col style={{ textAlign: "left" }}>{membership.shortname == null ? "" : membership.shortname}</Col>
-              </Row>
-            <Row>
-                <Col style={{ width: "200px" }}><label>Wheel Chair:</label></Col>
-                <Col style={{ textAlign: "left" }}>{membership.wheelchair?"Yes":"No"}</Col>
-            </Row>
-            <Row>
-                <Col style={{ width: "300px" }}>
-                    <input type='button' onClick={DeleteItem } value="Delete Record" />
-                </Col>
-            </Row>
-        </Container>
+            </tr>
+            <tr>
+                <td style={{ width: "200px" }}>Short Name:</td>
+                <td className="Field">{membership.shortname == null ? "" : membership.shortname}</td>
+              </tr>
+            <tr>
+                <td style={{ width: "200px" }}>Wheel Chair:</td>
+                <td className="Field">{membership.wheelchair?"Yes":"No"}</td>
+            </tr>
+            <tr>
+                <td style={{ width: "300px" }}>
+                    <input type='button' onClick={DeleteItem} value="Delete Record" />
+                    <button onClick={() => navigate(-1)}>Go back to list</button>
+                </td>
+            </tr>
+        </table>
         
     return (
         <div>

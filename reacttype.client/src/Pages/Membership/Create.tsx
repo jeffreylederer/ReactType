@@ -1,9 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useForm, SubmitHandler } from "react-hook-form";
 
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import Container from 'react-bootstrap/Container';
 import axios from "axios";
 import { FormData, FormDataSchema } from "./FormData.tsx";
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -50,43 +47,46 @@ const MembershipCreate = () => {
                 
                 <TextInput {...register("nickName")} type="hidden"   />
                 <TextInput {...register("fullName")} type="hidden"   />
-                <Container >
-                    <Row>
-                        <Col style={{ width: '15%' }}><Label>First Name:</Label></Col>
+                <table>
+                    <tr>
+                        <td className="Label">First Name:</td>
 
-                        <Col><TextInput {...register('firstName')} style={{ width: '85%' }} />
-                         </Col>
-                    </Row>
-                    <Row>
-                        <Col style={{ width: '15%' }}><Label>Last Name:</Label></Col>
+                        <td className="Field"><TextInput {...register('firstName')}  />
+                        </td>
+                         </tr>
+                    <tr>
+                        <td className="Label">Last Name:</td>
 
-                        <Col><TextInput  {...register('lastName')} style={{ width: '85%' }} />
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col style={{ width: '15%' }}><Label>Short Name:</Label></Col>
-                        <Col><TextInput {...register('shortname')} style={{ width: '85%' }} />
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col style={{ width: '15%' }}><Label>Wheel Chair:</Label></Col>
+                        <td className="Field"><TextInput  {...register('lastName')}  />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td className="Label">Short Name:</td>
+                        <td className="Field"><TextInput {...register('shortname')}  />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td className="Label">Wheel Chair:</td>
 
-                        <Col style={{ textAlign: "left", width: '85%' }}>
+                        <td className="Field">
                             <Checkbox {...register('wheelchair')}  />
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col style={{ textAlign: "center", width: '100%' }}>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colSpan={1}  style={{ textAlign: "center" }}>
                             <TextInput type="submit" />
-                        </Col>
-                    </Row>
+                            <button onClick={() => navigate(-1)}>Go back to list</button>
+                        </td>
+                    </tr>
+                    <tr><td colSpan={1}>
                     {errors.firstName && <p className="errorMessage">{errors.firstName.message}</p>}
                     {errors.lastName && <p className="errorMessage">{errors.lastName.message}</p>}
                     {errors.shortname && <p className="errorMessage">{errors.shortname.message}</p>}
-                    
+                    </td>
+                    </tr>
                     
 
-                </Container>
+                </table>
             </form>
             
         </>

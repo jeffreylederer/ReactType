@@ -1,9 +1,6 @@
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, } from "react-router-dom";
 import { useEffect, useState } from 'react';
 import axios from "axios";
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import Container from 'react-bootstrap/Container';
 import { UpdateFormData } from "./UpdateFormData.tsx";
 import { ConvertLeague, leagueType } from "../../leagueObject.tsx";
 
@@ -13,7 +10,6 @@ const PlayersDelete = () => {
     const id: number = location.state;
     const league: leagueType = ConvertLeague();  
     const [errorMsg, SeterrorMsg] = useState("");
-
     const [players, setPlayers] = useState<UpdateFormData>();
 
     
@@ -25,25 +21,27 @@ const PlayersDelete = () => {
 
     const contents = players === undefined
         ? <p><em>Loading ...</em></p> :
-        
-        <Container>
-            <Row>
-                <Col style={{width: "200px"}}><label>Name:</label></Col>
 
-                <Col style={{ textAlign: "left" }}>{players.fullName}</Col>
-            </Row>
-            <Row>
-                <Col style={{ width: "300px" }}>
+        <table>
+            <tr>
+                <td className="Label">Name:</td>
+
+                <td className="Field">{players.fullName}</td>
+            </tr>
+            <tr>
+                <td colSpan={1} style={{ textAlign: "center" }}>
                     <input type='button' onClick={DeleteItem} value="Delete Record" />
-                </Col>
-            </Row>
-        </Container>
+                    <button onClick={() => navigate(-1)}>Back to list</button>
+                </td>
+            </tr>
+        </table>;
         
     return (
         <div>
             <h2>Delete player from league {league.leagueName} </h2>
             {contents}
             <p className="errorMessage">{errorMsg}</p>
+           
         </div>
     );
 

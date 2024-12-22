@@ -1,15 +1,12 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from 'react';
 import { useForm, SubmitHandler } from "react-hook-form";
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import Container from 'react-bootstrap/Container';
 import axios from "axios";
 import { UpdateFormData, UpdateFormDataSchema } from "./UpdateFormData.tsx";
 import { zodResolver } from '@hookform/resolvers/zod';
 import { ConvertLeague, leagueType } from "../../leagueObject.tsx";
 import { Membership } from "./Membership.tsx";
-import { Label, TextInput } from "flowbite-react";
+import { TextInput } from "flowbite-react";
 
 const TeamUpdate = () => {
 
@@ -61,10 +58,10 @@ const TeamUpdate = () => {
             <input type="hidden" {...register("id", { valueAsNumber: true })} defaultValue={team.id.toString()} />
             <input type="hidden" {...register("leagueid", { valueAsNumber: true })} defaultValue={team.leagueid} />
             <input type="hidden" {...register("teamNo", { valueAsNumber: true })} defaultValue={team.teamNo} />
-             <Container>
-            <Row>
-                <Col style={{ width: '15%' }}><Label>Skip:</Label></Col>
-                <Col>
+             <table>
+            <tr>
+                <td className="Label">Skip:</td>
+                <td>
                     <select style={{ width: '85%' }} defaultValue={team.skipid} {...register("skip")}>
                             <option value="0" key="0">Select member</option>
                             <option value={team.skipid.toString()} key={team.skipid.toString()}>{team.skip}</option>
@@ -74,12 +71,12 @@ const TeamUpdate = () => {
                                 <option value={item.id.toString()} key={item.id.toString()}>{item.fullName}</option>
                             ))}
                             )
-                    </select></Col>
-            </Row>
+                    </select></td>
+            </tr>
 
-            <Row hidden={league.teamSize < 3}>
-                <Col style={{ width: '15%' }}><Label>Vice Skip:</Label></Col>
-                <Col>
+            <tr hidden={league.teamSize < 3}>
+                <td className="Label">Vice Skip:</td>
+                <td>
                     <select style={{ width: '85%' }} defaultValue={team.viceSkipid} {...register("viceSkip")}>
                             <option value="0" key="0">Select member</option>
                             <option value={team.skipid.toString()} key={team.skipid.toString()}>{team.skip}</option>
@@ -89,12 +86,12 @@ const TeamUpdate = () => {
                                 <option value={item.id.toString()} key={item.id.toString()}>{item.fullName}</option>
                             ))}
                             )
-                    </select></Col>
-            </Row>
+                    </select></td>
+            </tr>
 
-            <Row hidden={league.teamSize < 2}>
-                <Col style={{ width: '15%' }}><Label>Lead:</Label></Col>
-                <Col>
+            <tr hidden={league.teamSize < 2}>
+                <td className="Label">Lead:</td>
+                <td>
                     <select style={{ width: '85%' }} {...register("lead")} defaultValue={team.leadid}>
                             <option value="0" key="0">Select member</option>
                             <option value={team.skipid.toString()} key={team.skipid.toString()}>{team.skip}</option>
@@ -104,18 +101,18 @@ const TeamUpdate = () => {
                                 <option value={item.id.toString()} key={item.id.toString()}>{item.fullName}</option>
                             ))}
                             )
-                    </select></Col>
-            </Row>
-            <Row>
-                <Col style={{ width: '15%' }}><Label>Division:</Label></Col>
-                <Col>
+                    </select></td>
+            </tr>
+            <tr>
+                <td className="Label">Division:</td>
+                <td>
                     <select style={{ width: '85%' }} defaultValue={team.divisionId} {...register("divisionId")}>
                         <option value="0" key="0">Select Devision</option>
                         <option value="1" key="1">1</option>
                         <option value="2" key="2" hidden={league.divisions < 2 }>2</option>
                         <option value="3" key="3" hidden={league.divisions < 3}>3</option>
-                    </select></Col>
-            </Row>
+                    </select></td>
+            </tr>
 
 
 
@@ -126,12 +123,14 @@ const TeamUpdate = () => {
                 league.teamSize < 2 && <input type="hidden" defaultValue="0" {...register("lead")} />
             }
 
-            <Row>
-                <Col style={{ textAlign: "center", width: '100%' }}>
-                    <TextInput type="submit" />
-                </Col>
-            </Row>
-            
+            <tr>
+                    <td colSpan={1}  style={{ textAlign: "center" }}>
+                        <TextInput type="submit" />
+                        <button onClick={() => navigate(-1)}>Back to list</button>
+                </td>
+                </tr>
+                <tr>
+                    <td colSpan={1}>
                 {errors.skip && <p className="errorMessage">skip: {errors.skip.message}</p>}
                 {errors.viceSkip && <p className="errorMessage">viceskip: {errors.viceSkip.message}</p>}
                 {errors.lead && <p className="errorMessage">lead: {errors.lead.message}</p>}   
@@ -139,11 +138,11 @@ const TeamUpdate = () => {
                 {errors.id && <p className="errorMessage">id: {errors.id.message}</p>}
                 {errors.teamNo && <p className="errorMessage">teamNo: {errors.teamNo.message}</p>}   
                 {errors.leagueid && <p className="errorMessage">leagueid:  {errors.leagueid.message}</p>}   
-                
+                    </td></tr>
 
 
 
-            </Container>
+            </table>
         </form>
     
     return (

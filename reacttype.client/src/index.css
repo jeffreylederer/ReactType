@@ -66,3 +66,24 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+.errorMessage {
+    color: red;
+    text-align: left;
+}
+
+.Label {
+    text-align: right;
+    font-weight: 500;
+}
+
+.Field {
+    text-align: left;
+}
+
+.centered-td {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+}

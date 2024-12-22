@@ -1,14 +1,10 @@
 import { useNavigate } from "react-router-dom";
 import { useForm, SubmitHandler } from "react-hook-form";
-
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import Container from 'react-bootstrap/Container';
 import axios from "axios";
 import { FormData, FormDataSchema } from "./FormData.tsx";
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Checkbox, Label, TextInput } from "flowbite-react";
-import "./FormData.css";
+import { Checkbox, TextInput, Button } from "flowbite-react";
+import { ConvertLeague, leagueType } from "../../leagueObject.tsx";
 
 const LeagueCreate = () => {
 
@@ -21,7 +17,7 @@ const LeagueCreate = () => {
     });
 
     const onSubmit: SubmitHandler<FormData> = (data) => CreateData(data)
-
+    const league: leagueType = ConvertLeague();
     const navigate = useNavigate();
 
     function CreateData(data: FormData) {
@@ -37,113 +33,112 @@ const LeagueCreate = () => {
     }
 
 
-
-
-
-
     return (
         <>
-
+            <h3>Add new member to league {league.leagueName}</h3>
             <form onSubmit={handleSubmit(onSubmit)} >
                
-                <Container >
-                    <Row>
-                        <Col style={{ width: '15%' }}><Label>League Name:</Label></Col>
+                <table>
+                    <tr>
+                        <td className="Label">League Name:</td>
 
-                        <Col><TextInput {...register('leagueName')} style={{ width: '85%' }} />
-                        </Col>
-                    </Row>
+                        <td className="Field"><TextInput {...register('leagueName')} style={{ width: '85%' }} />
+                        </td>
+                    </tr>
                     
-                    <Row>
-                        <Col style={{ width: '25%' }}><Label>Active:</Label></Col>
+                    <tr>
+                        <td className="Label">Active:</td>
 
-                        <Col style={{ textAlign: "left", width: '75%' }}>
+                        <td className="Field">
                             <Checkbox {...register('active')} />
-                        </Col>
-                    </Row>
+                        </td>
+                    </tr>
 
-                    <Row>
-                        <Col style={{ width: '15%' }}><Label>Team Size:</Label></Col>
+                    <tr>
+                        <td className="Label">Team Size:</td>
 
-                        <Col><TextInput type="number" {...register('teamSize')} style={{ width: '85%' }} />
-                        </Col>
-                    </Row>
+                        <td className="Field"><TextInput type="number" {...register('teamSize')}  />
+                        </td>
+                    </tr>
 
-                    <Row>
-                        <Col style={{ width: '25%' }}><Label>Ties Allowed:</Label></Col>
+                    <tr>
+                        <td className="Label">Ties Allowed:</td>
 
-                        <Col style={{ textAlign: "left", width: '75%' }}>
+                        <td className="Field">
                             <Checkbox {...register('tiesAllowed')} />
-                        </Col>
-                    </Row>
+                        </td>
+                    </tr>
 
-                    <Row>
-                        <Col style={{ width: '15%' }}><Label>Points Count:</Label></Col>
+                    <tr>
+                        <td className="Label">Points Count:</td>
 
-                        <Col style={{ textAlign: "left", width: '85%' }}>
+                        <td className="Field">
                             <Checkbox {...register('pointsCount')} />
-                        </Col>
-                    </Row>
+                        </td>
+                    </tr>
 
-                    <Row>
-                        <Col style={{ width: '15%' }}><Label>Points for a Win:</Label></Col>
+                    <tr>
+                        <td className="Label">Points for a Win:</td>
 
-                        <Col><TextInput {...register('winPoints')} style={{ width: '85%' }} />
-                        </Col>
-                    </Row>
+                        <td className="Field"><TextInput {...register('winPoints')}  />
+                        </td>
+                    </tr>
 
-                    <Row>
-                        <Col style={{ width: '15%' }}><Label>Points for a Tie:</Label></Col>
+                    <tr>
+                        <td className="Label">Points for a Tie:</td>
 
-                        <Col><TextInput {...register('tiePoints')} style={{ width: '85%' }} />
-                        </Col>
-                    </Row>
+                        <td className="Field"><TextInput {...register('tiePoints')}  />
+                        </td>
+                    </tr>
 
-                    <Row>
-                        <Col style={{ width: '15%' }}><Label>Points for a Bye:</Label></Col>
+                    <tr>
+                        <td className="Label">Points for a Bye:</td>
 
-                        <Col><TextInput {...register('byePoints')} style={{ width: '85%' }} />
-                        </Col>
-                    </Row>
+                        <td className="Field"><TextInput {...register('byePoints')}  />
+                        </td>
+                    </tr>
 
-                    <Row>
-                        <Col style={{ width: '15%' }}><Label>Start Week:</Label></Col>
+                    <tr>
+                        <td className="Label">Start Week:</td>
 
-                        <Col><TextInput {...register('startWeek')} style={{ width: '85%' }} />
-                        </Col>
-                    </Row>
+                        <td className="Field"><TextInput {...register('startWeek')}  />
+                        </td>
+                    </tr>
 
-                    <Row>
-                        <Col style={{ width: '25%' }}><Label>Points are limited:</Label></Col>
+                    <tr>
+                        <td className="Label">Points are limited:</td>
 
-                        <Col style={{ textAlign: "left", width: '75%' }}>
+                        <td className="Field">
                             <Checkbox {...register('pointsLimit')} />
-                        </Col>
-                    </Row>
+                        </td>
+                    </tr>
 
-                    <Row>
-                        <Col style={{ width: '15%' }}><Label># of Divisions:</Label></Col>
+                    <tr>
+                        <td className="Label"># of Divisions:</td>
 
-                        <Col><TextInput {...register('divisions')} style={{ width: '85%' }} />
-                        </Col>
-                    </Row>
+                        <td className="Field"><TextInput {...register('divisions')} />
+                        </td>
+                    </tr>
 
-                    <Row>
-                        <Col style={{ width: '25%' }}><Label>Playoffs:</Label></Col>
+                    <tr>
+                        <td className="Label">Playoffs:</td>
 
-                        <Col style={{ textAlign: "left", width: '75%' }}>
+                        <td className="Field">
                             <Checkbox {...register('playOffs')} />
-                        </Col>
-                    </Row>
+                        </td>
+                    </tr>
 
-                    <Row>
-                        <Col style={{ textAlign: "center", width: '100%' }}>
-                            <TextInput type="submit" />
-                        </Col>
-                    </Row>
+                    <tr>
+                        <td colSpan={1}  style={{ textAlign: "center" }}>
+                            <Button type="submit" color="gray">Submit</Button>
+                            
+                            <button onClick={() => navigate(-1)}>Go back to list</button>
+                        </td>
+                        
+                    </tr>
                    
 
-
+                    <tr><td colSpan={1}>
                     {errors.leagueName && <p className="errorMessage">{errors.leagueName.message}</p>}
                     {errors.teamSize && <p className="errorMessage">{errors.teamSize.message}</p>}
                     {errors.winPoints && <p className="errorMessage">{errors.winPoints.message}</p>}
@@ -151,11 +146,12 @@ const LeagueCreate = () => {
                     {errors.byePoints && <p className="errorMessage">{errors.byePoints.message}</p>}
                     {errors.startWeek && <p className="errorMessage">{errors.startWeek.message}</p>}
                     {errors.divisions && <p className="errorMessage">{errors.divisions.message}</p>}
+                    </td></tr>
 
 
-
-                </Container>
+                </table>
             </form>
+            
 
         </>
     );

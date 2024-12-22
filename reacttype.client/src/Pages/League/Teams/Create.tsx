@@ -87,63 +87,65 @@ const TeamsCreate = () => {
         <>
             <h2>Create new Team in league {league.leagueName} </h2>
             <form onSubmit={handleSubmit(onSubmit)} >
-                <Container>
+                <table>
                     <input type="hidden" {...register("leagueid")} defaultValue={league.id} />
                     <input type="hidden" {...register("teamNo")} defaultValue={"1"} />
                     <input type="hidden" {...register("id")} defaultValue={"0"} />
-                    <Row>
-                        <Col style={{ width: '15%' }}><Label>Skip:</Label></Col>
-                        <Col>
+                    <tr>
+                        <td className="Label">Skip:</td>
+                        <td>
                             <select style={{ width: '85%' }} defaultValue="0" {...register("skip")}>
                                 <option value="0">Select member</option>
                                 {membership?.map((item) => (
                                     <option value={item.id.toString()}>{item.fullName}</option>
                                 ))}
                                 )
-                            </select></Col>
-                    </Row>
+                            </select></td>
+                    </tr>
 
-                    <Row hidden={league.teamSize < 3}>
-                        <Col style={{ width: '15%' }}><Label>Vice Skip:</Label></Col>
-                        <Col>
+                    <tr hidden={league.teamSize < 3}>
+                        <td className="Label">Vice Skip:</td>
+                        <td>
                             <select style={{ width: '85%' }} defaultValue="0" {...register("viceSkip")}>
                                 <option value="0">Select member</option>
                                 {membership?.map((item) => (
                                     <option value={item.id.toString()}>{item.fullName}</option>
                                 ))}
                                 )
-                            </select></Col>
-                    </Row> 
+                            </select></td>
+                    </tr> 
 
-                    <Row hidden={league.teamSize < 2}>
-                        <Col style={{ width: '15%' }}><Label>Lead:</Label></Col>
-                        <Col>
+                    <tr hidden={league.teamSize < 2}>
+                        <td className="Label">Lead:</td>
+                        <td>
                             <select style={{ width: '85%' }} defaultValue="0" {...register("lead")}>
                                 <option value="0">Select Member</option>
                                 {membership?.map((item) => (
                                     <option value={item.id.toString()}>{item.fullName}</option>
                                 ))}
                                 )
-                            </select></Col>
-                    </Row>
-                    <Row>
-                        <Col style={{ width: '15%' }}><Label>Division:</Label></Col>
-                        <Col>
+                            </select></td>
+                    </tr>
+                    <tr>
+                        <td className="Label">Division:</td>
+                        <td>
                             <select style={{ width: '85%' }} defaultValue="0" {...register("divisionId")}>
                                 <option value="0">Select Division</option>
                                 <option value="1">1</option>
                                 <option value="2" hidden={league.divisions <2  }>2</option>
                                 <option value="3" hidden={league.divisions <3 }>3</option>
-                            </select></Col>
-                    </Row>
+                            </select></td>
+                    </tr>
                 
                 
-                    <Row>
-                        <Col style={{ textAlign: "center", width: '100%' }}>
+                    <tr>
+                        <td colSpan={1}  style={{ textAlign: "center" }}>
                             <TextInput type="submit" />
-                        </Col>
-                    </Row>
-                
+                            <button onClick={() => navigate(-1)}>Back to list</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colSpan={1}>
                     {errors.skip && <p className="errorMessage">skip: {errors.skip.message}</p>}
                     {errors.viceSkip && <p className="errorMessage">viceskip: {errors.viceSkip.message}</p>}
                     {errors.lead && <p className="errorMessage">lead: {errors.lead.message}</p>}
@@ -158,10 +160,10 @@ const TeamsCreate = () => {
                     {
                         league.teamSize < 2 && <input type="hidden" defaultValue="0" {...register("lead")} />
                     }
-                    
+                        </td></tr>
                     
 
-                </Container>
+                </table>
             </form>
             <p className="errorMessage">{errorMsg}</p>
         </>

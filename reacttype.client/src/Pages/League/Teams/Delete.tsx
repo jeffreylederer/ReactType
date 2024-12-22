@@ -1,9 +1,6 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from 'react';
 import axios from "axios";
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import Container from 'react-bootstrap/Container';
 import { TeamMember } from "./TeamMember.tsx";
 import { ConvertLeague, leagueType } from "../../leagueObject.tsx";
 
@@ -25,42 +22,43 @@ const TeamsDelete = () => {
     const contents = team === undefined
         ? <p><em>Loading ...</em></p> :
         
-        <Container>
-            <Row>
-                <Col style={{width: "200px"}}><label>Team No:</label></Col>
-                <Col style={{ textAlign: "left" }}>{team?.teamNo}</Col>
-            </Row>
+        <table>
+            <tr>
+                <td className="Label">Team No:</td>
+                <td className="Field">{team?.teamNo}</td>
+            </tr>
 
-            <Row>
-                <Col style={{ width: "200px" }}><label>Skip:</label></Col>
-                <Col style={{ textAlign: "left" }}>{team?.skip}</Col>
-            </Row>
+            <tr>
+                <td style={{ width: "200px" }}>Skip:</td>
+                <td className="Field">{team?.skip}</td>
+            </tr>
 
-            <Row hidden={league.teamSize < 3}>
-                <Col style={{ width: "200px" }}><label>Vice Skip:</label></Col>
-                <Col style={{ textAlign: "left" }}>{team?.viceSkip}</Col>
-            </Row>
+            <tr hidden={league.teamSize < 3}>
+                <td style={{ width: "200px" }}>Vice Skip:</td>
+                <td className="Field">{team?.viceSkip}</td>
+            </tr>
 
-            <Row hidden={league.teamSize < 2}>
-                <Col style={{ width: "200px" }}><label>Lead:</label></Col>
-                <Col style={{ textAlign: "left" }}>{team?.lead}</Col>
-            </Row>
+            <tr hidden={league.teamSize < 2}>
+                <td style={{ width: "200px" }}>Lead:</td>
+                <td className="Field">{team?.lead}</td>
+            </tr>
 
-            <Row>
-                <Col style={{ width: "200px" }}><label>Division:</label></Col>
-                <Col style={{ textAlign: "left" }}>{team?.divisionId}</Col>
-            </Row>
+            <tr>
+                <td style={{ width: "200px" }}>Division:</td>
+                <td className="Field">{team?.divisionId}</td>
+            </tr>
 
-            <Row>
-                <Col style={{ width: "300px" }}>
+            <tr>
+                <td style={{ width: "300px" }}>
                     <input type='button' onClick={DeleteItem} value="Delete Record" />
-                </Col>
-            </Row>
-        </Container>
+                    <button onClick={() => navigate(-1)}>Back to list</button>
+                </td>
+            </tr>
+        </table>
         
     return (
         <div>
-            <h2>Delete Team from league {league.leagueName} </h2>
+            <h3>Delete Team from league {league.leagueName} </h3>
             {contents}
             <p className="errorMessage">{errorMsg}</p>
 

@@ -1,10 +1,8 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from 'react';
 import axios from "axios";
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import Container from 'react-bootstrap/Container';
 import { FormData } from "./FormData.tsx";
+
 
 
 
@@ -24,37 +22,38 @@ const UsersDelete = () => {
     const contents = Users === undefined
         ? <p><em>Loading ...</em></p> :
 
-        <Container>
-            <Row>
-                <Col style={{ width: "200px" }}><label>Users Name:</label></Col>
+        <table>
+            <tr>
+                <td className="Label">Users Name:</td>
 
-                <Col style={{ textAlign: "left" }}>{Users.username}</Col>
-            </Row>
-            <Row>
-                <Col style={{ width: "200px" }}><label>Active:</label></Col>
-                <Col style={{ textAlign: "left" }}>{Users.isActive ? "Yes" : "No"}</Col>
+                <td className="Field">{Users.username}</td>
+            </tr>
+            <tr>
+                <td className="Label">Active:</td>
+                <td className="Field">{Users.isActive ? "Yes" : "No"}</td>
 
-            </Row>
-            <Row>
-                <Col style={{ width: "200px" }}><label>Display Name:</label></Col>
-                <Col style={{ textAlign: "left" }}>{Users.displayName}</Col>
-            </Row>
+            </tr>
+            <tr>
+                <td className="Label">Display Name:</td>
+                <td className="Field">{Users.displayName}</td>
+            </tr>
 
-            <Row>
-                <Col style={{ width: "200px" }}><label>Role:</label></Col>
-                <Col style={{ textAlign: "left" }}>{Users.role}</Col>
-            </Row>
+            <tr>
+                <td className="Label">Role:</td>
+                <td className="Field">{Users.role}</td>
+            </tr>
 
-            <Row>
-                <Col style={{ width: "300px" }}>
+            <tr>
+                <td colSpan={1} style={{ textAlign: "center" }}>
                     <input type='button' onClick={DeleteItem} value="Delete Record" />
-                </Col>
-            </Row>
-        </Container>
+                    <button onClick={() => navigate(-1)}>Go back to list</button>
+                </td>
+            </tr>
+        </table>
 
     return (
         <div>
-            <h1>Delete</h1>
+            <h3>Delete user</h3>
             {contents}
         </div>
     );

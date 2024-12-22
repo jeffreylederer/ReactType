@@ -4,7 +4,6 @@ import axios from "axios";
 import { ConvertLeague, leagueType } from "../../leagueObject.tsx";
 import uparrow from '../../../images/uparrow.png';
 import { UpdateFormData } from "../Schedule/UpdateFormData.tsx";
-import { flushSync } from 'react-dom';
 
 function Matches() {
     const [match, setMatch] = useState<MatchFormData[]>();

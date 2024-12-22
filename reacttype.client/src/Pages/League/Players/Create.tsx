@@ -1,23 +1,19 @@
 import { useNavigate } from "react-router-dom";
 import { useForm, SubmitHandler } from "react-hook-form";
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import Container from 'react-bootstrap/Container';
 import axios from "axios";
-import "./FormData.css";
 import { PlayerFormData, PlayerFormDataSchema } from "./FormData.tsx";
 import { UpdateFormData } from "../../Membership/UpdateFormData.tsx";
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useEffect, useState } from 'react';
-import { Label, TextInput } from "flowbite-react";
+import { TextInput } from "flowbite-react";
 import { ConvertLeague, leagueType } from "../../leagueObject.tsx";
+
 
 const PlayersCreate = () => {
    
     
     const onSubmit: SubmitHandler<PlayerFormData> = (data) => CreateData(data)
     const league: leagueType = ConvertLeague();
-
     const navigate = useNavigate();
     const [membership, setmembership] = useState<UpdateFormData[]>();
 
@@ -60,34 +56,38 @@ const PlayersCreate = () => {
         <>
             <h2>Create new player in league {league.leagueName} </h2>
             <form onSubmit={handleSubmit(onSubmit)} >
-                <Container>
+                <table>
                     <input type="hidden" {...register("leagueid")} defaultValue={league.id }/>
-                    <Row>
-                        <Col style={{ width: '15%' }}><Label>Members:</Label></Col>
+                    <tr>
+                        <td className="Label">Members:</td>
 
-                        <Col>
-                            <select style={{ width: '85%' }} defaultValue="0" {...register("membershipId")}>
+                        <td className="Field">
+                            <select defaultValue="0" {...register("membershipId")}>
                                 <option value="0">Select member</option>
                                 {membership?.map((item) => (
                                     <option value={item.id.toString()}>{item.fullName}</option>
                                 ))}
                                 )
                             </select>
-                        </Col>
-                    </Row>
+                        </td>
+                    </tr>
                 
                 
-                    <Row>
-                        <Col style={{ textAlign: "center", width: '100%' }}>
+                    <tr>
+                        <td colSpan={1}  style={{ textAlign: "center" }}>
                             <TextInput type="submit" />
-                        </Col>
-                    </Row>
-                    {errors.membershipId && <p className="errorMessage">{errors.membershipId.message}</p>}
-                    
+                            <button onClick={() => navigate(-1)}>Back to list</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colSpan={1}>
+                            {errors.membershipId && <p className="errorMessage">{errors.membershipId.message}</p>}
+                        </td>
+                    </tr>
                     
                     
 
-                </Container>
+                </table>
             </form>
             
         </>

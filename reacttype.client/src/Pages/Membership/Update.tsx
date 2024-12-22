@@ -1,16 +1,11 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from 'react';
 import { useForm, SubmitHandler } from "react-hook-form";
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import Container from 'react-bootstrap/Container';
 import axios from "axios";
 import { UpdateFormData, UpdateFormDataSchema } from "./UpdateFormData.tsx";
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Checkbox, Label, TextInput } from "flowbite-react";
-
-
-
+import { Checkbox, TextInput } from "flowbite-react";
+import { ConvertLeague, leagueType } from "../leagueObject.tsx";
 
 const MembershipUpdate = () => {
     const [membership, setMembership] = useState(
@@ -26,7 +21,7 @@ const MembershipUpdate = () => {
     );
     const location = useLocation();
     const id: number = location.state;
-
+    const league: leagueType = ConvertLeague();
     const {
         register,
         handleSubmit,
@@ -59,54 +54,52 @@ const MembershipUpdate = () => {
             <input type="hidden" {...register("id", { valueAsNumber: true })} value={membership.id} />
             <TextInput {...register("nickName")} type="hidden" />
             <TextInput {...register("fullName")} type="hidden" />
-            <Container >
-                <Row>
-                    <Col style={{ width: '15%' }}><Label>First Name:</Label></Col>
+            <table>
+                <tr>
+                    <td className="Label">First Name:</td>
 
-                    <Col><TextInput type="text" {...register('firstName')} style={{ width: '85%' }} defaultValue={membership.firstName}  />
-                    </Col>
-                </Row>
-                <Row>
-                    <Col style={{ width: '15%' }}><Label>Last Name:</Label></Col>
+                    <td className="Field"><TextInput type="text" {...register('firstName')} style={{ width: '85%' }} defaultValue={membership.firstName}  />
+                    </td>
+                </tr>
+                <tr>
+                    <td className="Label">Last Name:</td>
 
-                    <Col><TextInput  {...register('lastName')} style={{ width: '85%' }} defaultValue={membership.lastName} />
-                    </Col>
-                </Row>
-                <Row>
-                    <Col style={{ width: '15%' }}><Label>Short Name:</Label></Col>
-                    <Col><TextInput {...register('shortname')} style={{ width: '85%' }} defaultValue={membership.shortname} />
-                    </Col>
-                </Row>
-                <Row>
-                    <Col style={{ width: '15%' }}><Label>Wheel Chair:</Label></Col>
+                    <td className="Field"><TextInput  {...register('lastName')} style={{ width: '85%' }} defaultValue={membership.lastName} />
+                    </td>
+                </tr>
+                <tr>
+                    <td className="Label">Short Name:</td>
+                    <td className="Field"><TextInput {...register('shortname')} style={{ width: '85%' }} defaultValue={membership.shortname} />
+                    </td>
+                </tr>
+                <tr>
+                    <td className="Label">Wheel Chair:</td>
 
-                    <Col style={{ textAlign: "left", width: '85%' }}>
-                        <Checkbox {...register('wheelchair')}
-
-                            defaultChecked={membership.wheelchair}
-                             />
-                    </Col>
-                </Row>
-                <Row>
-                    <Col style={{ textAlign: "center", width: '100%' }}>
-                        <TextInput type="submit" />
-                    </Col>
-                </Row>
+                    <td className="Field">
+                        <Checkbox {...register('wheelchair')}  defaultChecked={membership.wheelchair}/>
+                    </td>
+                </tr>
+                <tr className="center-td">
+                    <td colSpan={1} >
+                        <TextInput type="submit" />  <button onClick={() => navigate(-1)}>Back to list</button>
+                    </td>
+                </tr>
+                <tr><td colSpan={1}>
                 {errors.firstName && <p className="errorMessage">{errors.firstName.message}</p>}
                 {errors.lastName && <p className="errorMessage">{errors.lastName.message}</p>}
                 {errors.shortname && <p className="errorMessage">{errors.shortname.message}</p>}
                 {errors.id && <p className="errorMessage">{errors.id.message}</p>}
+                </td></tr>
 
 
-
-            </Container>
+            </table>
         </form>
     
     return (
         <>
-        <h1>Update record</h1>
+            <h3>Update record for league {league.leagueName}</h3>
             {contents}
-
+            
             
         </>
     );

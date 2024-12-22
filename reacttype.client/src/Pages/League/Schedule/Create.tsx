@@ -42,37 +42,38 @@ const ScheduleCreate = () => {
         <>
             <h2>Create new game date for league {league.leagueName}</h2>
             <form onSubmit={handleSubmit(onSubmit)} >
-                <Container>
+                <table>
                     <input type="hidden" defaultValue={league.id} {...register('leagueid')} />
-                    <Row>
-                        <Col style={{ width: '15%' }}><Label>Playoffs:</Label></Col>
+                    <tr>
+                        <td className="Label">Playoffs:</td>
 
-                        <Col style={{ textAlign: "left", width: '85%' }}>
+                        <td style={{ textAlign: "left", width: '85%' }}>
                             <Form.Control type="date" {...register('gameDate')} />
-                        </Col>
-                    </Row>
+                        </td>
+                    </tr>
 
-                    <Row>
-                        <Col style={{ width: '15%' }}><Label>Playoffs:</Label></Col>
+                    <tr>
+                        <td className="Label">Playoffs:</td>
 
-                        <Col style={{ textAlign: "left", width: '85%' }}>
+                        <td style={{ textAlign: "left", width: '85%' }}>
                             <Checkbox {...register('playOffs')} />
-                        </Col>
-                    </Row>
+                        </td>
+                    </tr>
                 
-                    <Row>
-                        <Col style={{ width: '15%' }}><Label>Cancelled:</Label></Col>
+                    <tr>
+                        <td className="Label">Cancelled:</td>
 
-                        <Col style={{ textAlign: "left", width: '85%' }}>
+                        <td style={{ textAlign: "left", width: '85%' }}>
                             <Checkbox {...register('cancelled')}  />
-                        </Col>
-                    </Row>
+                        </td>
+                    </tr>
 
-                    <Row>
-                        <Col style={{ textAlign: "center", width: '100%' }}>
+                    <tr>
+                        <td colSpan={1}  style={{ textAlign: "center" }}>
                             <TextInput type="submit" />
-                        </Col>
-                    </Row>
+                            <button onClick={() => navigate(-1)}>Go back to list</button>
+                        </td>
+                    </tr>
                     
                     {errors.leagueid && <p className="errorMessage">{errors.leagueid.message}</p>}
                     {errors.gameDate && <p className="errorMessage">{errors.gameDate.message}</p>}
@@ -80,7 +81,7 @@ const ScheduleCreate = () => {
                     {errors.playOffs && <p className="errorMessage">{errors.playOffs.message}</p>}
                     
 
-                </Container>
+                </table>
             </form>
             
         </>

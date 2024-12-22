@@ -1,14 +1,9 @@
 import { useNavigate } from "react-router-dom";
 import { useForm, SubmitHandler } from "react-hook-form";
-
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import Container from 'react-bootstrap/Container';
 import axios from "axios";
 import { FormData, FormDataSchema } from "./FormData.tsx";
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Checkbox, Label, TextInput, Select } from "flowbite-react";
-import "./FormData.css";
+import { Checkbox, TextInput, Select } from "flowbite-react";
 
 const UserCreate = () => {
 
@@ -36,75 +31,72 @@ const UserCreate = () => {
             });
     }
 
-
-
-
-
-
     return (
         <>
-
+        <h3>Add new user</h3>
             <form onSubmit={handleSubmit(onSubmit)} >
                
-                <Container >
-                    <Row>
-                        <Col style={{ width: '15%' }}><Label>User Name:</Label></Col>
+                <table>
+                    <tr>
+                        <td className="Label">User Name:</td>
 
-                        <Col><TextInput {...register('username')} style={{ width: '85%' }}  />
-                        </Col>
-                    </Row>
+                        <td className="Field"><TextInput {...register('username')}   />
+                        </td>
+                    </tr>
 
-                    <Row>
-                        <Col style={{ width: '15%' }}><Label>Password:</Label></Col>
+                    <tr>
+                        <td className="Label">Password:</td>
 
-                        <Col><TextInput type="password" {...register('password')} style={{ width: '85%' }}  />
-                        </Col>
-                    </Row>
+                        <td className="Field"><TextInput type="password" {...register('password')}   />
+                        </td>
+                    </tr>
 
-                    <Row>
-                        <Col style={{ width: '25%' }}><Label>Active:</Label></Col>
+                    <tr>
+                        <td className="Label">Active:</td>
 
-                        <Col style={{ textAlign: "left", width: '75%' }}>
+                        <td className="Field">
                             <Checkbox {...register('isActive')}  />
-                        </Col>
-                    </Row>
+                        </td>
+                    </tr>
 
-                    <Row>
-                        <Col style={{ width: '15%' }}><Label>Display Name:</Label></Col>
+                    <tr>
+                        <td className="Label">Display Name:</td>
 
-                        <Col><TextInput {...register('displayName')} style={{ width: '85%' }}  />
-                        </Col>
-                    </Row>
+                        <td className="Field"><TextInput {...register('displayName')}   />
+                        </td>
+                    </tr>
 
-                    <Row>
-                        <Col style={{ width: '15%' }}><Label>Role:</Label></Col>
+                    <tr>
+                        <td className="Label">Role:</td>
 
-                        <Col>
-                            <Select style={{ width: '85%' }}  {...register('roleId')} defaultValue="1" name='roleId'>
+                        <td className="Field">
+                            <Select   {...register('roleId')} defaultValue="1" name='roleId'>
                                 <option value="1">Observer</option>
                                 <option value="2">Scorer</option>
                                 <option value="3">Admin</option>
                                 <option value="4">SiteAdmin</option>
                             </Select>
-                        </Col>
-                    </Row>
+                        </td>
+                    </tr>
 
-                    <Row>
-                        <Col style={{ textAlign: "center", width: '100%' }}>
+                    <tr>
+                        <td colSpan={1}  style={{ textAlign: "center" }}>
                             <TextInput type="submit" />
-                        </Col>
-                    </Row>
+                            <button onClick={() => navigate(-1)}>Go back to list</button>
+                        </td>
+                    </tr>
                    
 
-
+                    <tr><td colSpan={1}>
                     {errors.username && <p className="errorMessage">{errors.username.message}</p>}
                     {errors.displayName && <p className="errorMessage">{errors.displayName.message}</p>}
-                    {errors.password && <p className="errorMessage">{errors.password.message}</p>}
-                    
+                        {errors.password && <p className="errorMessage">{errors.password.message}</p>}
+                        {errors.roleId && <p className="errorMessage">{errors.roleId.message}</p>}
+                    </td></tr>
 
 
 
-                </Container>
+                </table>
             </form>
 
         </>

@@ -60,44 +60,38 @@ const ScheduleUpdate = () => {
             <input type="hidden" {...register("id", { valueAsNumber: true })} defaultValue={schedule.id} />
             <input type="hidden" {...register("leagueid", { valueAsNumber: true })} defaultValue={schedule.leagueid} />
            
-            <Container >
-                <Row>
-                    <Col style={{ width: '15%' }}><Label>Game Date:</Label></Col>
+            <table>
+                <tr>
+                    <td className="Label">Game Date:</td>
 
-                    <Col style={{ textAlign: "left", width: '85%' }}>
+                    <td style={{ textAlign: "left", width: '85%' }}>
                         <Form.Control type="date" {...register('gameDate')} defaultValue={schedule.gameDate} />
-                    </Col>
-                </Row>
+                    </td>
+                </tr>
 
-                <Row>
-                    <Col style={{ width: '15%' }}><Label>Playoffs:</Label></Col>
+                <tr>
+                    <td className="Label">Playoffs:</td>
 
-                    <Col style={{ textAlign: "left", width: '85%' }}>
+                    <td style={{ textAlign: "left", width: '85%' }}>
                         <Checkbox {...register('playOffs')} defaultChecked={schedule.playOffs } />
-                    </Col>
-                </Row>
+                    </td>
+                </tr>
 
-                <Row>
-                    <Col style={{ width: '15%' }}><Label>Cancelled:</Label></Col>
+                <tr>
+                    <td className="Label">Cancelled:</td>
 
-                    <Col style={{ textAlign: "left", width: '85%' }}>
+                    <td style={{ textAlign: "left", width: '85%' }}>
                         <Checkbox {...register('cancelled')} defaultChecked={schedule.cancelled} />
-                    </Col>
-                </Row>
-                <Row>
-                    <Col style={{ textAlign: "center", width: '100%' }}>
+                    </td>
+                </tr>
+                <tr>
+                    <td colSpan={1} style={{ textAlign: "center" }}>
                         <TextInput type="submit" />
-                    </Col>
-                </Row>
-                {errors.id && <p className="errorMessage">{errors.id.message}</p>}
-                {errors.gameDate && <p className="errorMessage">{errors.gameDate.message}</p>}
-                {errors.cancelled && <p className="errorMessage">{errors.cancelled.message}</p>}
-                {errors.playOffs && <p className="errorMessage">{errors.playOffs.message}</p>}
-                
+                        <button onClick={() => navigate(-1)}>Go back to list</button>
+                    </td>
+                </tr>
 
-
-
-            </Container>
+            </table>
         </form>
     
     return (

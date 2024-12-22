@@ -25,32 +25,33 @@ const ScheduleDelete = () => {
     const contents = schedule === undefined
         ? <p><em>Loading ...</em></p> :
         
-        <Container>
-            <Row>
-                <Col style={{width: "200px"}}><label>Game Date:</label></Col>
+        <table>
+            <tr>
+                <td className="Label">Game Date:</td>
 
-                <Col style={{ textAlign: "left" }}>{schedule.gameDate}</Col>
-            </Row>
-            <Row>
-                <Col style={{ width: "200px" }}><label>playOffs:</label></Col>
-                <Col style={{ textAlign: "left" }}>{schedule.playOffs? "Yes": "No"}</Col>
+                <td className="Field">{schedule.gameDate}</td>
+            </tr>
+            <tr>
+                <td className="Label">playOffs:</td>
+                <td className="Field">{schedule.playOffs? "Yes": "No"}</td>
               
-            </Row>
-            <Row>
-                <Col style={{ width: "200px" }}><label>Cancelled:</label></Col>
-                <Col style={{ textAlign: "left" }}>{schedule.cancelled ? "Yes" : "No"}</Col>
-              </Row>
+            </tr>
+            <tr>
+                <td className="Label">Cancelled:</td>
+                <td className="Field">{schedule.cancelled ? "Yes" : "No"}</td>
+              </tr>
             
-            <Row>
-                <Col style={{ width: "300px" }}>
-                    <input type='button' onClick={DeleteItem } value="Delete Record" />
-                </Col>
-            </Row>
-        </Container>
+            <tr>
+                <td style={{ width: "300px" }}>
+                    <input type='button' onClick={DeleteItem} value="Delete Record" />
+                    <button onClick={() => navigate(-1)}>Go back to list</button>
+                </td>
+            </tr>
+        </table>
         
     return (
         <div>
-            <h2>Delete game date in league {league.leagueName}</h2>
+            <h3>Delete game date in league {league.leagueName}</h3>
             {contents}
             <p className="errorMessage">{errorMsg}</p>
         </div>
