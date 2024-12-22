@@ -24,7 +24,7 @@ namespace ReactType.Server.Controllers
         }
 
         // GET: Matches
-        [HttpGet]
+        [HttpGet("{id}")]
         public async Task<IEnumerable<OneMatchWeekView>?> Get(int id)
         {
             var list = await _context.OneMatchWeekViews
@@ -34,7 +34,7 @@ namespace ReactType.Server.Controllers
         }
 
         // GET: Matches/Details/5
-        [HttpGet("{id}")]
+        [HttpGet("getOne/{id}")]
         public async Task<Match?> Get(int? id)
         {
             if (id == null)
@@ -65,11 +65,6 @@ namespace ReactType.Server.Controllers
         }
 
 
-
-        // POST: Matches/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        //[ValidateAntiForgeryToken]
         [HttpPut("{id}")]
         public async Task<IActionResult> Edit(int id, Match item)
         {

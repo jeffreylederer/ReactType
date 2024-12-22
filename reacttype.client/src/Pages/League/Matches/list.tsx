@@ -4,7 +4,7 @@ import axios from "axios";
 import { ConvertLeague, leagueType } from "../../leagueObject.tsx";
 import uparrow from '../../../images/uparrow.png';
 import { UpdateFormData } from "../Schedule/UpdateFormData.tsx";
-import { flushSync } from 'react-dom';
+
 function Matches() {
     const [match, setMatch] = useState<MatchFormData[]>();
     const [schedule, setSchedule] = useState<UpdateFormData[]>();
@@ -12,8 +12,8 @@ function Matches() {
    
 
     useEffect(() => {
-        if (schedule === undefined)
-            GetDates();
+        
+        GetDates();
         
         
     }, []);
@@ -100,9 +100,9 @@ function Matches() {
     const url: string = "https://localhost:7002/api/matches/".concat(weekid.toString());
       axios.get(url)
           .then(response => {
-              flushSync(() => {
-                  setMatch(response.data);
-              });
+              
+            setMatch(response.data);
+           
             
         })
         .catch(error => {
