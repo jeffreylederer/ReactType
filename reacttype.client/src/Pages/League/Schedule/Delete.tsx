@@ -1,9 +1,6 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from 'react';
 import axios from "axios";
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import Container from 'react-bootstrap/Container';
 import { FormData } from "./FormData.tsx";
 import { ConvertLeague, leagueType } from "../../leagueObject.tsx";
 
