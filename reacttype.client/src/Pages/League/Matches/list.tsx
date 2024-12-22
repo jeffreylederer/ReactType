@@ -73,7 +73,7 @@ function Matches() {
                     {match.map(item =>
                         <tr key={item.id}>
                             <td><button hidden={item.rink == 1} style={{backgroundColor: 'white'} }><img src={uparrow}  /></button></td>
-
+                            <td>{item.rink}</td>
                             <td style={{ color: item.wheelchair1 }} >
                                 {item.team1No} ({item.team1})</td>
 
@@ -82,7 +82,7 @@ function Matches() {
 
                             <td>{item.team1Score}</td>
                             <td>{item.team2Score}</td>
-                            <td>{item.forFeitId}</td>
+                            <td>{item.forFeitId==0?'': item.forFeitId}</td>
                         </tr>
                     )}
                 </tbody>
@@ -93,6 +93,7 @@ function Matches() {
         <h2 id="tableLabel">Players in league {league.leagueName}</h2>
                 {contents}
                 {matchcontents}
+                <p style={{color: 'red', textAlign: 'left'} }>Teams with wheel chair members are in red</p>
         
     </div>
     );
