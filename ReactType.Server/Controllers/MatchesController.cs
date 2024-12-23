@@ -36,12 +36,27 @@ namespace ReactType.Server.Controllers
 
         // GET: Matches
         [HttpGet("Reorder{id}")]
-        public async Task<IEnumerable<OneMatchWeekView>?> GetReorder(int id)
+        public async Task<IActionResult> GetReorder(int id)
         {
-            var list = await _context.OneMatchWeekViews
-                     .FromSql($"EXEC OneMatchWeek {id}")
-                    .ToListAsync();
-            return list;
+            var match = _context.Matches.Find(id);
+            if (match == null)
+                return NotFound();
+            var weekMatches = _context.Matches.Where(x => x.WeekId == match.WeekId);
+            var match1 = weekMatches.First(x => x.Rink == match.Rink - 1);
+            match1.Rink = match.Rink;
+            match.Rink = match1.Rink - 1;
+            _context.Entry(match).State = EntityState.Modified;
+            try
+            {
+               _context.SaveChanges();
+            }
+            catch(Exception ex)
+            {
+                return StatusCode(409,ex.Message);
+            }
+
+
+            return Ok();
         }
 
         // GET: Matches/Details/5

@@ -10,11 +10,12 @@ import { useLocation } from "react-router-dom";
 
 function Matches() {
     const [match, setMatch] = useState<MatchFormData[]>();
+    
     const [schedule, setSchedule] = useState<UpdateFormData[]>();
     const league: leagueType = ConvertLeague();
     const location = useLocation();
     const id:string = location.search.substring(4);
-    const weekid = +id;
+    const [weekid, setWeekid] = useState(+id);
 
     useEffect(() => {
         
@@ -26,10 +27,24 @@ function Matches() {
     const selectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         //event.preventDefault();
         const value = event.target.value;
-        const weekid: number = +value;
+        setWeekid(+value);
         GetData(weekid);
-        
+    };
 
+    const Reorder =  (event: React.MouseEvent<HTMLButtonElement>) => {
+        event.preventDefault();
+        const button: HTMLButtonElement = event.currentTarget;
+        const id: string = button.name;
+        const url: string = "https://localhost:7002/api/Matches/Reorder".concat(id);
+        axios.get(url)
+            .then(response => {
+                GetData(weekid);
+
+            })
+            .catch(error => {
+                console.error('Error fetching data: ', error);
+            })
+        GetData(weekid);
     };
 
     const contents = schedule === undefined
@@ -80,7 +95,8 @@ function Matches() {
                 <tbody>
                     {match.map(item =>
                         <tr key={item.id}>
-                            <td><button hidden={item.rink == 1} style={{ backgroundColor: 'white' }}><img src={uparrow} /></button></td>
+                            <td><button hidden={item.rink == 1} onClick={Reorder} name={item.id} style={{ backgroundColor: 'white'} }><img src={uparrow} /></button></td>
+                            
                             <td>{item.gameDate}</td>
                             <td>{item.rink}</td>
                             <td style={{ color: item.wheelchair1 }} >
