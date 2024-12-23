@@ -48,7 +48,6 @@ const MatchUpdate = () => {
 
     useEffect(() => {
         GetData();
-        setMatch({ ...match, [id]: id });
     }, []);
 
     const contents = match.id === 0
@@ -143,7 +142,7 @@ const MatchUpdate = () => {
 
 
     async function GetData() {
-        const url: string = 'https://localhost:7002/api/Matchs/'.concat(id.toString());
+        const url: string = 'https://localhost:7002/api/Matches/GetOne/'.concat(id.toString());
         axios.get(url)
             .then(response => {
 
@@ -159,11 +158,12 @@ const MatchUpdate = () => {
     }
 
     function updateData(data: UpdateFormData) {
-        const url: string = 'https://localhost:7002/api/Matchs/'.concat(id.toString());
+        const url: string = 'https://localhost:7002/api/Matches/'.concat(id.toString());
         axios.put(url, data)
             .then(response => {
                 console.log('Record updated successfully: ', response.data);
-                navigate("/Admin/Matchs");
+                url: string = "/Admin/League/Matches/".concat(match.weekid.toString());
+                navigate(url);
             })
             .catch(error => {
                 console.error('Error updating record: ', error);

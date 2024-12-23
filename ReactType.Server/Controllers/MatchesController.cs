@@ -33,6 +33,16 @@ namespace ReactType.Server.Controllers
             return list;
         }
 
+        // GET: Matches
+        [HttpGet("Reorder{id}")]
+        public async Task<IEnumerable<OneMatchWeekView>?> GetReorder(int id)
+        {
+            var list = await _context.OneMatchWeekViews
+                     .FromSql($"EXEC OneMatchWeek {id}")
+                    .ToListAsync();
+            return list;
+        }
+
         // GET: Matches/Details/5
         [HttpGet("getOne/{id}")]
         public async Task<Match?> Get(int? id)

@@ -20,7 +20,7 @@ function Menu() {
                             <NavDropdown.Item href="/League/Players">Players</NavDropdown.Item>
                             <NavDropdown.Item href="/League/Schedules">Schedules</NavDropdown.Item>
                             <NavDropdown.Item href="/League/Teams">Teams</NavDropdown.Item>
-                            <NavDropdown.Item href="/League/Matches">Matches</NavDropdown.Item>
+                            <NavDropdown.Item href="/League/Matches/0">Matches</NavDropdown.Item>
                             <NavDropdown.Item href="/League/ScheduleReport">Schedule Report</NavDropdown.Item>
                             <NavDropdown.Divider />
                             <NavDropdown.Item href="/League/CreateMatches">Create Matches</NavDropdown.Item>

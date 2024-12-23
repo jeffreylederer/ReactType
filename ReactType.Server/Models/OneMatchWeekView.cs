@@ -13,9 +13,9 @@ public partial class OneMatchWeekView
 
     public string? Team2 { get; set; }
 
-    public bool? Wheelchair1 { get; set; }
+    public string? Wheelchair1 { get; set; }
 
-    public bool? Wheelchair2 { get; set; }
+    public string? Wheelchair2 { get; set; }
 
     public int Team1Score { get; set; }
 
@@ -23,9 +23,11 @@ public partial class OneMatchWeekView
 
     public int ForFeitId { get; set; }
 
-    public int Weekid { get; set; }
+    public int WeekId { get; set; }
 
     public int Team1No { get; set; }
 
     public int Team2No { get; set; }
+
+    public DateOnly GameDate { get; set; }
 }

@@ -166,16 +166,21 @@ public partial class DbLeagueApp : DbContext
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.Team1)
-                .HasMaxLength(152)
+                .HasMaxLength(154)
                 .IsUnicode(false)
                 .HasColumnName("team1");
             entity.Property(e => e.Team2)
-                .HasMaxLength(152)
+                .HasMaxLength(154)
                 .IsUnicode(false)
                 .HasColumnName("team2");
-            entity.Property(e => e.Weekid).HasColumnName("weekid");
-            entity.Property(e => e.Wheelchair1).HasColumnName("wheelchair1");
-            entity.Property(e => e.Wheelchair2).HasColumnName("wheelchair2");
+            entity.Property(e => e.Wheelchair1)
+                .HasMaxLength(5)
+                .IsUnicode(false)
+                .HasColumnName("wheelchair1");
+            entity.Property(e => e.Wheelchair2)
+                .HasMaxLength(5)
+                .IsUnicode(false)
+                .HasColumnName("wheelchair2");
         });
 
         modelBuilder.Entity<OneTeamView>(entity =>

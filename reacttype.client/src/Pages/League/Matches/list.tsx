@@ -5,19 +5,21 @@ import { ConvertLeague, leagueType } from "../../leagueObject.tsx";
 import uparrow from '../../../images/uparrow.png';
 import { UpdateFormData } from "../Schedule/UpdateFormData.tsx";
 import { Link } from 'react-router-dom';
+import { useLocation } from "react-router-dom";
 
 
 function Matches() {
     const [match, setMatch] = useState<MatchFormData[]>();
     const [schedule, setSchedule] = useState<UpdateFormData[]>();
     const league: leagueType = ConvertLeague();
-   
+    const location = useLocation();
+    const weekid: number = location.state;
 
     useEffect(() => {
         
         GetDates();
-        
-        
+        if (weekid != 0)
+            GetData(weekid);
     }, []);
 
     const selectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -33,7 +35,7 @@ function Matches() {
         ? <p><em>Loading ...</em></p>
         :
         <>
-            Date: <select onChange={selectChange} defaultValue="0">
+            Date: <select onChange={selectChange} defaultValue={weekid }>
                 <option value="0" key="0" disabled>Select date</option>
                 {schedule?.map(item =>
                     <option key={item.id} value={item.id.toString()}>{item.gameDate}</option>
@@ -89,7 +91,7 @@ function Matches() {
                             <td>{item.team1Score}</td>
                             <td>{item.team2Score}</td>
                             <td>{item.forFeitId == 0 ? '' : item.forFeitId}</td>
-                            <td><Link to="/Admin/Matches/Update" state={item.id.toString()}>Score</Link></td>
+                            <td><Link to="/League/Matches/Update" state={item.id.toString()}>Score</Link></td>
                         </tr>
                     )}
                 </tbody>
