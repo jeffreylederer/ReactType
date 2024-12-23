@@ -8,7 +8,7 @@ export type MatchFormData = {
     team1Score: number,
     team2Score: number,
     forFeitId: number,
-    weekid: number,
+    weekId: number,
     team1No: number,
     team2No: number,
     gameDate: string

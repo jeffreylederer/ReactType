@@ -6,6 +6,7 @@ using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using ReactType.Server.Models;
 
@@ -45,20 +46,32 @@ namespace ReactType.Server.Controllers
 
         // GET: Matches/Details/5
         [HttpGet("getOne/{id}")]
-        public async Task<Match?> Get(int? id)
+        public async Task<OneMatchWeekView?> Get(int? id)
         {
             if (id == null)
             {
                 return null;
             }
-
-            var match = await _context.Matches.FindAsync(id.Value);
-            if (match == null)
+            try
             {
-                return null;
+                SqlParameter[] parameters = {
+                    new SqlParameter("matchid", id)
+                };
+                var match = _context.OneMatchWeekViews
+                         .FromSqlRaw("EXEC OneMatch @matchid", parameters)
+                         .AsEnumerable()
+                         .FirstOrDefault();
+                if (match == null)
+                {
+                    return null;
+                }
+                return match;
             }
-
-            return match;
+            catch(Exception ex)
+            {
+                var mess = ex.Message;
+            }
+            return null;
         }
 
 

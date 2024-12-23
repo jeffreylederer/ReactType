@@ -13,12 +13,13 @@ function Matches() {
     const [schedule, setSchedule] = useState<UpdateFormData[]>();
     const league: leagueType = ConvertLeague();
     const location = useLocation();
-    const weekid: number = location.state;
+    const id:string = location.search.substring(4);
+    const weekid = +id;
 
     useEffect(() => {
         
         GetDates();
-        if (weekid != 0)
+        if (weekid !== undefined  && weekid != 0)
             GetData(weekid);
     }, []);
 
@@ -88,8 +89,8 @@ function Matches() {
                             <td style={{ color: item.wheelchair2 }} >
                                 {item.team2No} ({item.team2})</td>
 
-                            <td>{item.team1Score}</td>
-                            <td>{item.team2Score}</td>
+                            <td>{item.forFeitId != 0?'' : item.team1Score}</td>
+                            <td>{item.forFeitId != 0 ? '': item.team2Score}</td>
                             <td>{item.forFeitId == 0 ? '' : item.forFeitId}</td>
                             <td><Link to="/League/Matches/Update" state={item.id.toString()}>Score</Link></td>
                         </tr>
