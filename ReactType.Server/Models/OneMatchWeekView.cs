@@ -13,9 +13,9 @@ public partial class OneMatchWeekView
 
     public string? Team2 { get; set; }
 
-    public string? Wheelchair1 { get; set; }
+    public bool? Wheelchair1 { get; set; }
 
-    public string? Wheelchair2 { get; set; }
+    public bool? Wheelchair2 { get; set; }
 
     public int Team1Score { get; set; }
 

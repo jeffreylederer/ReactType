@@ -4,6 +4,8 @@ import axios from "axios";
 import { ConvertLeague, leagueType } from "../../leagueObject.tsx";
 import uparrow from '../../../images/uparrow.png';
 import { UpdateFormData } from "../Schedule/UpdateFormData.tsx";
+import { Link } from 'react-router-dom';
+
 
 function Matches() {
     const [match, setMatch] = useState<MatchFormData[]>();
@@ -48,6 +50,9 @@ function Matches() {
                             Exchange Rink
                         </th>
                         <th>
+                            Game Date
+                        </th>
+                        <th>
                             Rink
                         </th>
 
@@ -72,7 +77,8 @@ function Matches() {
                 <tbody>
                     {match.map(item =>
                         <tr key={item.id}>
-                            <td><button hidden={item.rink == 1} style={{backgroundColor: 'white'} }><img src={uparrow}  /></button></td>
+                            <td><button hidden={item.rink == 1} style={{ backgroundColor: 'white' }}><img src={uparrow} /></button></td>
+                            <td>{item.gameDate}</td>
                             <td>{item.rink}</td>
                             <td style={{ color: item.wheelchair1 }} >
                                 {item.team1No} ({item.team1})</td>
@@ -82,7 +88,8 @@ function Matches() {
 
                             <td>{item.team1Score}</td>
                             <td>{item.team2Score}</td>
-                            <td>{item.forFeitId==0?'': item.forFeitId}</td>
+                            <td>{item.forFeitId == 0 ? '' : item.forFeitId}</td>
+                            <td><Link to="/Admin/Matches/Update" state={item.id.toString()}>Score</Link></td>
                         </tr>
                     )}
                 </tbody>
@@ -123,10 +130,11 @@ function Matches() {
         }
     }
 
-    const UpArrowFunction = (event: React.MouseEvent<HTMLButtonElement>) => {
-        event.preventDefault();
-    }
+    //const UpArrowFunction = (event: React.MouseEvent<HTMLButtonElement>) => {
+    //    event.preventDefault();
+    //}
 
+    
 
 }
 

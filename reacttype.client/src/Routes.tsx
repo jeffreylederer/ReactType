@@ -35,7 +35,7 @@ import TeamsCreate from "./Pages/League/Teams/Create.tsx";
 import TeamsUpdate from "./Pages/League/Teams/Update.tsx";
 
 import Matches from "./Pages/League/Matches/list.tsx";
-
+import MatchUpdate from "./Pages/League/Matches/Update.tsx";
 
 
 
@@ -84,7 +84,7 @@ function RouteMenu() {
           <Route path="/League/Teams/Update" element={<TeamsUpdate />} />
 
           <Route path="/League/Matches" element={<Matches />} />
-
+          <Route path="/League/Matches/Update" element={<MatchUpdate />} />
 
           {/*<Route path="/Welcome" element={<Welcome />} />*/}
           <Route path="/Contact" element={<Contact />} />

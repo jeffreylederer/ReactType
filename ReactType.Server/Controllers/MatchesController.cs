@@ -52,28 +52,24 @@ namespace ReactType.Server.Controllers
         }
 
 
-
-
-        
-        [HttpPost]
-        public async Task Create(Match item)
-        {
-            _context.Matches.Add(item);
-            await _context.SaveChangesAsync();
-
-           
-        }
-
-
         [HttpPut("{id}")]
-        public async Task<IActionResult> Edit(int id, Match item)
+        public async Task<IActionResult> Edit(int id, MatchType item)
         {
-            if (id != item.Id)
+            if (id != item.id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(item).State = EntityState.Modified;
+            var match = _context.Matches.Find(id);
+            if (match == null)
+            {
+                return NotFound();
+            }
+            match.Team1Score = item.team1Score;
+            match.Team2Score = item.team2Score;
+            match.ForFeitId = item.forFeitId;
+
+            _context.Entry(match).State = EntityState.Modified;
 
             try
             {
@@ -81,7 +77,7 @@ namespace ReactType.Server.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!MembershipExists(id))
+                if (!MatchExists(id))
                 {
                     return NotFound();
                 }
@@ -98,36 +94,20 @@ namespace ReactType.Server.Controllers
         }
 
 
-        // GET: Matches/Delete/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(int id)
-        {
-            var item = await _context.Matches.FindAsync(id);
-            if (item == null)
-            {
-                return NotFound();
-            }
+       
 
-            _context.Matches.Remove(item);
-            try
-            {
-                await _context.SaveChangesAsync();
-                return NoContent();
-            }
-            catch (DbUpdateException ex1)
-            {
-                return StatusCode(409, "Member cannot be deleted, the member is already assign to a league.");
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, ex.Message);
-            }
-
-        }
-
-        private bool MembershipExists(int id)
+        private bool MatchExists(int id)
         {
             return _context.Matches.Any(e => e.Id == id);
         }
     }
+
+    public class MatchType
+    {
+        public int id { get; set; }
+        public int team1Score { get; set; }
+        public int team2Score { get; set; }
+        public int forFeitId { get; set; }
+    }
+
 }

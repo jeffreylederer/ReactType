@@ -10,5 +10,6 @@ export type MatchFormData = {
     forFeitId: number,
     weekid: number,
     team1No: number,
-    team2No: number
+    team2No: number,
+    gameDate: string
 };
