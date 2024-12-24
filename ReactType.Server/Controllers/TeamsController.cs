@@ -1,17 +1,12 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Collections.Immutable;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Security.Cryptography;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using QuestPDF.Fluent;
+using QuestPDF.Infrastructure;
+using ReactType.Server.Code;
 using ReactType.Server.Models;
-using static System.Runtime.InteropServices.JavaScript.JSType;
+using static System.Net.Mime.MediaTypeNames;
+
 
 // https://medium.com/@hassanjabbar2017/performing-crud-operations-using-react-with-net-core-a-step-by-step-guide-0176efa86934
 namespace ReactType.Server.Controllers
@@ -81,6 +76,21 @@ namespace ReactType.Server.Controllers
                 var mess = ex.Message;
             }
             return null;
+        }
+
+        // GET: Players/Details/5
+        [HttpGet("TeamReport/{id}")]
+        public string TeamReport(int? id)
+        {
+            if (id == null)
+            {
+                return null;
+            }
+            QuestPDF.Settings.License = LicenseType.Community;
+            var document = new TeamReportDoc(id.Value, _context);
+            byte[] pdfBytes = document.GeneratePdf();
+            var results = Convert.ToBase64String(pdfBytes);
+            return results;
         }
 
 

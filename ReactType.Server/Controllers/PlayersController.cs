@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using ReactType.Server.Models;
 using ReactType.Server.Code;
 using System.Data.Common;
+using QuestPDF.Fluent;
 
 // https://medium.com/@hassanjabbar2017/performing-crud-operations-using-react-with-net-core-a-step-by-step-guide-0176efa86934
 namespace ReactType.Server.Controllers
@@ -72,6 +73,8 @@ namespace ReactType.Server.Controllers
 
             return Player;
         }
+
+      
 
         // GET: Players/Details/5
         [HttpGet("getMembers/{id}")]

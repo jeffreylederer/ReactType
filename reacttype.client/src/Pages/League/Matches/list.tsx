@@ -95,7 +95,7 @@ function Matches() {
                 <tbody>
                     {match.map(item =>
                         <tr key={item.id}>
-                            <td><button hidden={item.rink == 1} onClick={Reorder} name={item.id} style={{ backgroundColor: 'white'} }><img src={uparrow} /></button></td>
+                            <td><button hidden={item.rink == 1} onClick={Reorder} name={item.id.toString()} style={{ backgroundColor: 'white'} }><img src={uparrow} /></button></td>
                             
                             <td>{item.gameDate}</td>
                             <td>{item.rink}</td>

@@ -46,16 +46,16 @@ function Teams() {
     return (
         <div>
             <h2 id="tableLabel">Teams in league {league.leagueName}</h2>
-            <Link to="/League/Teams/Create">Add</Link>
+            <Link to="/League/Teams/Create">Add</Link><br/>
+            <Link to="/League/Teams/Report" target="_blank" >Team Report</Link>
             {contents}
             <p>Number of Teams: {team?.length}</p>
+            
         </div>
     );
 
     async function GetData() {
-       
-
-        const url: string = "https://localhost:7002/api/Teams/".concat(league.id.toString());
+       const url: string = "https://localhost:7002/api/Teams/".concat(league.id.toString());
         axios.get(url)
             .then(response => {
                 setTeam(response.data);
