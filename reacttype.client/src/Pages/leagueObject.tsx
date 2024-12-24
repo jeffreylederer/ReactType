@@ -23,6 +23,6 @@ export type leagueType = {
 
 
 export function ConvertLeague() {
-    const cookie = useCookies(['league'])[0];
+    const [cookie] = useCookies(['league']);
     return cookie.league;
 }

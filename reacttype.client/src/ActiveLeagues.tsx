@@ -64,7 +64,7 @@ function ActiveLeagues() {
 
     return (
         <div>
-            <h1 id="tableLabel">Select League</h1>
+            <h3 id="tableLabel">Select League</h3>
             {contents}
             <p>{message}</p>
             <p><button onClick={Hide}>Unselect</button></p>
