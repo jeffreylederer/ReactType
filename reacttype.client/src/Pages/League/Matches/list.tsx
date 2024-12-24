@@ -61,7 +61,7 @@ function Matches() {
 
     const matchcontents = match === undefined ? <p></p> :
             <>
-            <table>
+            <table className="table table-striped" aria-labelledby="tableLabel">
                 <thead>
                     <tr>
                         <th>
