@@ -45,7 +45,7 @@ function Users() {
 
     return (
         <div>
-            <h1 id="tableLabel">Users</h1>
+            <h3 id="tableLabel">Users</h3>
             <Link to="/Admin/Users/Create">Add</Link>
             {contents}
         </div>

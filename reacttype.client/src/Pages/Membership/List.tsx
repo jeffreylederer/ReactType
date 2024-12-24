@@ -44,7 +44,7 @@ function Membership() {
 
     return (
         <div>
-            <h1 id="tableLabel">Membership</h1>
+            <h3 id="tableLabel">Membership</h3>
             <Link to="/Membership/Create">Add</Link>
             {contents}
         </div>

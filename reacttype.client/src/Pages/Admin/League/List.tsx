@@ -47,7 +47,7 @@ function League() {
 
     return (
         <div>
-            <h1 id="tableLabel">Leagues</h1>
+            <h3 id="tableLabel">Leagues</h3>
             <Link to="/Admin/League/Create">Add</Link>
             {contents}
         </div>

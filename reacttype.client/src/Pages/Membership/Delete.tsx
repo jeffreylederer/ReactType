@@ -49,7 +49,7 @@ const MembershipDelete = () => {
         
     return (
         <div>
-        <h1>Delete</h1>
+        <h3>Delete Member</h3>
             {contents}
             <p className="errorMessage">{errorMsg}</p>
         </div>
