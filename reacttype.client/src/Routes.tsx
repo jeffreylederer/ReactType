@@ -37,6 +37,7 @@ import TeamReport from "./Pages/League/Teams/Report.tsx";
 
 import Matches from "./Pages/League/Matches/list.tsx";
 import MatchUpdate from "./Pages/League/Matches/Update.tsx";
+import Logoff from "./Pages/Admin/Login/Logoff.tsx";
 import Login from "./Pages/Admin/Login/Login.tsx";
 import UpdatePassword from "./Pages/Admin/Login/UpdatePassword.tsx";
 
@@ -92,6 +93,7 @@ function RouteMenu() {
           {/*<Route path="/Welcome" element={<Welcome />} />*/}
           <Route path="/Contact" element={<Contact />} />
           <Route path="/About" element={<About />} />
+          <Route path="/Logoff" element={<Logoff />} />
           <Route path="/Login" element={<Login />} />
           <Route path="/UpdatePassword" element={<UpdatePassword />} />
           

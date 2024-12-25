@@ -16,7 +16,7 @@ function Login() {
     } = useForm<FormData>({
         resolver: zodResolver(FormDataSchema),
     });
-    const [cookie, setCookie] = useCookies(['login']);
+    const [cookie, setCookie] = useCookies(['login', 'userName']);
 
     useEffect(() => {
         if (cookie.login !== undefined) {
@@ -33,7 +33,12 @@ function Login() {
         axios.post('https://localhost:7002/api/Admin', data)
             .then((response) => {
                 console.log(response.data);
-                setCookie('login', true);
+                if (response.data == 0) {
+                    setErrorMsg("Login not successful");
+                    return;
+                }
+                setCookie('login', response.data);
+                setCookie('userName', data.username);
                 navigate("/");
             })
             .catch(error => {

@@ -19,21 +19,21 @@ namespace ReactType.Server.Controllers
 
         // GET: Leagues/Create
         [HttpPost]
-        public async Task<IActionResult> Login(UserType item)
+        public async Task<int> Login(UserType item)
         {
             User? user = await _context.Users.Where(x => x.Username == item.username).FirstOrDefaultAsync();
             if (user == null || item.password == null)
             {
-                return NotFound();
+                return 0;
             }
 
             var pw = GetSha256Hash.Encode(item.password);
             if (pw != user.Password)
             {
-                return BadRequest();
+                return 0;
             }
 
-            return Ok();
+            return user.Id;
         }
 
         // GET: Leagues/Details/5

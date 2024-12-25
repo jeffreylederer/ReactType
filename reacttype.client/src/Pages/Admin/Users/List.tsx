@@ -35,8 +35,7 @@ function Users() {
                         <td>{item.role}</td>
                         
                         <td><Link to="/Admin/Users/Update" state={item.id.toString()}>Update</Link>|
-                            <Link to="/Admin/Users/Delete" state={item.id.toString()}>Delete</Link> |
-                            <Link to="/UpdatePassword" state={item.id.toString()}>Update Password</Link>
+                            <Link to="/Admin/Users/Delete" state={item.id.toString()}>Delete</Link>
                         </td>
 
                     </tr>

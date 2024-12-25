@@ -1,11 +1,11 @@
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from 'react';
 import { useForm, SubmitHandler } from "react-hook-form";
 import axios from "axios";
 import { UpdateFormData, UpdateFormDataSchema } from "./UpdateForm.tsx"
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Button, TextInput } from "flowbite-react";
-
+import { useCookies } from 'react-cookie';
 
 
 
@@ -19,8 +19,8 @@ const UpdatePassword = () => {
             
         }
     );
-    const location = useLocation();
-    const id: number = location.state;
+    const [cookie] = useCookies(['login']);
+    
 
     const {
         register,
@@ -86,7 +86,7 @@ const UpdatePassword = () => {
 
     return (
         <>
-            <h3>Update user paawword</h3>
+            <h3>Update user password</h3>
             {contents}
 
 
@@ -95,30 +95,30 @@ const UpdatePassword = () => {
 
 
     async function GetData() {
-        const url: string = 'https://localhost:7002/api/Admin/'.concat(id.toString());
+        const url: string = 'https://localhost:7002/api/Admin/'.concat(cookie.login);
         axios.get(url)
             .then(response => {
 
                 setUsers(response.data);
 
 
-                console.log('Record aquired successfully: ', response.data);
+                console.log('Record aquired successfully');
             })
             .catch(error => {
-                console.error('Error aquiring record: ', error);
+                console.log('Error aquiring record: ', error);
             });
 
     }
 
     function updateData(data: UpdateFormData) {
-        const url: string = 'https://localhost:7002/api/Admin/'.concat(id.toString());
+        const url: string = 'https://localhost:7002/api/Admin/'.concat(cookie.login);
         axios.put(url, data)
             .then(response => {
-                console.log('Record updated successfully: ', response.data);
-                navigate("/");
+                console.log('Record updated successfully ', response.data);
+                navigate(-1);
             })
             .catch(error => {
-                console.error('Error updating record: ', error);
+                console.log('Error updating record: ', error);
             });
     }
 

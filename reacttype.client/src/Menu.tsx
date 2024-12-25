@@ -5,7 +5,7 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import { useCookies } from 'react-cookie';
 
 function Menu() {
-    const [cookies] = useCookies(['league']);  
+    const [cookies] = useCookies(['league','login','userName']);  
     const hide: boolean = cookies.league === undefined;
     return (
         <Navbar expand="lg" className="bg-body-tertiary">
@@ -35,7 +35,10 @@ function Menu() {
                         </NavDropdown>
                         
                         <Nav.Link href="/About">About</Nav.Link>
-                        <Nav.Link href="/Contact">Contact</Nav.Link>
+                        <Nav.Link href="/Contact" style={{ width: '100px', textAlign: 'left' }} >Contact</Nav.Link>
+                        <Nav.Link href="#" disabled>{"Hello ".concat(cookies.userName)}</Nav.Link>
+                        <Nav.Link href="/UpdatePassword">Change Password</Nav.Link>
+                        <Nav.Link href="/Logoff">Log Off</Nav.Link>
                     </Nav>
                 </Navbar.Collapse>
             </Container>
