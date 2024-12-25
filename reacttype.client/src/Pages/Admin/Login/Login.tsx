@@ -6,7 +6,7 @@ import { useCookies } from 'react-cookie';
 import { useEffect, useState } from 'react';
 import { TextInput, Button } from "flowbite-react";
 import axios from "axios";
-
+import { UserTypeDetail } from "./UserTypeDetail";
 function Login() {
 
     const {
@@ -16,7 +16,7 @@ function Login() {
     } = useForm<FormData>({
         resolver: zodResolver(FormDataSchema),
     });
-    const [cookie, setCookie] = useCookies(['login', 'userName']);
+    const [cookie, setCookie] = useCookies(['login']);
 
     useEffect(() => {
         if (cookie.login !== undefined) {
@@ -32,14 +32,15 @@ function Login() {
     function LoginData(data: FormData) {
         axios.post('https://localhost:7002/api/Admin', data)
             .then((response) => {
-                console.log(response.data);
-                if (response.data == 0) {
+                if (response.data == null) {
                     setErrorMsg("Login not successful");
-                    return;
+                 }
+                else {
+                    const data: UserTypeDetail = response.data;
+                    setCookie('login', data);
+                    
+                    navigate("/");
                 }
-                setCookie('login', response.data);
-                setCookie('userName', data.username);
-                navigate("/");
             })
             .catch(error => {
                 setErrorMsg("Login not successful, ".concat(error));

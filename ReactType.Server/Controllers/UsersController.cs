@@ -94,6 +94,7 @@ namespace ReactType.Server.Controllers
                     case 2: user.Role = "Scorer"; break;
                     case 3: user.Role = "Admin"; break;
                     case 4: user.Role = "SiteAdmin"; break;
+                    default: user.Role = "Observer"; break;
                 }
             }
             

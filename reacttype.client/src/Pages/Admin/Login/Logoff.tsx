@@ -9,7 +9,6 @@ function Logoff() {
 
     useEffect(() => {
         removeCookie('login');
-        removeCookie('userName');
         navigate("/Login");
     }, []);
     return (

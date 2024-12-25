@@ -19,21 +19,36 @@ namespace ReactType.Server.Controllers
 
         // GET: Leagues/Create
         [HttpPost]
-        public async Task<int> Login(UserType item)
+        public async Task<UserTypeDetail?> Login(UserType item)
         {
             User? user = await _context.Users.Where(x => x.Username == item.username).FirstOrDefaultAsync();
             if (user == null || item.password == null)
             {
-                return 0;
+                return null;
             }
 
             var pw = GetSha256Hash.Encode(item.password);
             if (pw != user.Password)
             {
-                return 0;
+                return null;
             }
-
-            return user.Id;
+            UserRole? role = _context.UserRoles.Where(x=>x.UserId == user.Id).FirstOrDefault();
+            string? Role = "Observer";
+            switch (role.RoleId)
+            {
+                case 1: Role = "Observer"; break;
+                case 2: Role = "Scorer"; break;
+                case 3: Role = "Admin"; break;
+                case 4: Role = "SiteAdmin"; break;
+                
+            };
+            var result = new UserTypeDetail()
+            {
+                id = user.Id,
+                username = user.Username,
+                role = Role
+            };
+            return result;
         }
 
         // GET: Leagues/Details/5
@@ -120,6 +135,7 @@ namespace ReactType.Server.Controllers
     {
         public string? username { get; set; }
         public int id { get; set; }
+        public string? role { get; set; }
     }
 
     public class UserTypeUpdate
