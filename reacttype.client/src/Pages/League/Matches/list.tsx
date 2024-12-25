@@ -116,7 +116,7 @@ function Matches() {
         </>;   
         return(
     <div>
-        <h2 id="tableLabel">Players in league {league.leagueName}</h2>
+        <h3>Players in league {league.leagueName}</h3>
                 {contents}
                 {matchcontents}
                 <p style={{color: 'red', textAlign: 'left'} }>Teams with wheel chair members are in red</p>

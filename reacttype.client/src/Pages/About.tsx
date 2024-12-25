@@ -1,7 +1,7 @@
 const About = () => {
     return (
         <>
-            <h2 style={{textAlign: 'center'} }>About</h2>
+            <h3 style={{textAlign: 'center'} }>About</h3>
 
             <p style={{ width: '100%', textAlign: 'left' }}>This application is used to track leagues at
                 the Frick Park Lawn Bowling Club.</p>

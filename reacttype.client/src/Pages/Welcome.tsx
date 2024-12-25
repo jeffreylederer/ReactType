@@ -15,7 +15,7 @@ function Welcome() {
     const contents = league === undefined
         ? <p><em>Loading ...</em></p> :
         <>
-            <h2>Welcome to {league?.leagueName}</h2>
+            <h3>Welcome to {league?.leagueName}</h3>
             
         </>
         return (

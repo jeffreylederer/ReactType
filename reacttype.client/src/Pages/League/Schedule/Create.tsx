@@ -35,7 +35,7 @@ const ScheduleCreate = () => {
 
     return (
         <>
-            <h2>Create new game date for league {league.leagueName}</h2>
+            <h3>Create new game date for league {league.leagueName}</h3>
             <form onSubmit={handleSubmit(onSubmit)} >
                 <table>
                     <input type="hidden" defaultValue={league.id} {...register('leagueid')} />

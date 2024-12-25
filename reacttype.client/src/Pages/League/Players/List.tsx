@@ -37,7 +37,7 @@ function Players() {
 
     return (
         <div>
-            <h2 id="tableLabel">Players in league {league.leagueName}</h2>
+            <h3>Players in league {league.leagueName}</h3>
             <Link to="/League/Players/Create">Add</Link>
             {contents}
             <p>Number of players: {player?.length}</p>

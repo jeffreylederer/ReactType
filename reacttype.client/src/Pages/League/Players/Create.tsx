@@ -54,7 +54,7 @@ const PlayersCreate = () => {
 
     return (
         <>
-            <h2>Create new player in league {league.leagueName} </h2>
+            <h3>Create new player in league {league.leagueName} </h3>
             <form onSubmit={handleSubmit(onSubmit)} >
                 <table>
                     <input type="hidden" {...register("leagueid")} defaultValue={league.id }/>

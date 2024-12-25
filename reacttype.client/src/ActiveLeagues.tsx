@@ -21,7 +21,7 @@ function ActiveLeagues() {
 
             setCookie("league", item);
             console.log(league);
-            setMessage('Selected league ' + item.leagueName);
+            setMessage('Selected league: ' + item.leagueName);
         }
           
     };

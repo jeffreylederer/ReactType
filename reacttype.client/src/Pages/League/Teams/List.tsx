@@ -45,7 +45,7 @@ function Teams() {
 
     return (
         <div>
-            <h2 id="tableLabel">Teams in league {league.leagueName}</h2>
+            <h3>Teams in league {league.leagueName}</h3>
             <Link to="/League/Teams/Create">Add</Link><br/>
             <Link to="/League/Teams/Report" target="_blank" >Team Report</Link>
             {contents}
