@@ -18,10 +18,10 @@ function ActiveLeagues() {
         const result = league?.filter(function (o) { return o.id == idValue; });
         if (result?.length == 1) {
             const item: leagueType = result[0];
-            
+
             setCookie("league", item);
             console.log(league);
-            setMessage("league ${league.leagueName}");
+            setMessage('Selected league ' + item.leagueName);
         }
           
     };
@@ -70,7 +70,7 @@ function ActiveLeagues() {
         <div>
             <h3 id="tableLabel">Select League</h3>
             {contents}
-            <p>{message}</p>
+            <p style={{ textAlign: 'left'} } >{message}</p>
             <p><button onClick={Hide}>Unselect</button></p>
         </div>
     );

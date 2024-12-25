@@ -7,8 +7,9 @@ import { useCookies } from 'react-cookie';
 function Menu() {
     const [cookies] = useCookies(['league','login','userName']);  
     const hide: boolean = cookies.league === undefined;
+    const hideall: boolean = cookies.login === undefined;
     return (
-        <Navbar expand="lg" className="bg-body-tertiary">
+        <Navbar expand="lg" className="bg-body-tertiary" hidden={hideall}>
             <Container>
                 <Navbar.Brand href="/">Leagues</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />

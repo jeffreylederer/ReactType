@@ -2,6 +2,7 @@ import {
     Routes,
     Route
 } from "react-router-dom";
+import { useCookies } from 'react-cookie';
 
 
 import Membership from "./Pages/Membership/List.tsx";
@@ -38,13 +39,16 @@ import TeamReport from "./Pages/League/Teams/Report.tsx";
 import Matches from "./Pages/League/Matches/list.tsx";
 import MatchUpdate from "./Pages/League/Matches/Update.tsx";
 import Logoff from "./Pages/Admin/Login/Logoff.tsx";
+
 import Login from "./Pages/Admin/Login/Login.tsx";
 import UpdatePassword from "./Pages/Admin/Login/UpdatePassword.tsx";
-
+import NotLogin from "./Pages/Admin/Login/NotLogin.tsx";
 
 
 import About from "./Pages/About.tsx";
 import Contact from "./Pages/Contact.tsx";
+
+
 /*import Welcome from "./Pages/Welcome.tsx";*/
 import Home from './Pages/Home.tsx'; 
 
@@ -52,7 +56,11 @@ import Home from './Pages/Home.tsx';
 
 
 function RouteMenu() {
-  return (
+    const [cookies] = useCookies(['login']);  
+    const hide = cookies.login === undefined
+    return (
+        <>
+        <div hidden={hide}>
       <Routes>
           <Route path="/" element={<Home />} />
 
@@ -99,6 +107,17 @@ function RouteMenu() {
           
          
       </Routes>
+
+        </div >
+
+         <div hidden={!hide}>
+      <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/Login" element={<Login />} />
+                    <Route path='*' element={<NotLogin />} />
+        </Routes>
+    </div>
+        </>
   );
 }
 
