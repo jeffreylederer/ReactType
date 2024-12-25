@@ -35,8 +35,7 @@ const UserCreate = () => {
         <>
         <h3>Add new user</h3>
             <form onSubmit={handleSubmit(onSubmit)} >
-               
-                <table>
+                 <table>
                     <tr>
                         <td className="Label">User Name:</td>
 
@@ -90,8 +89,8 @@ const UserCreate = () => {
                     <tr><td colSpan={1}>
                     {errors.username && <p className="errorMessage">{errors.username.message}</p>}
                     {errors.displayName && <p className="errorMessage">{errors.displayName.message}</p>}
-                        {errors.password && <p className="errorMessage">{errors.password.message}</p>}
-                        {errors.roleId && <p className="errorMessage">{errors.roleId.message}</p>}
+                    {errors.password && <p className="errorMessage">{errors.password.message}</p>}
+                    {errors.roleId && <p className="errorMessage">{errors.roleId.message}</p>}
                     </td></tr>
 
 

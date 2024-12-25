@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using ReactType.Server.Code;
 using ReactType.Server.Models;
+using System.Data;
 
 
 
@@ -22,17 +23,33 @@ namespace ReactType.Server.Controllers
 
         // GET: Users
         [HttpGet]
-        public async Task<IEnumerable<DTOUserRole>> Get()
+        public async Task<IEnumerable<DTOUserRoleDetails>> Get()
         {
-            var newList = new List<DTOUserRole>();  
+            var newList = new List<DTOUserRoleDetails>();  
             try
             {
                 var list = await _context.Users.ToListAsync();
-                foreach (var item in list)
+                foreach (var user in list)
                 {
+                    var item = new DTOUserRoleDetails()
+                    {
+                        Id= user.Id,
+                        IsActive = user.IsActive,
+                        UserName = user.Username,
+                        DisplayName = user.DisplayName
+                    };
                     UserRole? userRole = await _context.UserRoles.Where(x => x.UserId == item.Id).FirstOrDefaultAsync();
-                    newList.Add(new DTOUserRole(item, userRole.RoleId));
-                    
+                    if (userRole != null)
+                    {
+                        switch (userRole.RoleId)
+                        {
+                            case 1: item.Role = "Observer"; break;
+                            case 2: item.Role = "Scorer"; break;
+                            case 3: item.Role = "Admin"; break;
+                            case 4: item.Role = "SiteAdmin"; break;
+                        }
+                    }
+                    newList.Add(item);
                 }
             }
             catch (Exception ex)
@@ -46,32 +63,47 @@ namespace ReactType.Server.Controllers
 
         // GET: Users/Details/5
         [HttpGet("{id}")]
-        public async Task<DTOUserRole?> Details(int? id)
+        public async Task<DTOUserRoleDetails?> Details(int? id)
         {
             if (id == null)
             {
                 return null;
             }
 
-            var User = await _context.Users.FindAsync(id.Value);
-            if (User == null)
+            var item = await _context.Users.FindAsync(id.Value);
+            if (item == null)
             {
                 return null;
             }
-            UserRole? userRole = await _context.UserRoles.Where(x => x.UserId == User.Id).FirstOrDefaultAsync();
-            if(userRole != null)
+
+            var user = new DTOUserRoleDetails()
             {
-                DTOUserRole item = new DTOUserRole(User, userRole.RoleId);
-                
-                return item;
+                Id = id.Value,
+                IsActive = item.IsActive,
+                UserName = item.Username,
+                DisplayName = item.DisplayName
+            };
+
+            var role = await _context.UserRoles.Where(x=>x.UserId == item.Id).FirstOrDefaultAsync();
+            if (role != null)
+            {
+                user.RoleId = role.Id;
+                switch (role.RoleId)
+                {
+                    case 1: user.Role = "Observer"; break;
+                    case 2: user.Role = "Scorer"; break;
+                    case 3: user.Role = "Admin"; break;
+                    case 4: user.Role = "SiteAdmin"; break;
+                }
             }
-            return null;
+            
+            return user;
 
         }
 
         // GET: Users/Create
         [HttpPost]
-        public async Task Create(DTOUserRole item)
+        public async Task Create(DTOUserRoleCreate item)
         {
             var password = GetSha256Hash.Encode(item.Password);
             try
@@ -84,10 +116,10 @@ namespace ReactType.Server.Controllers
                     IsActive = item.IsActive,
                     Username = item.Username,
                     DisplayName = item.DisplayName,
-
                 };
                 _context.Users.Add(user);
                 await _context.SaveChangesAsync();
+
                 var userRole = new UserRole() { RoleId = item.RoleId, UserId=user.Id };
 
                 _context.UserRoles.Add(userRole);
@@ -103,29 +135,45 @@ namespace ReactType.Server.Controllers
 
         // GET: Users/Edit/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> Edit(int id, DTOUserRole item)
+        public async Task<IActionResult> Edit(int id, DTOUserRoleUpdate item)
         {
             if (id != item.Id)
             {
                 return BadRequest();
             }
-            User user = DTOUserRole.CreateUser(item);
+
+            User? user = await _context.Users.FindAsync(id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            user.IsActive = item.IsActive;
+            user.DisplayName = item.DisplayName;
             _context.Entry(user).State = EntityState.Modified;
-            UserRole? userRole = await _context.UserRoles.Where(x => x.UserId == user.Id).FirstOrDefaultAsync();
-            if (userRole != null )
-            {
-                _context.Add(new UserRole()
-                {
-                    UserId = id,
-                    RoleId = item.RoleId
-                });
+
+            //UserRole? userRole = await _context.UserRoles.Where(x => x.UserId == user.Id).FirstOrDefaultAsync();
+            //if (userRole == null )
+            //{
+            //    _context.UserRoles.Add(new UserRole()
+            //    {
+            //        UserId = id,
+            //        RoleId = item.RoleId
+            //    });
                 
-            }
-            else if(userRole != null)
-            {
-                userRole.RoleId = item.RoleId;
-                _context.Entry(userRole).State = EntityState.Modified;
-            }
+            //}
+            //else if(userRole != null)
+            //{
+            //    userRole.RoleId = item.RoleId;
+            //    try
+            //    {
+            //        _context.Entry(userRole).State = EntityState.Modified;
+            //    }
+            //    catch(Exception ex1)
+            //    {
+            //        var mess = ex1.Message;
+            //    }
+            //}
 
             try
             {
@@ -146,7 +194,7 @@ namespace ReactType.Server.Controllers
             {
                 return StatusCode(500, ex.Message);
             }
-            return NoContent();
+            return Ok();
         }
 
         // GET: Users/Delete/5

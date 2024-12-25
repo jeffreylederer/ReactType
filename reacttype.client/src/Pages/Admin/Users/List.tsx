@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from "axios";
-import { UpdateFormData } from "./UpdateFormData.tsx";
+import { DetailsType } from "./DetailsType.tsx";
 
 
 
 function Users() {
-    const [Users, setUsers] = useState<UpdateFormData[]>();
+    const [Users, setUsers] = useState<DetailsType[]>();
 
 
     useEffect(() => {
@@ -29,13 +29,14 @@ function Users() {
             <tbody>
                 {Users.map(item =>
                     <tr key={item.id.toString()}>
-                        <td>{item.username}</td>
+                        <td>{item.userName}</td>
                         <td>{item.isActive ? "Yes" : "No"}</td>
                         <td>{item.displayName}</td>
                         <td>{item.role}</td>
                         
                         <td><Link to="/Admin/Users/Update" state={item.id.toString()}>Update</Link>|
-                            <Link to="/Admin/Users/Delete" state={item.id.toString()}>Delete</Link>
+                            <Link to="/Admin/Users/Delete" state={item.id.toString()}>Delete</Link> |
+                            <Link to="/UpdatePassword" state={item.id.toString()}>Update Password</Link>
                         </td>
 
                     </tr>

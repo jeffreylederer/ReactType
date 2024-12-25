@@ -408,6 +408,8 @@ public partial class DbLeagueApp : DbContext
 
             entity.ToTable("UserRole");
 
+            entity.HasIndex(e => new { e.UserId, e.RoleId }, "UQ_UserId_ContactID").IsUnique();
+
             entity.Property(e => e.Id)
                 .ValueGeneratedOnAdd()
                 .HasColumnName("id");

@@ -1,7 +1,7 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from 'react';
 import axios from "axios";
-import { FormData } from "./FormData.tsx";
+import { DetailsType } from "./DetailsType.tsx";
 
 
 
@@ -10,7 +10,7 @@ const UsersDelete = () => {
     const location = useLocation();
     const id: number = location.state;
 
-    const [Users, setUsers] = useState<FormData>();
+    const [Users, setUsers] = useState<DetailsType>();
 
 
     const navigate = useNavigate();
@@ -26,7 +26,7 @@ const UsersDelete = () => {
             <tr>
                 <td className="Label">Users Name:</td>
 
-                <td className="Field">{Users.username}</td>
+                <td className="Field">{Users.userName}</td>
             </tr>
             <tr>
                 <td className="Label">Active:</td>
@@ -80,7 +80,7 @@ const UsersDelete = () => {
         axios.delete(fullUrl)
             .then(response => {
                 console.log(response.statusText);
-                navigate("/Users");
+                navigate("/Admin/Users");
             })
             .catch(error => {
                 console.error('Error fetching data: ', error);

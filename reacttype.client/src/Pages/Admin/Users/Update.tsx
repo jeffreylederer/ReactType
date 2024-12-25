@@ -19,11 +19,7 @@ const UsersUpdate = () => {
             username: '',
             password: '',
             displayName: '',
-            isActive: false,
-            lastLoggedIn: null,
-            serialNumber: '',
-            role: ''
-           
+            isActive: false          
         }
     );
     const location = useLocation();
@@ -58,14 +54,11 @@ const UsersUpdate = () => {
 
         <table>
 
-                <input type="hidden" {...register("id", { valueAsNumber: true })} defaultValue={users.id} />
-                <input type="hidden" {...register("lastLoggedIn")} defaultValue={users.lastLoggedIn == null ? '' : users.lastLoggedIn } />
-                <input type="hidden" {...register("serialNumber")} defaultValue={users.serialNumber} />
-                <input type="hidden" {...register("role")} defaultValue={users.role} />
+            <input type="hidden" {...register("id", { valueAsNumber: true })} defaultValue={users.id} />
             <tr>
                 <td className="Label">User Name:</td>
 
-                    <td className="Field"><TextInput {...register('username')} defaultValue={users.username} disabled />
+                    <td className="Field"><TextInput  defaultValue={users.username} disabled />
                 </td>
             </tr>
 
@@ -153,7 +146,7 @@ const UsersUpdate = () => {
         axios.put(fullUrl, data)
             .then(response => {
                 console.log('Record updated successfully: ', response.data);
-                navigate("/Users");
+                navigate("/Admin/Users");
             })
             .catch(error => {
                 console.error('Error updating record: ', error);
