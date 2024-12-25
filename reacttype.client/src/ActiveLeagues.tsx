@@ -2,14 +2,13 @@ import { useEffect, useState } from 'react';
 import axios from "axios";
 import { useCookies } from 'react-cookie';
 import { leagueType } from "./Pages/leagueObject.tsx";
-import { useNavigate } from "react-router-dom";
 
 
 function ActiveLeagues() {
     const [league, setleague] = useState<leagueType[]>();
     const [message, setMessage] = useState(league === undefined ? "no league selected" : 'league ${league.leagueName} selected');
     const [cookie, setCookie, removeCookie] = useCookies(['league','login']);
-    const navigate = useNavigate();
+
 
     const buttonHandler = (event: React.MouseEvent<HTMLButtonElement>) => {
         //event.preventDefault();
@@ -23,16 +22,12 @@ function ActiveLeagues() {
             console.log(league);
             setMessage('Selected league: ' + item.leagueName);
         }
-          
     };
 
     useEffect(() => {
-        if (cookie.login === undefined) {
-            navigate("/Login");
-        }
-        else { 
+       
             GetData();
-        }   
+
     }, []);
 
     const contents = league === undefined

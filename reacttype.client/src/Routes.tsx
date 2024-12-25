@@ -2,7 +2,6 @@ import {
     Routes,
     Route
 } from "react-router-dom";
-import { useCookies } from 'react-cookie';
 
 
 import Membership from "./Pages/Membership/List.tsx";
@@ -56,7 +55,7 @@ import Home from './Pages/Home.tsx';
 
 
 function RouteMenu() {
-    const [cookies] = useCookies(['login']);  
+   
     
     return (
        

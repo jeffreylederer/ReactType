@@ -4,10 +4,18 @@ import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import { useCookies } from 'react-cookie';
 import { UserTypeDetail } from "./Pages/Admin/Login/UserTypeDetail.tsx";
+import { useEffect } from 'react';
+import { useNavigate } from "react-router-dom";
 
 function Menu() {
     const [cookies] = useCookies(['league', 'login']);  
     const data: UserTypeDetail = cookies.login === undefined ? { id: 0, role: "Observer", username: "unknown" } : cookies.login;
+    const navigate = useNavigate();
+    useEffect(() => {
+        if (cookies.login === undefined) {
+            navigate("/Login");
+        }
+    }, []);
    
     return (
         <Navbar expand="lg" className="bg-body-tertiary" hidden={cookies.login === undefined}>
