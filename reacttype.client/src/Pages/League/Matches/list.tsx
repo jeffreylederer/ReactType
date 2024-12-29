@@ -6,10 +6,17 @@ import uparrow from '../../../images/uparrow.png';
 import { UpdateFormData } from "../Schedule/UpdateFormData.tsx";
 import { Link } from 'react-router-dom';
 import { useLocation } from "react-router-dom";
+import { useCookies } from 'react-cookie';
+import { UserTypeDetail } from '../../Admin/Login/UserTypeDetail.tsx';
 
 
 function Matches() {
     const [match, setMatch] = useState<MatchFormData[]>();
+    const cookie = useCookies(['login'])[0];
+    const user: UserTypeDetail = cookie.login;
+    const permission: string = user.role;
+    const allowed: boolean = (permission == "SiteAdmin" || permission == "Admin" || permission == "Scorer") ? false : true;
+    const admin: boolean = (permission == "SiteAdmin" || permission == "Admin" )? false : true;
     
     const [schedule, setSchedule] = useState<UpdateFormData[]>();
     const league: leagueType = ConvertLeague();
@@ -22,7 +29,7 @@ function Matches() {
         GetDates();
         if (weekid !== undefined  && weekid != 0)
             GetData(weekid);
-    }, []);
+    }, [weekid]);
 
     const selectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         //event.preventDefault();
@@ -30,6 +37,20 @@ function Matches() {
         setWeekid(+value);
         GetData(weekid);
     };
+
+    async function GetData(weekid: number) {
+        const url: string = "https://localhost:7002/api/matches/".concat(weekid.toString());
+        axios.get(url)
+            .then(response => {
+
+                setMatch(response.data);
+
+
+            })
+            .catch(error => {
+                console.error('Error fetching data: ', error);
+            })
+    }
 
     const Reorder =  (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
@@ -64,7 +85,7 @@ function Matches() {
             <table className="table table-striped" aria-labelledby="tableLabel">
                 <thead>
                     <tr>
-                        <th>
+                        <th hidden={admin}>
                             Exchange Rink
                         </th>
                         <th>
@@ -89,13 +110,13 @@ function Matches() {
                         <th>
                             Team Forfeiting
                         </th>
-                        <th></th>
+                        <th hidden={allowed}></th>
                     </tr>
                 </thead>
                 <tbody>
                     {match.map(item =>
                         <tr key={item.id}>
-                            <td><button hidden={item.rink == 1} onClick={Reorder} name={item.id.toString()} style={{ backgroundColor: 'white'} }><img src={uparrow} /></button></td>
+                            <td hidden={admin}><button hidden={item.rink == 1} onClick={Reorder} name={item.id.toString()} style={{ backgroundColor: 'white'} }><img src={uparrow} /></button></td>
                             
                             <td>{item.gameDate}</td>
                             <td>{item.rink}</td>
@@ -105,10 +126,10 @@ function Matches() {
                             <td style={{ color: item.wheelchair2 }} >
                                 {item.team2No} ({item.team2})</td>
 
-                            <td>{item.forFeitId != 0?'' : item.team1Score}</td>
-                            <td>{item.forFeitId != 0 ? '': item.team2Score}</td>
-                            <td>{item.forFeitId == 0 ? '' : item.forFeitId}</td>
-                            <td><Link to="/League/Matches/Update" state={item.id.toString()}>Score</Link></td>
+                            <td style={{textAlign: 'center'} }>{item.forFeitId != 0?'' : item.team1Score}</td>
+                            <td style={{textAlign: 'center'} }>{item.forFeitId != 0 ? '': item.team2Score}</td>
+                            <td style={{ textAlign: 'center' }}>{item.forFeitId == 0 ? '' : item.forFeitId}</td>
+                            <td hidden={allowed} ><Link to="/League/Matches/Update" state={item.id.toString()}>Score</Link></td>
                         </tr>
                     )}
                 </tbody>
@@ -123,19 +144,7 @@ function Matches() {
         
     </div>
     );
-    async function GetData(weekid: number) {
-    const url: string = "https://localhost:7002/api/matches/".concat(weekid.toString());
-      axios.get(url)
-          .then(response => {
-              
-            setMatch(response.data);
-           
-            
-        })
-        .catch(error => {
-            console.error('Error fetching data: ', error);
-        })
-    }
+   
     async function GetDates() {
         if (schedule === undefined) {
             const url: string = "https://localhost:7002/api/Schedules/".concat(league.id.toString());
@@ -149,9 +158,7 @@ function Matches() {
         }
     }
 
-    //const UpArrowFunction = (event: React.MouseEvent<HTMLButtonElement>) => {
-    //    event.preventDefault();
-    //}
+    
 
     
 

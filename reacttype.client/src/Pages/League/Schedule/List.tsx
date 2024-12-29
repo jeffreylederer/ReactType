@@ -3,15 +3,22 @@ import { Link } from 'react-router-dom';
 import axios from "axios";
 import { UpdateFormData } from "./UpdateFormData.tsx";
 import { ConvertLeague, leagueType } from "../../leagueObject.tsx";
+import { useCookies } from 'react-cookie';
+import { UserTypeDetail } from '../../Admin/Login/UserTypeDetail.tsx';
+
 
 
 function Schedule() {
     const [schedule, setschedule] = useState<UpdateFormData[]>();
     const league: leagueType = ConvertLeague();
+    const cookie = useCookies(['login'])[0];
+    const user: UserTypeDetail = cookie.login;
+    const permission: string = user.role;
+    const allowed: boolean = (permission == "SiteAdmin" || permission == "Admin") ? false : true;
 
     useEffect(() => {
         GetData();
-    }, []);
+    });
 
     const contents = schedule === undefined
         ? <p><em>Loading ...</em></p>
@@ -22,7 +29,7 @@ function Schedule() {
                     <th>Game Date</th>
                     <th>Cancelled</th>
                     <th>Playoffs</th>
-                    <td></td>
+                    <td hidden={allowed}></td>
                 </tr>
             </thead>
             <tbody>
@@ -31,7 +38,7 @@ function Schedule() {
                         <td>{item.gameDate}</td>
                         <td>{item.cancelled ? "yes" : "no"}</td>
                         <td>{item.playOffs ? "yes" : "no"}</td>
-                        <td><Link to="/League/Schedule/Update" state={ item.id.toString() }>Update</Link>|  
+                        <td hidden={allowed}><Link to="/League/Schedule/Update" state={ item.id.toString() }>Update</Link>|  
                             <Link to="/League/Schedule/Delete" state={ item.id.toString() }>Delete</Link>
                         </td>
                         
@@ -43,7 +50,7 @@ function Schedule() {
     return (
         <div>
             <h2 id="tableLabel">Schedule for League {league.leagueName}</h2>
-            <Link to="/League/Schedule/Create">Add</Link>
+            <Link to="/League/Schedule/Create" hidden={allowed}>Add</Link>
             {contents}
         </div>
     );

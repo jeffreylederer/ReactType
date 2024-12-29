@@ -3,15 +3,25 @@ import { Link } from 'react-router-dom';
 import axios from "axios";
 import { TeamMember } from "./TeamMember.tsx";
 import { ConvertLeague, leagueType } from "../../leagueObject.tsx";
+import { useCookies } from 'react-cookie';
+import { UserTypeDetail } from '../../Admin/Login/UserTypeDetail.tsx';
+
+
+
 
 function Teams() {
     const [team, setTeam] = useState<TeamMember[]>();
     const league: leagueType = ConvertLeague();
+    const cookie = useCookies(['login'])[0];
+    const user: UserTypeDetail = cookie.login;
+    const permission: string = user.role;
+    const allowed: boolean = (permission == "SiteAdmin" || permission == "Admin") ? false : true;
+
     
 
     useEffect(() => {
         GetData();
-    }, []);
+    });
 
     const contents = team === undefined
         ? <p><em>Loading ...</em></p>
@@ -24,7 +34,7 @@ function Teams() {
                     <th hidden={league.teamSize < 3}>Vice Skip</th>
                     <th hidden={league.teamSize < 2}>Lead</th>
                     <th>Division</th>
-                    <td></td>
+                    <td hidden={allowed}></td>
                 </tr>
             </thead>
             <tbody>
@@ -34,8 +44,8 @@ function Teams() {
                         <td>{item.skip}</td>
                         <td hidden={league.teamSize < 3}>{item.viceSkip}</td>
                         <td hidden={league.teamSize < 2}>{item.lead}</td>
-                        <td>{item.divisionId}</td>
-                        <td><Link to="/league/Teams/Update" state={item.id.toString()}>Update</Link>|
+                        <td>{item.division}</td>
+                        <td hidden={allowed}><Link to="/league/Teams/Update" state={item.id.toString()}>Update</Link>|
                             <Link to="/league/Teams/Delete" state={item.id.toString()}>Delete</Link>
                         </td>
                     </tr>
@@ -46,7 +56,7 @@ function Teams() {
     return (
         <div>
             <h3>Teams in league {league.leagueName}</h3>
-            <Link to="/League/Teams/Create">Add</Link><br/>
+            <Link to="/League/Teams/Create" hidden={allowed}>Add</Link><br/>
             <Link to="/League/Teams/Report" target="_blank" >Team Report</Link>
             {contents}
             <p>Number of Teams: {team?.length}</p>

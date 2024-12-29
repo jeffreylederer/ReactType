@@ -15,7 +15,7 @@ function Menu() {
         if (cookies.login === undefined) {
             navigate("/Login");
         }
-    }, []);
+    }, [cookies.login, navigate]);
    
     return (
         <Navbar expand="lg" className="bg-body-tertiary" hidden={cookies.login === undefined}>
@@ -32,11 +32,11 @@ function Menu() {
                             <NavDropdown.Item href="/League/Teams">Teams</NavDropdown.Item>
                             <NavDropdown.Item href="/League/Matches?id=0">Matches</NavDropdown.Item>
                             <NavDropdown.Item href="/League/ScheduleReport">Schedule Report</NavDropdown.Item>
-                            <NavDropdown.Divider />
-                            <NavDropdown.Item href="/League/CreateMatches">Create Matches</NavDropdown.Item>
-                            <NavDropdown.Item href="/League/ClearSchedule">Delete Matches</NavDropdown.Item>
-                            <NavDropdown.Divider />
-                            <NavDropdown.Item href="/League/Playoffs">Playoff Matches</NavDropdown.Item>
+                            <NavDropdown.Divider hidden={data.role != "SiteAdmin" && data.role != "Admin"} ></NavDropdown.Divider>
+                            <NavDropdown.Item href="/League/CreateMatches" hidden={data.role != "SiteAdmin" && data.role !="Admin"}>Create Matches</NavDropdown.Item>
+                            <NavDropdown.Item href="/League/ClearSchedule" hidden={data.role != "SiteAdmin" && data.role != "Admin"}>Delete Matches</NavDropdown.Item>
+                            <NavDropdown.Divider hidden={data.role != "SiteAdmin" && data.role != "Admin"} ></NavDropdown.Divider>
+                            <NavDropdown.Item href="/League/Playoffs" hidden={data.role != "SiteAdmin" && data.role != "Admin"}>Playoff Matches</NavDropdown.Item>
                         </NavDropdown>
                         <NavDropdown title="Admin" id="basic-nav-dropdown" hidden={data.role != "SiteAdmin" }>
                             <NavDropdown.Item href="/Admin/Users">Users</NavDropdown.Item>

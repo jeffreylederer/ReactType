@@ -2,16 +2,21 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from "axios";
 import { UpdateFormData } from "./UpdateFormData.tsx";
+import { useCookies } from 'react-cookie';
+import { UserTypeDetail } from '../Admin/Login/UserTypeDetail.tsx';
 
 
 
 function Membership() {
     const [membership, setmembership] = useState<UpdateFormData[]>();
-  
+    const cookie = useCookies(['login'])[0];
+    const user: UserTypeDetail = cookie.login;
+    const permission: string = user.role;
+    const allowed: boolean = (permission == "SiteAdmin" || permission == "Admin") ? false : true;
 
     useEffect(() => {
         GetData();
-    }, []);
+    });
 
     const contents = membership === undefined
         ? <p><em>Loading ...</em></p>
@@ -23,7 +28,7 @@ function Membership() {
                     <th>Short Name</th>
                     <th>Nick Name</th>
                     <th>Wheelchair</th>
-                    <td></td>
+                    <td hidden={allowed}></td>
                 </tr>
             </thead>
             <tbody>
@@ -33,7 +38,7 @@ function Membership() {
                         <td>{item.shortname}</td>
                         <td>{item.nickName}</td>
                         <td>{item.wheelchair ? "yes" : "no"}</td>
-                        <td><Link to="/Membership/Update" state={ item.id.toString() }>Update</Link>|  
+                        <td hidden={allowed}><Link to="/Membership/Update" state={ item.id.toString() }>Update</Link>|  
                             <Link to="/Membership/Delete" state={ item.id.toString() }>Delete</Link>
                         </td>
                         
@@ -45,7 +50,7 @@ function Membership() {
     return (
         <div>
             <h3 id="tableLabel">Membership</h3>
-            <Link to="/Membership/Create">Add</Link>
+            <Link to="/Membership/Create" hidden={ allowed}>Add</Link>
             {contents}
         </div>
     );
