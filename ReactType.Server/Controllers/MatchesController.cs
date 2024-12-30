@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.Immutable;
-using System.Linq;
-using System.Net;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using QuestPDF.Fluent;
+using QuestPDF.Infrastructure;
+using ReactType.Server.Code;
 using ReactType.Server.Models;
 
 // https://medium.com/@hassanjabbar2017/performing-crud-operations-using-react-with-net-core-a-step-by-step-guide-0176efa86934
@@ -38,7 +34,7 @@ namespace ReactType.Server.Controllers
         [HttpGet("Reorder{id}")]
         public async Task<IActionResult> GetReorder(int id)
         {
-            var match = _context.Matches.Find(id);
+            var match = await _context.Matches.FindAsync(id);
             if (match == null)
                 return NotFound();
             var weekMatches = _context.Matches.Where(x => x.WeekId == match.WeekId);
@@ -61,7 +57,7 @@ namespace ReactType.Server.Controllers
 
         // GET: Matches/Details/5
         [HttpGet("getOne/{id}")]
-        public async Task<OneMatchWeekView?> Get(int? id)
+        public OneMatchWeekView? Get(int? id)
         {
             if (id == null)
             {
@@ -72,7 +68,7 @@ namespace ReactType.Server.Controllers
                 SqlParameter[] parameters = {
                     new SqlParameter("matchid", id)
                 };
-                var match = _context.OneMatchWeekViews
+                var match =  _context.OneMatchWeekViews
                          .FromSqlRaw("EXEC OneMatch @matchid", parameters)
                          .AsEnumerable()
                          .FirstOrDefault();
@@ -131,8 +127,37 @@ namespace ReactType.Server.Controllers
             return NoContent();
         }
 
+        // GET: Players/Details/5
+        [HttpGet("Standings/{id}")]
+        public string Standings(int? id)
+        {
+            if (id == null)
+            {
+                return null;
+            }
+            QuestPDF.Settings.License = LicenseType.Community;
+            var report = new StandingsReport();
+            var document = report.CreateDocument(id.Value, _context);
+            byte[] pdfBytes = document.GeneratePdf();
+            var results = Convert.ToBase64String(pdfBytes);
+            return results;
+        }
 
-       
+        [HttpGet("ScoreCard/{id}")]
+        public string ScoreCard(int? id)
+        {
+            if (id == null)
+            {
+                return null;
+            }
+            QuestPDF.Settings.License = LicenseType.Community;
+            var report = new ScorecardReport();
+            var document = report.CreateDocument(id.Value, _context);
+            byte[] pdfBytes = document.GeneratePdf();
+            var results = Convert.ToBase64String(pdfBytes);
+            return results;
+        }
+
 
         private bool MatchExists(int id)
         {

@@ -10,7 +10,7 @@ function Welcome() {
     const [league, setleague] = useState<UpdateFormData>();
     useEffect(() => {
         GetData();
-    }, []);
+    });
 
     const contents = league === undefined
         ? <p><em>Loading ...</em></p> :

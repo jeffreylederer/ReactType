@@ -49,7 +49,7 @@ const TeamUpdate = () => {
         GetData();
         GetMembers();
         
-    }, []);
+    });
 
     const contents = team.id === 0
         ? <p><em>Loading ...</em></p> :

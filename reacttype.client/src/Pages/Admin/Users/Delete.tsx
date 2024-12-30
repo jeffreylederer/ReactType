@@ -17,7 +17,7 @@ const UsersDelete = () => {
 
     useEffect(() => {
         GetData();
-    }, []);
+    });
 
     const contents = Users === undefined
         ? <p><em>Loading ...</em></p> :

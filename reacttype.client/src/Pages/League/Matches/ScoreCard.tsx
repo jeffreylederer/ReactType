@@ -1,27 +1,27 @@
 import { useEffect, useState } from 'react';
-import { ConvertLeague, leagueType } from "../../leagueObject.tsx";
 import axios from "axios";
-//import { Document, Page } from 'react-pdf';
+import { useLocation} from "react-router-dom";
 
 
-function TeamReport() {
+function ScoreCard() {
     const [report, setReport] = useState('');
-    const league: leagueType = ConvertLeague();
-    
+    const location = useLocation();
+    const id: number = location.state;
 
-    
+
+
 
     useEffect(() => {
         GetReport();
     });
 
     return (
-        <embed src={report} type="application/pdf" width = '1000' height = '800' />
-       
+        <embed src={report} type="application/pdf" width='1000' height='800' />
+
     );
 
     async function GetReport() {
-        const url: string = "https://localhost:7002/api/Teams/TeamReport/".concat(league.id.toString());
+        const url: string = "https://localhost:7002/api/Matches/ScoreCard/".concat(id.toString());
         axios.get(url)
             .then(response => {
                 const data: string = "data:application/pdf;base64,".concat(response.data);
@@ -38,4 +38,4 @@ function TeamReport() {
 
 
 
-export default TeamReport;
+export default ScoreCard;

@@ -15,7 +15,7 @@ const MembershipDelete = () => {
 
     useEffect(() => {
         GetData();
-    }, []);
+    });
 
     const contents = membership === undefined
         ? <p><em>Loading ...</em></p> :

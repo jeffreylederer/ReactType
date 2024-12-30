@@ -42,7 +42,7 @@ const PlayersCreate = () => {
 
     useEffect(() => {
         GetData();
-    }, []);
+    });
   
     const {
         register,

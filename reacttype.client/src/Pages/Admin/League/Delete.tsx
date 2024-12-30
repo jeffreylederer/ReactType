@@ -17,7 +17,7 @@ const LeagueDelete = () => {
 
     useEffect(() => {
         GetData();
-    }, []);
+    });
 
     const contents = league === undefined
         ? <p><em>Loading ...</em></p> :

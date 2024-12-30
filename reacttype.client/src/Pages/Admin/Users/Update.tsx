@@ -44,8 +44,7 @@ const UsersUpdate = () => {
 
     useEffect(() => {
         GetData();
-        setUsers({ ...users, [id]: id });
-    }, []);
+    });
 
     const contents = users.id === 0
         ? <p><em>Loading ...</em></p> :
@@ -58,7 +57,7 @@ const UsersUpdate = () => {
             <tr>
                 <td className="Label">User Name:</td>
 
-                    <td className="Field"><TextInput  defaultValue={users.username} disabled />
+                    <td className="Field">{users.userName}
                 </td>
             </tr>
 

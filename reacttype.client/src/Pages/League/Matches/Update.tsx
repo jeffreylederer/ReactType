@@ -63,7 +63,7 @@ const MatchUpdate = () => {
 
     useEffect(() => {
         GetData(id);
-    }, []);
+    });
 
     const contents = match.id === 0
         ? <p><em>Loading ...</em></p> :

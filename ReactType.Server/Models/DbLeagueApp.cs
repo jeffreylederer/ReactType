@@ -15,6 +15,8 @@ public partial class DbLeagueApp : DbContext
     {
     }
 
+    public virtual DbSet<GetMatchAllView> GetMatchAllViews { get; set; }
+
     public virtual DbSet<League> Leagues { get; set; }
 
     public virtual DbSet<Logging> Loggings { get; set; }
@@ -57,6 +59,33 @@ public partial class DbLeagueApp : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<GetMatchAllView>(entity =>
+        {
+            entity
+                .HasNoKey()
+                .ToView("GetMatchAllView");
+
+            entity.Property(e => e.Id).HasColumnName("ID");
+            entity.Property(e => e.Lead1)
+                .HasMaxLength(50)
+                .IsUnicode(false);
+            entity.Property(e => e.Lead2)
+                .HasMaxLength(50)
+                .IsUnicode(false);
+            entity.Property(e => e.Skip1)
+                .HasMaxLength(50)
+                .IsUnicode(false);
+            entity.Property(e => e.Skip2)
+                .HasMaxLength(50)
+                .IsUnicode(false);
+            entity.Property(e => e.Vice1)
+                .HasMaxLength(50)
+                .IsUnicode(false);
+            entity.Property(e => e.Vice2)
+                .HasMaxLength(50)
+                .IsUnicode(false);
+        });
+
         modelBuilder.Entity<League>(entity =>
         {
             entity.ToTable("League");

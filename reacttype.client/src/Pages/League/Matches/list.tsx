@@ -78,8 +78,8 @@ function Matches() {
                     <option key={item.id} value={item.id.toString()}>{item.gameDate}</option>
                 )};
             </select><br/>
-            <Link to="/league/matches/Standings" state={weekid.toString()}  >This week's standings report</Link><br/>
-                <Link to="/league/matches/ScoreCard" state={weekid.toString()} >This week's score cardst</Link>
+                <Link to="/league/matches/Standings" state={weekid.toString()} hidden={weekid == 0} >This week's standings report</Link><br/>
+                <Link to="/league/matches/ScoreCard" state={weekid.toString()} hidden={weekid == 0}>This week's score card</Link>
             </p>
         </>;
 

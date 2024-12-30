@@ -12,14 +12,10 @@ import { useCookies } from 'react-cookie';
 
 const UpdatePassword = () => {
 
-    const [users, setUsers] = useState(
-        {
-            id: 0,
-            username: ''
-            
-        }
-    );
     const [cookie] = useCookies(['login']);
+    const [users] = useState(cookie.login);
+        
+   
     
 
     const {
@@ -39,12 +35,9 @@ const UpdatePassword = () => {
 
 
 
-    useEffect(() => {
-        GetData();
-     }, []);
+    
 
-    const contents = users.id === 0
-        ? <p><em>Loading ...</em></p> :
+    const contents = 
 
         <form onSubmit={handleSubmit(onSubmit)} >
 
@@ -94,24 +87,10 @@ const UpdatePassword = () => {
     );
 
 
-    async function GetData() {
-        const url: string = 'https://localhost:7002/api/Admin/'.concat(cookie.login);
-        axios.get(url)
-            .then(response => {
-
-                setUsers(response.data);
-
-
-                console.log('Record aquired successfully');
-            })
-            .catch(error => {
-                console.log('Error aquiring record: ', error);
-            });
-
-    }
+    
 
     function updateData(data: UpdateFormData) {
-        const url: string = 'https://localhost:7002/api/Admin/'.concat(cookie.login);
+        const url: string = 'https://localhost:7002/api/Admin/'.concat(cookie.login.id);
         axios.put(url, data)
             .then(response => {
                 console.log('Record updated successfully ', response.data);

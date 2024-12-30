@@ -69,7 +69,7 @@ const TeamsCreate = () => {
 
     useEffect(() => {
         GetData();
-    }, []);
+    });
   
     const {
         register,

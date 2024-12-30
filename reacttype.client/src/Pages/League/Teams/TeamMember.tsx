@@ -7,7 +7,7 @@ export type TeamMember = {
     viceSkipid: number,
     leadid: number,
     leagueid: number,
-    divisionId: number,
+    division: number,
     teamNo: number,
     cnt : number
 

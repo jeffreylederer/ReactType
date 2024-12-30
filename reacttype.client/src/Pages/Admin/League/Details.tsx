@@ -12,7 +12,7 @@ const LeagueDetails = () => {
     const [league, setleague] = useState<FormData>();
     useEffect(() => {
         GetData();
-    }, []);
+    });
 
     const contents = league === undefined
         ? <p><em>Loading ...</em></p> :

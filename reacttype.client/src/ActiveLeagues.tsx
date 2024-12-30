@@ -28,7 +28,7 @@ function ActiveLeagues() {
        
             GetData();
 
-    }, []);
+    });
 
     const contents = league === undefined
         ? <p><em>Loading ...</em></p>

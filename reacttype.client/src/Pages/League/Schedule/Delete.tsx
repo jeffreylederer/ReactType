@@ -17,7 +17,7 @@ const ScheduleDelete = () => {
 
     useEffect(() => {
         GetData();
-    }, []);
+    });
 
     const contents = schedule === undefined
         ? <p><em>Loading ...</em></p> :

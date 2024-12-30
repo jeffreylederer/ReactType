@@ -6,7 +6,7 @@ function NotLogin() {
 
     useEffect(() => {
         navigate("/Login");
-    }, []);
+    }, [navigate]);
     return (
         <></>
     );

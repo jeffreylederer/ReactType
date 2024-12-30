@@ -44,8 +44,7 @@ const UsersUpdate = () => {
 
     useEffect(() => {
         GetData();
-        setUsers({ ...users, [id]: id });
-    }, []);
+    });
 
     const contents = users.id === 0
         ? <p><em>Loading ...</em></p> :

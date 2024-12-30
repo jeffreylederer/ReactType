@@ -17,7 +17,7 @@ const PlayersDelete = () => {
 
     useEffect(() => {
         GetData();
-    }, []);
+    });
 
     const contents = players === undefined
         ? <p><em>Loading ...</em></p> :

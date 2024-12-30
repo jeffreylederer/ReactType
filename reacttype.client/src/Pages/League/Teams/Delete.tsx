@@ -17,7 +17,7 @@ const TeamsDelete = () => {
 
     useEffect(() => {
         GetData();
-    }, []);
+    });
 
     const contents = team === undefined
         ? <p><em>Loading ...</em></p> :

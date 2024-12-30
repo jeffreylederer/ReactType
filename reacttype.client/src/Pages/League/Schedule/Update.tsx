@@ -45,7 +45,7 @@ const ScheduleUpdate = () => {
     useEffect(() => {
         GetData();
         
-    }, []);
+    });
 
     const contents = schedule.id === 0
         ? <p><em>Loading ...</em></p> :

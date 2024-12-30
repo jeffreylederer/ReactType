@@ -41,8 +41,7 @@ const MembershipUpdate = () => {
 
     useEffect(() => {
         GetData();
-        setMembership({ ...membership, [id]: id});
-    }, []);
+    });
 
     const contents = membership.id === 0
         ? <p><em>Loading ...</em></p> :

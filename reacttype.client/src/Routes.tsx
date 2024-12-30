@@ -36,9 +36,13 @@ import TeamsUpdate from "./Pages/League/Teams/Update.tsx";
 import TeamReport from "./Pages/League/Teams/Report.tsx";
 
 import Matches from "./Pages/League/Matches/list.tsx";
+import ScoreCard from "./Pages/League/Matches/ScoreCard.tsx";
+import Standings from "./Pages/League/Matches/Standings.tsx";
 import MatchUpdate from "./Pages/League/Matches/Update.tsx";
-import Logoff from "./Pages/Admin/Login/Logoff.tsx";
 
+
+
+import Logoff from "./Pages/Admin/Login/Logoff.tsx";
 import Login from "./Pages/Admin/Login/Login.tsx";
 import UpdatePassword from "./Pages/Admin/Login/UpdatePassword.tsx";
 import NotLogin from "./Pages/Admin/Login/NotLogin.tsx";
@@ -95,6 +99,8 @@ function RouteMenu() {
 
                 <Route path="/League/Matches" element={<Matches />} />
                 <Route path="/League/Matches/Update" element={<MatchUpdate />} />
+                <Route path="/League/Matches/Standings" element={<Standings />} />
+                <Route path="/League/Matches/ScoreCard" element={<ScoreCard />} />
 
                 {/*<Route path="/Welcome" element={<Welcome />} />*/}
                 <Route path="/Contact" element={<Contact />} />

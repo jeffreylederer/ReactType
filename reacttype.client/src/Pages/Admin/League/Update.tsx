@@ -48,8 +48,7 @@ const LeagueUpdate = () => {
 
     useEffect(() => {
         GetData();
-        setLeague({ ...league, [id]: id });
-    }, []);
+    });
 
     const contents = league.id === 0
         ? <p><em>Loading ...</em></p> :
