@@ -90,3 +90,6 @@ button:focus-visible {
 h3 {
     text-align: center
 }
+
+.toLeft {
+    float: inline-start;

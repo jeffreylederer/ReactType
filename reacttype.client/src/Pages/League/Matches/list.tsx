@@ -72,12 +72,15 @@ function Matches() {
         ? <p><em>Loading ...</em></p>
         :
         <>
-            Date: <select onChange={selectChange} defaultValue={weekid }>
+            <p className="toLeft">Date: <select onChange={selectChange} defaultValue={weekid}>
                 <option value="0" key="0" disabled>Select date</option>
                 {schedule?.map(item =>
                     <option key={item.id} value={item.id.toString()}>{item.gameDate}</option>
                 )};
-            </select>
+            </select><br/>
+            <Link to="/league/matches/Standings" state={weekid.toString()}  >This week's standings report</Link><br/>
+                <Link to="/league/matches/ScoreCard" state={weekid.toString()} >This week's score cardst</Link>
+            </p>
         </>;
 
     const matchcontents = match === undefined ? <p></p> :
@@ -140,7 +143,7 @@ function Matches() {
         <h3>Players in league {league.leagueName}</h3>
                 {contents}
                 {matchcontents}
-                <p style={{color: 'red', textAlign: 'left'} }>Teams with wheel chair members are in red</p>
+                <p style={{ color: 'red', textAlign: 'left' }} hidden={weekid==0}>Teams with wheel chair members are in red</p>
         
     </div>
     );
