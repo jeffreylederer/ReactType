@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { ConvertLeague, leagueType } from "../../leagueObject.tsx";
 import axios from "axios";
-//import { Document, Page } from 'react-pdf';
 
 
 function TeamReport() {

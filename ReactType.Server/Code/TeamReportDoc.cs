@@ -1,4 +1,5 @@
-﻿using QuestPDF.Fluent;
+﻿using Microsoft.EntityFrameworkCore;
+using QuestPDF.Fluent;
 using QuestPDF.Helpers;
 using QuestPDF.Infrastructure;
 using ReactType.Server.Models;
@@ -8,81 +9,27 @@ namespace ReactType.Server.Code
 {
 
 
-    public class TeamReportDoc : IDocument
+    public class TeamReportDoc 
     {
-        private List<TeamsMembers> members { get; set; }
-        private string? LeagueName { get; set; }
+               
 
-        private int? TeamSize;
+       
 
-
-        internal TeamReportDoc()
+        public IDocument CreateDocument(int id, DbLeagueApp db)
         {
-
-        }
-
-        public TeamReportDoc(int id, DbLeagueApp db)
-        {
-            var teamsMembers = new List<TeamsMembers>();
-           
             League? league = db.Leagues.Find(id);
-            var teams = db.Teams.Where(x => x.Leagueid == id).ToList();
-            foreach (var team in teams)
+
+            string LeagueName = league?.LeagueName;
+            int? TeamSize = league?.TeamSize;
+            List<TeamMember> list = db.TeamMembers
+                     .FromSql($"EXEC TeamAllowDelete {id}")
+                    .ToList();
+            list.Sort((a, b) => a.TeamNo.CompareTo(b.TeamNo));
+
+
+            return Document.Create(container =>
             {
-                var item = new TeamsMembers()
-                {
-                    Division = team.DivisionId,
-                    TeamNo = team.TeamNo
-                };
-                if (team.Skip != null)
-                {
-                    var query = from m in db.Memberships
-                                join p in db.Players on m.Id equals p.MembershipId
-                                where p.Id == team.Skip
-                                select new { FullName = m.FullName };
-
-                    item.Skip = query.First().FullName;
-                }
-                if (team.ViceSkip != null)
-                {
-                    var query = from m in db.Memberships
-                                join p in db.Players on m.Id equals p.MembershipId
-                                where p.Id == team.ViceSkip
-                                select new { FullName = m.FullName };
-
-                    item.ViceSkip = query.First().FullName;
-                }
-                if (team.Lead != null)
-                {
-                    var query = from m in db.Memberships
-                                join p in db.Players on m.Id equals p.MembershipId
-                                where p.Id == team.Lead
-                                select new { FullName = m.FullName };
-
-                    item.Lead = query.First().FullName;
-                }
-                teamsMembers.Add(item);
-            }
-            LeagueName = league?.LeagueName;
-            TeamSize = league?.TeamSize;
-            members = teamsMembers.OrderBy(x => x.Division * 100 + x.TeamNo).ToList();
-        }
-
-        public DocumentMetadata GetMetadata() { return new DocumentMetadata(); }
-
-        //
-        // Summary:
-        //     Configures the document content by specifying its layout structure and visual
-        //     element.
-        //
-        // Parameters:
-        //   container:
-        //     The document container used for defining content via the FluentAPI.      
-        [Obsolete]
-        public void Compose(IDocumentContainer container)
-        {
-            container
-            .Page(page =>
+                container.Page(page =>
             {
                 page.Margin(50);
 
@@ -131,7 +78,7 @@ namespace ReactType.Server.Code
                         return container.Border(1).BorderColor(Colors.Black).PaddingVertical(5).AlignCenter();
                     }
 
-                    foreach (var item in members)
+                    foreach (var item in list)
                     {
 
 
@@ -158,15 +105,9 @@ namespace ReactType.Server.Code
                     }
                 });
             });
+            });
         }
     }
-
-    internal class TeamsMembers
-    {
-        public int Division { get; set; }
-        public int TeamNo { get; set; }
-        public string? Skip = "";
-        public string? ViceSkip = "";
-        public string? Lead = "";
-    }
 }
+
+

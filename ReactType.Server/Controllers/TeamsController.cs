@@ -87,7 +87,8 @@ namespace ReactType.Server.Controllers
                 return null;
             }
             QuestPDF.Settings.License = LicenseType.Community;
-            var document = new TeamReportDoc(id.Value, _context);
+            var report = new TeamReportDoc();
+            var document = report.CreateDocument(id.Value, _context);
             byte[] pdfBytes = document.GeneratePdf();
             var results = Convert.ToBase64String(pdfBytes);
             return results;
