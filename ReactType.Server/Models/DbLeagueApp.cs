@@ -15,6 +15,8 @@ public partial class DbLeagueApp : DbContext
     {
     }
 
+    public virtual DbSet<GetByesView> GetByesViews { get; set; }
+
     public virtual DbSet<GetMatchAllView> GetMatchAllViews { get; set; }
 
     public virtual DbSet<League> Leagues { get; set; }
@@ -59,6 +61,25 @@ public partial class DbLeagueApp : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<GetByesView>(entity =>
+        {
+            entity
+                .HasNoKey()
+                .ToView("GetByesView");
+
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.Lead)
+                .HasMaxLength(101)
+                .IsUnicode(false);
+            entity.Property(e => e.Skip)
+                .HasMaxLength(101)
+                .IsUnicode(false)
+                .HasColumnName("skip");
+            entity.Property(e => e.ViceSkip)
+                .HasMaxLength(101)
+                .IsUnicode(false);
+        });
+
         modelBuilder.Entity<GetMatchAllView>(entity =>
         {
             entity

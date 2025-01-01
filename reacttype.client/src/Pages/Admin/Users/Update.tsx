@@ -16,7 +16,7 @@ const UsersUpdate = () => {
         {
             id: 0,
             roleId:1,
-            username: '',
+            userName: '',
             password: '',
             displayName: '',
             isActive: false          

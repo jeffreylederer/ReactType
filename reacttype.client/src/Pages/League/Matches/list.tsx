@@ -60,6 +60,7 @@ function Matches() {
         axios.get(url)
             .then(response => {
                 GetData(weekid);
+                console.log(response.data);
 
             })
             .catch(error => {

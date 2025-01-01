@@ -55,6 +55,19 @@ namespace ReactType.Server.Controllers
             return Ok();
         }
 
+        // GET: Matches
+        [HttpGet("Byes/{id}")]
+        public String Byes(int id)
+        {
+            
+            QuestPDF.Settings.License = LicenseType.Community;
+            var report = new ByesReport();
+            var document = report.CreateDocument(id, _context);
+            byte[] pdfBytes = document.GeneratePdf();
+            var results = Convert.ToBase64String(pdfBytes);
+            return results;
+        }
+
         // GET: Matches/Details/5
         [HttpGet("getOne/{id}")]
         public OneMatchWeekView? Get(int? id)
