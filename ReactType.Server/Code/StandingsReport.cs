@@ -41,7 +41,7 @@ namespace ReactType.Server.Code
                     
 
                     page.Content()
-                    .Text("Sample Text");
+                    .Text("To be written");
 
                 });
             });

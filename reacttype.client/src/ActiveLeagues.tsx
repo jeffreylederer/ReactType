@@ -8,7 +8,7 @@ function ActiveLeagues() {
     const [league, setleague] = useState<leagueType[]>();
     const [message, setMessage] = useState(league === undefined ? "no league selected" : 'league ${league.leagueName} selected');
     const [cookie, setCookie, removeCookie] = useCookies(['league','login']);
-
+    const [buttonHidden, setbuttonHidden] = useState(cookie.league !== undefined);
 
     const buttonHandler = (event: React.MouseEvent<HTMLButtonElement>) => {
         //event.preventDefault();
@@ -17,10 +17,10 @@ function ActiveLeagues() {
         const result = league?.filter(function (o) { return o.id == idValue; });
         if (result?.length == 1) {
             const item: leagueType = result[0];
-
             setCookie("league", item);
-            console.log(league);
+            console.log(item);
             setMessage('Selected league: ' + item.leagueName);
+            setbuttonHidden(false);
         }
     };
 
@@ -66,7 +66,7 @@ function ActiveLeagues() {
             <h3 id="tableLabel">Select League</h3>
             {contents}
             <p style={{ textAlign: 'left'} } >{message}</p>
-            <p><button onClick={Hide}>Unselect</button></p>
+            <p><button onClick={Hide} hidden={buttonHidden}>Unselect</button></p>
         </div>
     );
 
@@ -74,6 +74,7 @@ function ActiveLeagues() {
         if (cookie.league !== undefined) {
             removeCookie("league");
             setMessage("no league selected");
+            setbuttonHidden(true);
         }
     }
 

@@ -19,6 +19,8 @@ public partial class DbLeagueApp : DbContext
 
     public virtual DbSet<GetMatchAllView> GetMatchAllViews { get; set; }
 
+    public virtual DbSet<GetTeamView> GetTeamViews { get; set; }
+
     public virtual DbSet<League> Leagues { get; set; }
 
     public virtual DbSet<Logging> Loggings { get; set; }
@@ -46,6 +48,8 @@ public partial class DbLeagueApp : DbContext
     public virtual DbSet<TeamMember> TeamMembers { get; set; }
 
     public virtual DbSet<TeamsView> TeamsViews { get; set; }
+
+    public virtual DbSet<TotalScoreView> TotalScoreViews { get; set; }
 
     public virtual DbSet<User> Users { get; set; }
 
@@ -105,6 +109,13 @@ public partial class DbLeagueApp : DbContext
             entity.Property(e => e.Vice2)
                 .HasMaxLength(50)
                 .IsUnicode(false);
+        });
+
+        modelBuilder.Entity<GetTeamView>(entity =>
+        {
+            entity
+                .HasNoKey()
+                .ToView("GetTeamView");
         });
 
         modelBuilder.Entity<League>(entity =>
@@ -383,6 +394,15 @@ public partial class DbLeagueApp : DbContext
             entity.Property(e => e.ViceSkip)
                 .HasMaxLength(101)
                 .IsUnicode(false);
+        });
+
+        modelBuilder.Entity<TotalScoreView>(entity =>
+        {
+            entity
+                .HasNoKey()
+                .ToView("TotalScoreView");
+
+            entity.Property(e => e.Total).HasColumnName("total");
         });
 
         modelBuilder.Entity<User>(entity =>

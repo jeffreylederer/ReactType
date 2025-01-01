@@ -35,7 +35,7 @@ function Menu() {
                             <NavDropdown.Item href="/League/Byes">Byes Report</NavDropdown.Item>
                             <NavDropdown.Divider hidden={data.role != "SiteAdmin" && data.role != "Admin"} ></NavDropdown.Divider>
                             <NavDropdown.Item href="/League/CreateMatches" hidden={data.role != "SiteAdmin" && data.role !="Admin"}>Create Matches</NavDropdown.Item>
-                            <NavDropdown.Item href="/League/ClearSchedule" hidden={data.role != "SiteAdmin" && data.role != "Admin"}>Delete Matches</NavDropdown.Item>
+                            <NavDropdown.Item href="/League/ClearMatches" hidden={data.role != "SiteAdmin" && data.role != "Admin"}>Clear Matches</NavDropdown.Item>
                             <NavDropdown.Divider hidden={data.role != "SiteAdmin" && data.role != "Admin"} ></NavDropdown.Divider>
                             <NavDropdown.Item href="/League/Playoffs" hidden={data.role != "SiteAdmin" && data.role != "Admin"}>Playoff Matches</NavDropdown.Item>
                         </NavDropdown>

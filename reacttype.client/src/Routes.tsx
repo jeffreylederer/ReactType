@@ -40,6 +40,9 @@ import ScoreCard from "./Pages/League/Matches/ScoreCard.tsx";
 import Standings from "./Pages/League/Matches/Standings.tsx";
 import MatchUpdate from "./Pages/League/Matches/Update.tsx";
 import Byes from "./Pages/League/Matches/Byes.tsx";
+import { CreateMatches } from "./Pages/League/Matches/CreateMatches.tsx";
+import { ClearMatches } from "./Pages/League/Matches/ClearMatches.tsx";
+import { Playoffs } from "./Pages/League/Matches/Playoffs.tsx";
 
 
 
@@ -103,6 +106,9 @@ function RouteMenu() {
                 <Route path="/League/Matches/Standings" element={<Standings />} />
                 <Route path="/League/Matches/ScoreCard" element={<ScoreCard />} />
                 <Route path="/League/Byes" element={<Byes />} />
+                <Route path="/League/CreateMatches" element={<CreateMatches />} />
+                <Route path="/League/ClearMatches" element={<ClearMatches />} />
+                <Route path="/League/Playoffs" element={<Playoffs />} />
 
                 {/*<Route path="/Welcome" element={<Welcome />} />*/}
                 <Route path="/Contact" element={<Contact />} />

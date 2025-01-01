@@ -16,5 +16,6 @@ public partial class GetByesView
     public short Division { get; set; }
 
     public int TeamNo { get; set; }
+
     public DateOnly GameDate { get; set; }
 }

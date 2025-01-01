@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using QuestPDF.Fluent;
@@ -48,7 +49,7 @@ namespace ReactType.Server.Controllers
             }
             catch(Exception ex)
             {
-                return StatusCode(409,ex.Message);
+                return StatusCode(500,ex.Message);
             }
 
 
@@ -169,6 +170,113 @@ namespace ReactType.Server.Controllers
             byte[] pdfBytes = document.GeneratePdf();
             var results = Convert.ToBase64String(pdfBytes);
             return results;
+        }
+
+        [HttpGet("ClearSchedule/{id}")]
+        public async Task<IActionResult> ClearSchedule(int? id)
+        {
+            if (id == null)
+            {
+                return StatusCode(500, "Bad value");
+            }
+            var list = await _context.TotalScoreViews
+                     .FromSql($"EXEC TotalScore {id}")
+                    .ToListAsync();
+            if (list.Count() == 0)
+            {
+                return Ok();
+            }
+            if (list.Any(x => x.Total > 0))
+            {
+                return  StatusCode(500, "Matches cannot be delete, some matches have scores");
+            }
+            
+            try
+            {
+
+                foreach (var item in list)
+                {
+                    Match? match = await _context.Matches.FindAsync(item.Id);
+                    if (match != null)
+                    {
+                        _context.Matches.Remove(match);
+                    }
+                }
+
+                
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception e)
+            {
+                 return StatusCode(500, $"Matches were not removed, Error: {e.Message}"); ;
+            }
+
+            return Ok();
+        }
+
+        [HttpGet("CreateSchedule/{id}")]
+        public async Task<IActionResult> CreateSchedule(int? id)
+        {
+            if (id == null)
+            {
+                return StatusCode(500, "Bad value");
+            }
+
+            var league = _context.Leagues.Find(id);
+            var weeks = _context.Schedules.Where(x => x.Leagueid == id).ToList(); 
+            var teams = _context.Teams.Where(x => x.Leagueid == id).ToList();
+            if (weeks.Count() == 0)
+            {
+                return StatusCode(500, "No weeks scheduled");
+            }
+            if (teams.Count() == 0)
+            {
+                return StatusCode(500, "No teams have been created");
+            }
+            var list = await _context.TotalScoreViews
+                    .FromSql($"EXEC TotalScore {id}")
+                   .ToListAsync();
+            if(list.Count() > 0)
+            {
+                return StatusCode(500, "Matches exist, clear schedule first");
+            }
+
+            var sl = new CreateScheduleList();
+            List< CalculatedMatch > matches = new List<CalculatedMatch>();
+            if(league.Divisions == 1)
+            {
+                matches = sl.RoundRobin(weeks.Count(), teams.Count());
+            }
+            else
+            {
+                matches = sl.matchesWithDivisions(weeks.Count(), teams.Count());
+            }
+
+            foreach(var item in matches)
+            {
+                var match = new Match()
+                {
+                    WeekId = weeks[item.Week].Id,
+                    Rink = item.Rink,
+                    TeamNo1 = teams.Find(x => x.TeamNo == item.Team1+1).Id,
+                    TeamNo2 = teams.Find(x => x.TeamNo == item.Team2+1).Id,
+                    Team1Score = 0,
+                    Team2Score = 0,
+                    ForFeitId = 0
+                };
+                _context.Matches.Add(match);
+            }
+
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, $"Could not create matches: {e.Message}");
+            }
+            return Ok();
         }
 
 
