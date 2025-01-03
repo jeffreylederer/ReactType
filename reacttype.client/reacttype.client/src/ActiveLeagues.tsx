@@ -10,8 +10,7 @@ function ActiveLeagues() {
     const theLeague: leagueType = cookie.league;
     const [leagues, setleagues] = useState<leagueType[]>();
     const [message, setMessage] = useState(cookie.league === undefined ? "no league selected" : 'Selected league: ' + theLeague.leagueName);
-   
-
+ 
 
     const buttonHandler = (event: React.MouseEvent<HTMLButtonElement>) => {
         //event.preventDefault();
@@ -84,7 +83,8 @@ function ActiveLeagues() {
     
     
     async function GetData() {
-        axios.get("https://localhost:7002/api/leagues")
+        const url = import.meta.env.VITE_SERVER_URL as string;
+        axios.get(url + "api/leagues")
             .then(response => {
                 const values = response.data as leagueType[];
                 const results = values.filter(x => x.active);

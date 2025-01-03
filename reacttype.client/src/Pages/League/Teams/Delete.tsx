@@ -45,7 +45,7 @@ const TeamsDelete = () => {
 
             <tr>
                 <td style={{ width: "200px" }}>Division:</td>
-                <td className="Field">{team?.divisionId}</td>
+                <td className="Field">{team?.division}</td>
             </tr>
 
             <tr>

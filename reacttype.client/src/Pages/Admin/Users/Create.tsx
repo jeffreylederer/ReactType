@@ -39,7 +39,7 @@ const UserCreate = () => {
                     <tr>
                         <td className="Label">User Name:</td>
 
-                        <td className="Field"><TextInput {...register('username')}   />
+                        <td className="Field"><TextInput {...register('userName')}   />
                         </td>
                     </tr>
 
@@ -87,7 +87,7 @@ const UserCreate = () => {
                    
 
                     <tr><td colSpan={1}>
-                    {errors.username && <p className="errorMessage">{errors.username.message}</p>}
+                    {errors.userName && <p className="errorMessage">{errors.userName.message}</p>}
                     {errors.displayName && <p className="errorMessage">{errors.displayName.message}</p>}
                     {errors.password && <p className="errorMessage">{errors.password.message}</p>}
                     {errors.roleId && <p className="errorMessage">{errors.roleId.message}</p>}
