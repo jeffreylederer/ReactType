@@ -25,11 +25,11 @@ namespace ReactType.Server.Code
 
 
             // get the names of the player for each team
-            foreach (var team in db.Teams.Where(x => x.Leagueid == league.Id))
+            foreach (var team in db.Teams.Where(x => x.Leagueid == league.Id).ToList())
             {
 
                 OneTeamView? team1 = db.OneTeamViews
-                         .FromSql($"EXEC OneTeam {league.Id}")
+                         .FromSql($"EXEC OneTeam {team.Id}")
                          .AsEnumerable()
                          .FirstOrDefault();
                 string players = "";
@@ -59,7 +59,7 @@ namespace ReactType.Server.Code
             }
 
             // determine the total score and wins and loses for each team for each week
-            foreach (var week in db.Schedules.Where(x => x.Id <= weekid && x.Leagueid == league.Id))
+            foreach (var week in db.Schedules.Where(x => x.Id <= weekid && x.Leagueid == league.Id).ToList())
             {
 
                 //cancelled weeks do not count
@@ -70,13 +70,14 @@ namespace ReactType.Server.Code
                 var bye = false;
                 bool forfeit = false;
 
-                foreach (var match in db.Matches.Where(x => x.WeekId == week.Id))
+                foreach (var match in db.Matches.Where(x => x.WeekId == week.Id).ToList())
                 {
 
                     GetTeamView? teamView = db.GetTeamViews
                         .FromSql($"Exec GetTeam {match.Id}")
                         .AsEnumerable()
                         .FirstOrDefault();
+
 
                     // both teams forfeits
                     if (match.Rink != -1 && match.ForFeitId == -1)
@@ -169,7 +170,7 @@ namespace ReactType.Server.Code
                 if (bye || forfeit)
                 {
 
-                    foreach (var match in db.Matches.Where(x => x.WeekId == week.Id))
+                    foreach (var match in db.Matches.Where(x => x.WeekId == week.Id).ToList())
                     {
                         GetTeamView? teamView = db.GetTeamViews
                        .FromSql($"Exec GetTeam {match.Id}")
@@ -221,6 +222,7 @@ namespace ReactType.Server.Code
                 {
                     place = nextplace;
                 }
+                item.Place = place;
                 previous = item;
                 nextplace++;
             }
@@ -244,7 +246,7 @@ namespace ReactType.Server.Code
 
 
             // get the names of the player for each team
-            foreach (var team in db.Teams.Where(x => x.Leagueid == league.Id))
+            foreach (var team in db.Teams.Where(x => x.Leagueid == league.Id).ToList())
             {
                 OneTeamView? team1 = db.OneTeamViews
                 .FromSql($"EXEC OneTeam {league.Id}")
@@ -286,7 +288,7 @@ namespace ReactType.Server.Code
                 var numMatches = 0;
                 var bye = false;
                 bool forfeit = false;
-                foreach (var match in db.Matches.Where(x => x.WeekId == week.Id))
+                foreach (var match in db.Matches.Where(x => x.WeekId == week.Id).ToList())
                 {
                     GetTeamView? teamView = db.GetTeamViews
                     .FromSql($"Exec GetTeam {match.Id}")
@@ -384,7 +386,7 @@ namespace ReactType.Server.Code
                 if (bye || forfeit)
                 {
 
-                    foreach (var match in db.Matches.Where(x => x.WeekId == week.Id))
+                    foreach (var match in db.Matches.Where(x => x.WeekId == week.Id).ToList()  )
                     {
                         GetTeamView? teamView = db.GetTeamViews
                         .FromSql($"Exec GetTeam {match.Id}")
@@ -442,6 +444,7 @@ namespace ReactType.Server.Code
                 }
                 previous = item;
                 nextplace++;
+                item.Place = place;
             }
             return list;
         }
@@ -460,6 +463,7 @@ namespace ReactType.Server.Code
         public int Byes { get; set; }
         public short DivisionId { get; set; }
         public int TotalPoints { get; set; }
+        public int Place { get;set; }
     }
 }
     

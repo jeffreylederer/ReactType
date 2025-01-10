@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using QuestPDF.Fluent;
 using QuestPDF.Helpers;
 using QuestPDF.Infrastructure;
@@ -11,9 +12,9 @@ namespace ReactType.Server.Code
 
     public class TeamReportDoc 
     {
-               
 
-       
+
+
 
         public IDocument CreateDocument(int id, DbLeagueApp db)
         {
@@ -30,84 +31,90 @@ namespace ReactType.Server.Code
             return Document.Create(container =>
             {
                 container.Page(page =>
-            {
-                page.Margin(50);
-
-                page.Header()
-                    .Text(LeagueName)
-                    .SemiBold().FontSize(24);
-
-
-                page.Content()
-                .Table(table =>
                 {
-                    // step 1
-                    table.ColumnsDefinition(columns =>
+                    page.Margin(50);
+
+                    page.Header()
+                        .Text(LeagueName)
+                        .SemiBold().FontSize(24)
+                        .AlignCenter();
+
+
+
+                    page.Content().PaddingVertical(20).Column(column =>
                     {
-                        columns.ConstantColumn(50);
-                        columns.ConstantColumn(50);
-                        columns.ConstantColumn(150);
-                        if (TeamSize.Value == 3)
+                        column.Item().Inlined(inlined =>
                         {
-                            columns.ConstantColumn(150);
-                        }
-                        if (TeamSize.Value > 1)
+                            inlined.Spacing(20);
+                            inlined.Item().Text("");
+                        });
+
+                        column.Item().AlignCenter().Table(table =>
                         {
-                            columns.ConstantColumn(150);
-                        }
-                    });
+                            // step 1
+                            table.ColumnsDefinition(columns =>
+                            {
+                                columns.ConstantColumn(60);
+                                columns.ConstantColumn(30);
+                                columns.ConstantColumn(120);
+                                if (TeamSize.Value == 3)
+                                {
+                                    columns.ConstantColumn(120);
+                                }
+                                if (TeamSize.Value > 1)
+                                {
+                                    columns.ConstantColumn(120);
+                                }
+                            });
 
 
+                            static IContainer CellStyle2(IContainer container)
+                            {
+                                return container.Border(1).BorderColor(Colors.Black).PaddingVertical(5).AlignCenter();
+                            }
+
+                            // step 3
+                            table.Cell().Element(CellStyle2).Text("Division").SemiBold().FontSize(10);
+                            table.Cell().Element(CellStyle2).Text("Team No").SemiBold().FontSize(10);
+                            table.Cell().Element(CellStyle2).Text("Skip").SemiBold().FontSize(10);
+                            if (TeamSize.Value == 3)
+                            {
+                                table.Cell().Element(CellStyle2).Text("Vice Skip").SemiBold();
+                            }
+                            if (TeamSize.Value > 1)
+                            {
+                                table.Cell().Element(CellStyle2).Text("Lead").SemiBold();
+                            }
+
+                            static IContainer CellStyle(IContainer container)
+                            {
+                                return container.Border(1).BorderColor(Colors.Black).PaddingVertical(5);
+                            }
+
+                            foreach (var item in list)
+                            {
 
 
-                    // step 3
-                    table.Cell().Element(CellStyle2).Text("Division").SemiBold();
-                    table.Cell().Element(CellStyle2).Text("Team No").SemiBold();
-                    table.Cell().Element(CellStyle2).Text("Skip").SemiBold();
-                    if (TeamSize.Value == 3)
-                    {
-                        table.Cell().Element(CellStyle2).Text("Vice Skip").SemiBold();
-                    }
-                    if (TeamSize.Value > 1)
-                    {
-                        table.Cell().Element(CellStyle2).Text("Lead").SemiBold();
-                    }
-
-                    static IContainer CellStyle2(IContainer container)
-                    {
-                        return container.Border(1).BorderColor(Colors.Black).PaddingVertical(5).AlignCenter();
-                    }
-
-                    foreach (var item in list)
-                    {
+                                table.Cell().Element(CellStyle).Text(item.Division.ToString()).FontSize(10).AlignCenter();
+                                table.Cell().Element(CellStyle).Text(item.TeamNo.ToString()).FontSize(10).AlignCenter();
+                                table.Cell().Element(CellStyle).Text(item.Skip).FontSize(10).AlignLeft();
+                                if (TeamSize.Value == 3)
+                                {
+                                    table.Cell().Element(CellStyle).Text(item.ViceSkip).FontSize(10).AlignLeft();
+                                }
+                                if (TeamSize.Value > 1)
+                                {
+                                    table.Cell().Element(CellStyle).Text(item.Lead).FontSize(10).AlignLeft();
+                                }
 
 
-                        table.Cell().Element(CellStyle).Text(item.Division);
-                        table.Cell().Element(CellStyle).Text(item.TeamNo);
-                        table.Cell().Element(CellStyle1).AlignRight().Text(item.Skip);
-                        if (TeamSize.Value == 3)
-                        {
-                            table.Cell().Element(CellStyle1).Text(item.ViceSkip);
-                        }
-                        if (TeamSize.Value > 1)
-                        {
-                            table.Cell().Element(CellStyle1).Text(item.Lead);
-                        }
-
-                        static IContainer CellStyle(IContainer container)
-                        {
-                            return container.Border(1).BorderColor(Colors.Black).PaddingVertical(5).AlignCenter();
-                        }
-                        static IContainer CellStyle1(IContainer container)
-                        {
-                            return container.Border(1).BorderColor(Colors.Black).PaddingVertical(5).AlignRight();
-                        }
-                    }
-                });
+                            }
+                        });
+                    }); //content
+                }); //page
             });
-            });
-        }
-    }
-}
+        }  //method
+    } // class
+} //namespace
 
 

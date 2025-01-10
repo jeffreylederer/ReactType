@@ -172,6 +172,21 @@ namespace ReactType.Server.Controllers
             return results;
         }
 
+        [HttpGet("ScheduleReport/{id}")]
+        public string ScheduleReport(int? id)
+        {
+            if (id == null)
+            {
+                return null;
+            }
+            QuestPDF.Settings.License = LicenseType.Community;
+            var report = new ScheduleReport();
+            var document = report.CreateDocument(id.Value, _context);
+            byte[] pdfBytes = document.GeneratePdf();
+            var results = Convert.ToBase64String(pdfBytes);
+            return results;
+        }
+
         [HttpGet("ClearSchedule/{id}")]
         public async Task<IActionResult> ClearSchedule(int? id)
         {
