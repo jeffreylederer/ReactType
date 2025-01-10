@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 import axios from "axios";
-import { ConvertLeague, leagueType } from "../../leagueObject.tsx";
+import { LeagueType } from "../../leagueObject.tsx";
 
 
 
 export const CreateMatches = () => {
-    const league: leagueType = ConvertLeague();
+    const league: LeagueType = JSON.parse(localStorage.getItem("league") as string);
     const [errorMsg, setErrorMsg] = useState('');
     useEffect(() => {
         GetData();

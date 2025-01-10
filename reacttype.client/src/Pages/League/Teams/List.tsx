@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from "axios";
 import { TeamMember } from "./TeamMember.tsx";
-import { ConvertLeague, leagueType } from "../../leagueObject.tsx";
+import { LeagueType } from "../../leagueObject.tsx";
 import { useCookies } from 'react-cookie';
 import { UserTypeDetail } from '../../Admin/Login/UserTypeDetail.tsx';
 
@@ -11,7 +11,7 @@ import { UserTypeDetail } from '../../Admin/Login/UserTypeDetail.tsx';
 
 function Teams() {
     const [team, setTeam] = useState<TeamMember[]>();
-    const league: leagueType = ConvertLeague();
+    const league: LeagueType = JSON.parse(localStorage.getItem("league") as string);
     const cookie = useCookies(['login'])[0];
     const user: UserTypeDetail = cookie.login;
     const permission: string = user.role;

@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 import axios from "axios";
-import { ConvertLeague, leagueType } from "../../leagueObject.tsx";
+import { LeagueType } from "../../leagueObject.tsx";
 
 
 function Standings() {
     const [report, setReport] = useState('');
-    const league: leagueType = ConvertLeague();
+    const league: LeagueType = JSON.parse(localStorage.getItem("league") as string);
 
     useEffect(() => {
         GetReport();

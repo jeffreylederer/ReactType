@@ -15,6 +15,8 @@ public partial class DbLeagueApp : DbContext
     {
     }
 
+    public virtual DbSet<AllTeamsView> AllTeamsViews { get; set; }
+
     public virtual DbSet<GetByesView> GetByesViews { get; set; }
 
     public virtual DbSet<GetMatchAllView> GetMatchAllViews { get; set; }
@@ -26,6 +28,10 @@ public partial class DbLeagueApp : DbContext
     public virtual DbSet<Logging> Loggings { get; set; }
 
     public virtual DbSet<Match> Matches { get; set; }
+
+    public virtual DbSet<MatchScheduleView> MatchScheduleViews { get; set; }
+
+    public virtual DbSet<MatchScoreView> MatchScoreViews { get; set; }
 
     public virtual DbSet<MatchView> MatchViews { get; set; }
 
@@ -65,6 +71,26 @@ public partial class DbLeagueApp : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<AllTeamsView>(entity =>
+        {
+            entity
+                .HasNoKey()
+                .ToView("AllTeamsView");
+
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.Lead)
+                .HasMaxLength(101)
+                .IsUnicode(false);
+            entity.Property(e => e.Skip)
+                .HasMaxLength(101)
+                .IsUnicode(false)
+                .HasColumnName("skip");
+            entity.Property(e => e.Skipid).HasColumnName("skipid");
+            entity.Property(e => e.ViceSkip)
+                .HasMaxLength(101)
+                .IsUnicode(false);
+        });
+
         modelBuilder.Entity<GetByesView>(entity =>
         {
             entity
@@ -163,6 +189,36 @@ public partial class DbLeagueApp : DbContext
                 .HasForeignKey(d => d.WeekId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Match_Schedule");
+        });
+
+        modelBuilder.Entity<MatchScheduleView>(entity =>
+        {
+            entity
+                .HasNoKey()
+                .ToView("MatchScheduleView");
+
+            entity.Property(e => e.Divisionid).HasColumnName("divisionid");
+            entity.Property(e => e.Rink).HasColumnName("rink");
+            entity.Property(e => e.Team1).HasColumnName("team1");
+            entity.Property(e => e.Team2).HasColumnName("team2");
+        });
+
+        modelBuilder.Entity<MatchScoreView>(entity =>
+        {
+            entity
+                .HasNoKey()
+                .ToView("MatchScoreView");
+
+            entity.Property(e => e.Player1)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("player1");
+            entity.Property(e => e.Player2)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("player2");
+            entity.Property(e => e.Teamno1).HasColumnName("teamno1");
+            entity.Property(e => e.Teamno2).HasColumnName("teamno2");
         });
 
         modelBuilder.Entity<MatchView>(entity =>
@@ -402,6 +458,7 @@ public partial class DbLeagueApp : DbContext
                 .HasNoKey()
                 .ToView("TotalScoreView");
 
+            entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.Total).HasColumnName("total");
         });
 

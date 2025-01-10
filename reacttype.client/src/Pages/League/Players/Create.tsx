@@ -6,14 +6,14 @@ import { UpdateFormData } from "../../Membership/UpdateFormData.tsx";
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useEffect, useState } from 'react';
 import { TextInput } from "flowbite-react";
-import { ConvertLeague, leagueType } from "../../leagueObject.tsx";
+import { LeagueType } from "../../leagueObject.tsx";
 
 
 const PlayersCreate = () => {
    
     
     const onSubmit: SubmitHandler<PlayerFormData> = (data) => CreateData(data)
-    const league: leagueType = ConvertLeague();
+    const league: LeagueType = JSON.parse(localStorage.getItem("league") as string);
     const navigate = useNavigate();
     const [membership, setmembership] = useState<UpdateFormData[]>();
 

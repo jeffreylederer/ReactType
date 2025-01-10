@@ -91,21 +91,14 @@ h3 {
     text-align: center
 }
 
+.toLeft {
+    float: left;
+}
+
 .hide {
-    visibility: hidden;
+    display: none;
 }
 
 .show {
-    visibility: visible;
+    display: inline;
 }
-
-
-
-    .table td, .table th {
-        white-space: nowrap;
-        text-align: left
-    }
-
-    .table thead th:last-child {
-        width: 100%;
-    }

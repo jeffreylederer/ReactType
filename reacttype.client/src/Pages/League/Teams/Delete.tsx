@@ -2,13 +2,13 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from 'react';
 import axios from "axios";
 import { TeamMember } from "./TeamMember.tsx";
-import { ConvertLeague, leagueType } from "../../leagueObject.tsx";
+import { LeagueType } from "../../leagueObject.tsx";
 
 
 const TeamsDelete = () => {
     const location = useLocation();
     const id: number = location.state;
-    const league: leagueType = ConvertLeague();  
+    const league: LeagueType = JSON.parse(localStorage.getItem("league") as string);  
     const [errorMsg, SeterrorMsg] = useState("");
     const [team, setTeam] = useState<TeamMember>();
 

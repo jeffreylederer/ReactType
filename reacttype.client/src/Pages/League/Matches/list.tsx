@@ -1,7 +1,7 @@
 import { useEffect, useState  } from 'react';
 import { MatchFormData } from "./MatchFormData.tsx";
 import axios from "axios";
-import { ConvertLeague, leagueType } from "../../leagueObject.tsx";
+import { LeagueType } from "../../leagueObject.tsx";
 import uparrow from '../../../images/uparrow.png';
 import { UpdateFormData } from "../Schedule/UpdateFormData.tsx";
 import { Link } from 'react-router-dom';
@@ -19,7 +19,7 @@ function Matches() {
     const admin: boolean = (permission == "SiteAdmin" || permission == "Admin" )? false : true;
     
     const [schedule, setSchedule] = useState<UpdateFormData[]>();
-    const league: leagueType = ConvertLeague();
+    const league: LeagueType = JSON.parse(localStorage.getItem("league") as string);
     const location = useLocation();
     const id:string = location.search.substring(4);
     const [weekid, setWeekid] = useState(+id);

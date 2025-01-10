@@ -2,13 +2,13 @@ import { useLocation, useNavigate, } from "react-router-dom";
 import { useEffect, useState } from 'react';
 import axios from "axios";
 import { UpdateFormData } from "./UpdateFormData.tsx";
-import { ConvertLeague, leagueType } from "../../leagueObject.tsx";
+import { LeagueType } from "../../leagueObject.tsx";
 
 
 const PlayersDelete = () => {
     const location = useLocation();
     const id: number = location.state;
-    const league: leagueType = ConvertLeague();  
+    const league: LeagueType = JSON.parse(localStorage.getItem("league") as string);  
     const [errorMsg, SeterrorMsg] = useState("");
     const [players, setPlayers] = useState<UpdateFormData>();
 

@@ -4,7 +4,7 @@ import axios from "axios";
 import { FormData, FormDataSchema } from "./FormData.tsx";
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Checkbox, TextInput, Button } from "flowbite-react";
-import { ConvertLeague, leagueType } from "../../leagueObject.tsx";
+import { LeagueType } from "../../leagueObject.tsx";
 
 const LeagueCreate = () => {
 
@@ -17,7 +17,7 @@ const LeagueCreate = () => {
     });
 
     const onSubmit: SubmitHandler<FormData> = (data) => CreateData(data)
-    const league: leagueType = ConvertLeague();
+    const league: LeagueType = JSON.parse(localStorage.getItem("league") as string);
     const navigate = useNavigate();
 
     function CreateData(data: FormData) {
