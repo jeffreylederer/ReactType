@@ -2,14 +2,14 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from 'react';
 import axios from "axios";
 import { FormData } from "./FormData.tsx";
-import { ConvertLeague, leagueType } from "../../leagueObject.tsx";
-
+import { LeagueType } from "../../leagueObject.tsx";
+import { Button } from "flowbite-react";
 
 
 const ScheduleDelete = () => {
     const location = useLocation();
     const id: number = location.state;
-    const league: leagueType = ConvertLeague();
+    const league: LeagueType = JSON.parse(localStorage.getItem("league") as string);
     const [schedule, setSchedule] = useState<FormData>();
     const [errorMsg, SeterrorMsg] = useState("");
     
@@ -39,9 +39,9 @@ const ScheduleDelete = () => {
               </tr>
             
             <tr>
-                <td style={{ width: "300px" }}>
-                    <input type='button' onClick={DeleteItem} value="Delete Record" />
-                    <button onClick={() => navigate(-1)}>Go back to list</button>
+                <td colSpan={2} style={{ textAlign: "center"}}>
+                    <Button color="Default" onClick={DeleteItem}>Delete Record</Button>
+                    <Button color="Default" onClick={() => navigate(-1)}>Go back to list</Button>
                 </td>
             </tr>
         </table>
@@ -55,7 +55,7 @@ const ScheduleDelete = () => {
     );
 
     async function GetData() {
-        const url: string = 'https://localhost:7002/api/Schedules/getOne/';
+        const url: string = import.meta.env.VITE_SERVER_URL+'api/Schedules/getOne/';
         const num: string = id.toString();
         const fullUrl = url.concat(num);
         axios.get(fullUrl)
@@ -70,7 +70,7 @@ const ScheduleDelete = () => {
     }
 
     async function DeleteItem() {
-        const url: string = 'https://localhost:7002/api/Schedules/';
+        const url: string = import.meta.env.VITE_SERVER_URL+'api/Schedules/';
         const num: string = id.toString();
         const fullUrl = url.concat(num);
         axios.delete(fullUrl)

@@ -1,25 +1,20 @@
 import { useNavigate } from "react-router-dom";
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useForm, SubmitHandler } from "react-hook-form";
 import axios from "axios";
 import { UpdateFormData, UpdateFormDataSchema } from "./UpdateForm.tsx"
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Button, TextInput } from "flowbite-react";
-import { useCookies } from 'react-cookie';
+import { UserType } from "../../leagueObject.tsx";
 
 
 
 
 const UpdatePassword = () => {
 
-    const [users, setUsers] = useState(
-        {
-            id: 0,
-            username: ''
-            
-        }
-    );
-    const [cookie] = useCookies(['login']);
+    const [users] = useState<UserType>(JSON.parse(localStorage.getItem("login") as string));
+        
+   
     
 
     const {
@@ -39,12 +34,9 @@ const UpdatePassword = () => {
 
 
 
-    useEffect(() => {
-        GetData();
-     });
+    
 
-    const contents = users.id === 0
-        ? <p><em>Loading ...</em></p> :
+    const contents = 
 
         <form onSubmit={handleSubmit(onSubmit)} >
 
@@ -94,24 +86,11 @@ const UpdatePassword = () => {
     );
 
 
-    async function GetData() {
-        const url: string = 'https://localhost:7002/api/Admin/'.concat(cookie.login);
-        axios.get(url)
-            .then(response => {
-
-                setUsers(response.data);
-
-
-                console.log('Record aquired successfully');
-            })
-            .catch(error => {
-                console.log('Error aquiring record: ', error);
-            });
-
-    }
+    
 
     function updateData(data: UpdateFormData) {
-        const url: string = 'https://localhost:7002/api/Admin/'.concat(cookie.login);
+        const login: UserType = JSON.parse(localStorage.getItem("login") as string);
+        const url: string = import.meta.env.VITE_SERVER_URL+'api/Admin/'.concat(login.id.toString());
         axios.put(url, data)
             .then(response => {
                 console.log('Record updated successfully ', response.data);

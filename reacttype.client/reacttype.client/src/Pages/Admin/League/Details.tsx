@@ -80,7 +80,7 @@ const LeagueDetails = () => {
     );
 
     async function GetData() {
-        const url: string = 'https://localhost:7002/api/leagues/';
+        const url: string = import.meta.env.VITE_SERVER_URL+'api/leagues/';
         const num: string = id.toString();
         const fullUrl = url.concat(num);
         axios.get(fullUrl)

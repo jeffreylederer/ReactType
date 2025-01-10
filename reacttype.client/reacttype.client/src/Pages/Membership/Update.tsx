@@ -4,8 +4,8 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import axios from "axios";
 import { UpdateFormData, UpdateFormDataSchema } from "./UpdateFormData.tsx";
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Checkbox, TextInput } from "flowbite-react";
-import { ConvertLeague, leagueType } from "../leagueObject.tsx";
+import { Checkbox, TextInput, Button } from "flowbite-react";
+import { LeagueType } from "../leagueObject.tsx";
 
 const MembershipUpdate = () => {
     const [membership, setMembership] = useState(
@@ -21,7 +21,7 @@ const MembershipUpdate = () => {
     );
     const location = useLocation();
     const id: number = location.state;
-    const league: leagueType = ConvertLeague();
+    const league: LeagueType = JSON.parse(localStorage.getItem("league") as string);
     const {
         register,
         handleSubmit,
@@ -79,8 +79,10 @@ const MembershipUpdate = () => {
                     </td>
                 </tr>
                 <tr className="center-td">
-                    <td colSpan={1} >
-                        <TextInput type="submit" />  <button onClick={() => navigate(-1)}>Back to list</button>
+                <td></td>
+                    <td>
+                        <Button color="Default" type="submit" >Submit</Button>
+                        <Button color="Default" onClick={() => navigate(-1)}>Go back to list</Button>
                     </td>
                 </tr>
                 <tr><td colSpan={1}>
@@ -105,7 +107,7 @@ const MembershipUpdate = () => {
 
 
     async function GetData() {
-        const url: string = 'https://localhost:7002/api/Memberships/';
+        const url: string = import.meta.env.VITE_SERVER_URL+'api/Memberships/';
         const num: string = id.toString();
         const fullUrl = url.concat(num);
         axios.get(fullUrl)
@@ -123,7 +125,7 @@ const MembershipUpdate = () => {
     }
 
     function updateData(data: UpdateFormData) {
-        const url: string = 'https://localhost:7002/api/Memberships/';
+        const url: string = import.meta.env.VITE_SERVER_URL+'api/Memberships/';
         const num: string = id.toString();
         const fullUrl = url.concat(num);
         data.id = id;

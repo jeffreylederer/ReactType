@@ -1,4 +1,4 @@
-    export type TeamMember = {
+export type TeamMember = {
     id: number,
     skip: string,
     viceSkip: string,

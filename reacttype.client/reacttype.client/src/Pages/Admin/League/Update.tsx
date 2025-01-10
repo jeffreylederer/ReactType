@@ -149,8 +149,8 @@ const LeagueUpdate = () => {
 
             <tr>
                     <td colSpan={1} style={{ textAlign: "center" }}>
-                        <Button type="submit" color="gray">Submit</Button>
-                        <button onClick={() => navigate(-1)}>Go back to list</button>
+                        <Button color="Default" type="submit" >Submit</Button>
+                        <Button color="Default"  onClick={() => navigate(-1)}>Go back to list</Button>
                 </td>
             </tr>
 
@@ -180,7 +180,7 @@ const LeagueUpdate = () => {
 
 
     async function GetData() {
-        const url: string = 'https://localhost:7002/api/Leagues/';
+        const url: string = import.meta.env.VITE_SERVER_URL+'api/Leagues/';
         const num: string = id.toString();
         const fullUrl = url.concat(num);
         axios.get(fullUrl)
@@ -198,7 +198,7 @@ const LeagueUpdate = () => {
     }
 
     function updateData(data: UpdateFormData) {
-        const url: string = 'https://localhost:7002/api/Leagues/';
+        const url: string = import.meta.env.VITE_SERVER_URL+'api/Leagues/';
         const num: string = id.toString();
         const fullUrl = url.concat(num);
         data.id = id;

@@ -1,26 +1,27 @@
 import { useEffect, useState } from 'react';
-import { LeagueType } from "../../leagueObject.tsx";
 import axios from "axios";
+import { useLocation } from "react-router-dom";
 
 
-function TeamReport() {
+function Standings() {
     const [report, setReport] = useState('');
-    const league: LeagueType = JSON.parse(localStorage.getItem("league") as string);
-    
+    const location = useLocation();
+    const id: number = location.state;
 
-    
+
+
 
     useEffect(() => {
         GetReport();
     });
 
     return (
-        <embed src={report} type="application/pdf" width = '1000' height = '800' />
-       
+        <embed src={report} type="application/pdf" width='1000' height='800' />
+
     );
 
     async function GetReport() {
-        const url: string = import.meta.env.VITE_SERVER_URL+"api/Teams/TeamReport/".concat(league.id.toString());
+        const url: string = import.meta.env.VITE_SERVER_URL+"api/Matches/Standings/".concat(id.toString());
         axios.get(url)
             .then(response => {
                 const data: string = "data:application/pdf;base64,".concat(response.data);
@@ -37,4 +38,4 @@ function TeamReport() {
 
 
 
-export default TeamReport;
+export default Standings;

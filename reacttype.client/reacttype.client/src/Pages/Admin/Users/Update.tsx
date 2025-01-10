@@ -16,7 +16,7 @@ const UsersUpdate = () => {
         {
             id: 0,
             roleId:1,
-            username: '',
+            userName: '',
             password: '',
             displayName: '',
             isActive: false          
@@ -57,7 +57,7 @@ const UsersUpdate = () => {
             <tr>
                 <td className="Label">User Name:</td>
 
-                    <td className="Field"><TextInput  defaultValue={users.username} disabled />
+                    <td className="Field">{users.userName}
                 </td>
             </tr>
 
@@ -96,7 +96,7 @@ const UsersUpdate = () => {
             <tr>
                 <td colSpan={1}  style={{ textAlign: "center" }}>
                         <Button type="submit" color="gray">Submit</Button>
-                        <button onClick={() => navigate(-1)}>Go back to list</button>
+                        <Button onClick={() => navigate(-1)}>Go back to list</Button>
                 </td>
             </tr>
                 <tr><td colSpan={1}>
@@ -120,7 +120,7 @@ const UsersUpdate = () => {
 
 
     async function GetData() {
-        const url: string = 'https://localhost:7002/api/Users/';
+        const url: string = import.meta.env.VITE_SERVER_URL+'api/Users/';
         const num: string = id.toString();
         const fullUrl = url.concat(num);
         axios.get(fullUrl)
@@ -138,7 +138,7 @@ const UsersUpdate = () => {
     }
 
     function updateData(data: UpdateFormData) {
-        const url: string = 'https://localhost:7002/api/Users/';
+        const url: string = import.meta.env.VITE_SERVER_URL+'api/Users/';
         const num: string = id.toString();
         const fullUrl = url.concat(num);
         data.id = id;

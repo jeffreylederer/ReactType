@@ -2,13 +2,13 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from 'react';
 import axios from "axios";
 import { TeamMember } from "./TeamMember.tsx";
-import { ConvertLeague, leagueType } from "../../leagueObject.tsx";
+import { LeagueType } from "../../leagueObject.tsx";
 
 
 const TeamsDelete = () => {
     const location = useLocation();
     const id: number = location.state;
-    const league: leagueType = ConvertLeague();  
+    const league: LeagueType = JSON.parse(localStorage.getItem("league") as string);  
     const [errorMsg, SeterrorMsg] = useState("");
     const [team, setTeam] = useState<TeamMember>();
 
@@ -45,7 +45,7 @@ const TeamsDelete = () => {
 
             <tr>
                 <td style={{ width: "200px" }}>Division:</td>
-                <td className="Field">{team?.divisionId}</td>
+                <td className="Field">{team?.division}</td>
             </tr>
 
             <tr>
@@ -66,7 +66,7 @@ const TeamsDelete = () => {
     );
 
     async function GetData() {
-        const url: string = 'https://localhost:7002/api/Teams/getOne/'.concat(id.toString());
+        const url: string = import.meta.env.VITE_SERVER_URL+'api/Teams/getOne/'.concat(id.toString());
         axios.get(url)
             .then(response => {
                 setTeam(response.data);
@@ -79,7 +79,7 @@ const TeamsDelete = () => {
     }
 
     async function DeleteItem() {
-        const url: string = 'https://localhost:7002/api/Teams/'.concat(id.toString());
+        const url: string = import.meta.env.VITE_SERVER_URL+'api/Teams/'.concat(id.toString());
         axios.delete(url)
             .then(response => {
                 console.log(response.statusText);

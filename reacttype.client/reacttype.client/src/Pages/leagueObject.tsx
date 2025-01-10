@@ -1,6 +1,5 @@
-import { useCookies } from 'react-cookie';
 
-export type leagueType = {
+export type LeagueType = {
     id: number;
     leagueName: string;
     active: boolean;
@@ -22,7 +21,9 @@ export type leagueType = {
 
 
 
-export function ConvertLeague() {
-    const [cookie] = useCookies(['league']);
-    return cookie.league;
+export type UserType = {
+    id: number,
+    username: string,
+    role: string
 }
+

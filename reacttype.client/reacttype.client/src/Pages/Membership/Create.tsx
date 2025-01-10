@@ -22,7 +22,7 @@ const MembershipCreate = () => {
     const navigate = useNavigate();
 
     function CreateData(data: FormData) {
-        axios.post('https://localhost:7002/api/Memberships', data)
+        axios.post(import.meta.env.VITE_SERVER_URL+'api/Memberships', data)
             .then((response) => {
                 console.log(response.data);
                 navigate("/Membership");

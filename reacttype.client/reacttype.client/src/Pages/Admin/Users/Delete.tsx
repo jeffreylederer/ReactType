@@ -2,7 +2,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from 'react';
 import axios from "axios";
 import { DetailsType } from "./DetailsType.tsx";
-
+import { Button } from "flowbite-react";
 
 
 
@@ -45,8 +45,8 @@ const UsersDelete = () => {
 
             <tr>
                 <td colSpan={1} style={{ textAlign: "center" }}>
-                    <input type='button' onClick={DeleteItem} value="Delete Record" />
-                    <button onClick={() => navigate(-1)}>Go back to list</button>
+                    <Button color="Default" onClick={DeleteItem}>Delete Record</Button>
+                    <Button color="Default" onClick={() => navigate(-1)}>Go back to list</Button>
                 </td>
             </tr>
         </table>
@@ -59,7 +59,7 @@ const UsersDelete = () => {
     );
 
     async function GetData() {
-        const url: string = 'https://localhost:7002/api/Users/';
+        const url: string = import.meta.env.VITE_SERVER_URL+'api/Users/';
         const num: string = id.toString();
         const fullUrl = url.concat(num);
         axios.get(fullUrl)
@@ -74,7 +74,7 @@ const UsersDelete = () => {
     }
 
     async function DeleteItem() {
-        const url: string = 'https://localhost:7002/api/Users/';
+        const url: string = import.meta.env.VITE_SERVER_URL+'api/Users/';
         const num: string = id.toString();
         const fullUrl = url.concat(num);
         axios.delete(fullUrl)

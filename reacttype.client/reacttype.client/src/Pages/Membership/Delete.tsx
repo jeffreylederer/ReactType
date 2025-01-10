@@ -2,6 +2,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from 'react';
 import { FormData } from "./FormData.tsx";
 import axios from "axios";
+import { Button } from "flowbite-react";
 
 
 const MembershipDelete = () => {
@@ -40,9 +41,10 @@ const MembershipDelete = () => {
                 <td className="Field">{membership.wheelchair?"Yes":"No"}</td>
             </tr>
             <tr>
-                <td style={{ width: "300px" }}>
-                    <input type='button' onClick={DeleteItem} value="Delete Record" />
-                    <button onClick={() => navigate(-1)}>Go back to list</button>
+                   <td colSpan={2} style={{ textAlign: "center" }}>
+
+                    <Button color="Default" onClick={DeleteItem}>Delete Record</Button>
+                    <Button color="Default" onClick={() => navigate(-1)}>Go back to list</Button>
                 </td>
             </tr>
         </table>
@@ -56,7 +58,7 @@ const MembershipDelete = () => {
     );
 
     async function GetData() {
-        const url: string = 'https://localhost:7002/api/Memberships/';
+        const url: string = import.meta.env.VITE_SERVER_URL+'api/Memberships/';
         const num: string = id.toString();
         const fullUrl = url.concat(num);
         axios.get(fullUrl)
@@ -71,7 +73,7 @@ const MembershipDelete = () => {
     }
 
     async function DeleteItem() {
-        const url: string = 'https://localhost:7002/api/Memberships/';
+        const url: string = import.meta.env.VITE_SERVER_URL+'api/Memberships/';
         const num: string = id.toString();
         const fullUrl = url.concat(num);
         axios.delete(fullUrl)

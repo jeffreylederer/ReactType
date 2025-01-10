@@ -5,13 +5,12 @@ import axios from "axios";
 import { UpdateFormData, UpdateFormDataSchema } from "./UpdateFormData.tsx";
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Checkbox, TextInput } from "flowbite-react";
-import { Form } from "react-bootstrap";
-import { ConvertLeague, leagueType } from "../../leagueObject.tsx";
+import { LeagueType } from "../../leagueObject.tsx";
 
 
 const ScheduleUpdate = () => {
 
-    const league: leagueType = ConvertLeague();
+    const league: LeagueType = JSON.parse(localStorage.getItem("league") as string);
     const [schedule, setSchedule] = useState(
         {
             id: 0,
@@ -62,7 +61,7 @@ const ScheduleUpdate = () => {
                     <td className="Label">Game Date:</td>
 
                     <td style={{ textAlign: "left", width: '85%' }}>
-                        <Form.Control type="date" {...register('gameDate')} defaultValue={schedule.gameDate} />
+                        <TextInput type="date" {...register('gameDate')} defaultValue={schedule.gameDate} />
                     </td>
                 </tr>
 
@@ -102,7 +101,7 @@ const ScheduleUpdate = () => {
 
 
     async function GetData() {
-        const url: string = 'https://localhost:7002/api/Schedules/getOne/';
+        const url: string = import.meta.env.VITE_SERVER_URL+'api/Schedules/getOne/';
         const num: string = id.toString();
         const fullUrl = url.concat(num);
         axios.get(fullUrl)
@@ -122,7 +121,7 @@ const ScheduleUpdate = () => {
     function updateData(data: UpdateFormData) {
         data.id = schedule.id;
         data.leagueid = schedule.leagueid;
-        const url: string = 'https://localhost:7002/api/Schedules/';
+        const url: string = import.meta.env.VITE_SERVER_URL+'api/Schedules/';
         const num: string = id.toString();
         const fullUrl = url.concat(num);
           axios.put(fullUrl, data)

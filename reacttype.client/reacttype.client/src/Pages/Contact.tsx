@@ -4,12 +4,13 @@ const Contact = () => {
             <h3 style={{ textAlign: 'center' }}>Contact.</h3>
 
             <p style={{ width: '100%', textAlign: 'left' }}>This application is supported by Jeffrey Lederer.
-                The source code depository for this application as at <a href="https://github.com/jeffreylederer/ReactType" target="blank">https://github.com/jeffreylederer/ReactType</a>
+            The source code depository for this application as at <a href="https://github.com/jeffreylederer/Tournament" target="blank">https://github.com/jeffreylederer/Tournament</a>
          </p>
 
                 <p style={{ width: '100%', textAlign: 'left' }}>
-
-                <strong>Support:</strong> <a href="mailto:jeffrey@winnlederer.com">jeffrey@winnlederer.com</a></p>
+            <address>
+                <strong>Support:</strong>   <a href="mailto:jeffrey@winnlederer.com">jeffrey@winnlederer.com</a><br />
+                </address>   </p>
         </>
     );
 }

@@ -2,6 +2,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from 'react';
 import axios from "axios";
 import { FormData } from "./FormData.tsx";
+import { Button } from "flowbite-react";
 
 
 
@@ -70,9 +71,10 @@ const LeagueDelete = () => {
                 <td className="Field">{league.playOffs ? "Yes" : "No"}</td>
             </tr>
             <tr>
-                <td colSpan={1} style={{ textAlign: "center" }}>
-                    <input type='button' onClick={DeleteItem} value="Delete Record" />
-                    <button onClick={() => navigate(-1)}>Go back to list</button>
+                <td colSpan={2} style={{ textAlign: "center" }}>
+               
+                    <Button color="Default" onClick={DeleteItem}>Delete Record</Button>
+                    <Button color="Default" onClick={() => navigate(-1)}>Go back to list</Button>
                 </td>
             </tr>
         </table>
@@ -86,7 +88,7 @@ const LeagueDelete = () => {
     );
 
     async function GetData() {
-        const url: string = 'https://localhost:7002/api/leagues/';
+        const url: string = import.meta.env.VITE_SERVER_URL+'api/leagues/';
         const num: string = id.toString();
         const fullUrl = url.concat(num);
         axios.get(fullUrl)
@@ -101,7 +103,7 @@ const LeagueDelete = () => {
     }
 
     async function DeleteItem() {
-        const url: string = 'https://localhost:7002/api/leagues/';
+        const url: string = import.meta.env.VITE_SERVER_URL+'api/leagues/';
         const num: string = id.toString();
         const fullUrl = url.concat(num);
         axios.delete(fullUrl)
