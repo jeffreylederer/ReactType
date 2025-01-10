@@ -3,8 +3,7 @@ import { Link } from 'react-router-dom';
 import axios from "axios";
 import { TeamMember } from "./TeamMember.tsx";
 import { LeagueType } from "../../leagueObject.tsx";
-import { useCookies } from 'react-cookie';
-import { UserTypeDetail } from '../../Admin/Login/UserTypeDetail.tsx';
+import { UserType } from '../../leagueObject.tsx'; 
 
 
 
@@ -12,8 +11,7 @@ import { UserTypeDetail } from '../../Admin/Login/UserTypeDetail.tsx';
 function Teams() {
     const [team, setTeam] = useState<TeamMember[]>();
     const league: LeagueType = JSON.parse(localStorage.getItem("league") as string);
-    const cookie = useCookies(['login'])[0];
-    const user: UserTypeDetail = cookie.login;
+    const user: UserType = JSON.parse(localStorage.getItem("login") as string);
     const permission: string = user.role;
     const allowed: boolean = (permission == "SiteAdmin" || permission == "Admin") ? false : true;
 
@@ -65,7 +63,7 @@ function Teams() {
     );
 
     async function GetData() {
-       const url: string = "https://localhost:7002/api/Teams/".concat(league.id.toString());
+       const url: string = import.meta.env.VITE_SERVER_URL+"api/Teams/".concat(league.id.toString());
         axios.get(url)
             .then(response => {
                 setTeam(response.data);

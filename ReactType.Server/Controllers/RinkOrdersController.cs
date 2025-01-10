@@ -20,14 +20,14 @@ namespace ReactType.Server.Controllers
 
         // GET: RinkOrder
         [HttpGet]
-        public async Task<IEnumerable<RinkOrder>> Get()
+        public async Task<IEnumerable<RinkOrder>?> Get()
         {
             try
             {
                 var list = await _context.RinkOrders.ToArrayAsync();
                 return list;
             }
-            catch(Exception ex)
+            catch(Exception)
             {
                 return null;
             }

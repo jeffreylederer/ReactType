@@ -20,7 +20,7 @@ namespace ReactType.Server.Code
         {
             League? league = db.Leagues.Find(id);
 
-            string LeagueName = league?.LeagueName;
+            string? LeagueName = league?.LeagueName;
             int? TeamSize = league?.TeamSize;
             List<TeamMember> list = db.TeamMembers
                      .FromSql($"EXEC TeamAllowDelete {id}")

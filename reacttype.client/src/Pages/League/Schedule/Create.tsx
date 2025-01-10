@@ -4,7 +4,6 @@ import axios from "axios";
 import { FormData, FormDataSchema } from "./FormData.tsx";
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Checkbox, TextInput } from "flowbite-react";
-import { Form } from "react-bootstrap";
 import { LeagueType } from "../../leagueObject.tsx";
 
 const ScheduleCreate = () => {
@@ -22,7 +21,7 @@ const ScheduleCreate = () => {
     const navigate = useNavigate();
 
     function CreateData(data: FormData) {
-        axios.post('https://localhost:7002/api/Schedules', data)
+        axios.post(import.meta.env.VITE_SERVER_URL+'api/Schedules', data)
             .then((response) => {
                 console.log(response.data);
                 navigate("/League/Schedules");
@@ -43,7 +42,7 @@ const ScheduleCreate = () => {
                         <td className="Label">Playoffs:</td>
 
                         <td style={{ textAlign: "left", width: '85%' }}>
-                            <Form.Control type="date" {...register('gameDate')} />
+                            <TextInput type="date" {...register('gameDate')} />
                         </td>
                     </tr>
 

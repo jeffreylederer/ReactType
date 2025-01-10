@@ -17,14 +17,14 @@ namespace ReactType.Server.Controllers
 
         // GET: Leagues
         [HttpGet]
-        public async Task<IEnumerable<Role>> Get()
+        public async Task<IEnumerable<Role>?> Get()
         {
             try
             {
                 var list = await _context.Roles.ToArrayAsync();
                 return list;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return null;
             }

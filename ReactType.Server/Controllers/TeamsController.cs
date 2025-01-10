@@ -80,7 +80,7 @@ namespace ReactType.Server.Controllers
 
         // GET: Players/Details/5
         [HttpGet("TeamReport/{id}")]
-        public string TeamReport(int? id)
+        public string? TeamReport(int? id)
         {
             if (id == null)
             {

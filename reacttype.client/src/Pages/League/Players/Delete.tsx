@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import axios from "axios";
 import { UpdateFormData } from "./UpdateFormData.tsx";
 import { LeagueType } from "../../leagueObject.tsx";
+import { Button } from "flowbite-react";
 
 
 const PlayersDelete = () => {
@@ -30,8 +31,8 @@ const PlayersDelete = () => {
             </tr>
             <tr>
                 <td colSpan={1} style={{ textAlign: "center" }}>
-                    <input type='button' onClick={DeleteItem} value="Delete Record" />
-                    <button onClick={() => navigate(-1)}>Back to list</button>
+                    <Button color="Default" onClick={DeleteItem}>Delete Record</Button>
+                    <Button color="Default" onClick={() => navigate(-1)}>Go back to list</Button>
                 </td>
             </tr>
         </table>;
@@ -46,7 +47,7 @@ const PlayersDelete = () => {
     );
 
     async function GetData() {
-        const url: string = 'https://localhost:7002/api/Players/getOne/'.concat(id.toString());
+        const url: string = import.meta.env.VITE_SERVER_URL+'api/Players/getOne/'.concat(id.toString());
         axios.get(url)
             .then(response => {
                 setPlayers(response.data);
@@ -59,7 +60,7 @@ const PlayersDelete = () => {
     }
 
     async function DeleteItem() {
-        const url: string = 'https://localhost:7002/api/Players/'.concat(id.toString());
+        const url: string = import.meta.env.VITE_SERVER_URL+'api/Players/'.concat(id.toString());
         axios.delete(url)
             .then(response => {
                 console.log(response.statusText);

@@ -21,7 +21,7 @@ const LeagueCreate = () => {
     const navigate = useNavigate();
 
     function CreateData(data: FormData) {
-        axios.post('https://localhost:7002/api/Leagues', data)
+        axios.post(import.meta.env.VITE_SERVER_URL+'api/Leagues', data)
             .then((response) => {
                 console.log(response.data);
                 navigate("/Admin/Leagues");
@@ -129,10 +129,10 @@ const LeagueCreate = () => {
                     </tr>
 
                     <tr>
-                        <td colSpan={1}  style={{ textAlign: "center" }}>
-                            <Button type="submit" color="gray">Submit</Button>
-                            
-                            <button onClick={() => navigate(-1)}>Go back to list</button>
+                        <td></td>
+                        <td>
+                            <Button color="Default" type="submit" >Submit</Button>
+                            <Button color="Default" onClick={() => navigate(-1)}>Go back to list</Button>
                         </td>
                         
                     </tr>

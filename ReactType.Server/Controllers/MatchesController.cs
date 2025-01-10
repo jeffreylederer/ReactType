@@ -143,7 +143,7 @@ namespace ReactType.Server.Controllers
 
         // GET: Players/Details/5
         [HttpGet("Standings/{id}")]
-        public string Standings(int? id)
+        public string? Standings(int? id)
         {
             if (id == null)
             {
@@ -158,7 +158,7 @@ namespace ReactType.Server.Controllers
         }
 
         [HttpGet("ScoreCard/{id}")]
-        public string ScoreCard(int? id)
+        public string? ScoreCard(int? id)
         {
             if (id == null)
             {

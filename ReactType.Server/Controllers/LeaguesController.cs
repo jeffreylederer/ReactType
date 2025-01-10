@@ -20,14 +20,14 @@ namespace ReactType.Server.Controllers
 
         // GET: Leagues
         [HttpGet]
-        public async Task<IEnumerable<League>> Get()
+        public async Task<IEnumerable<League>?> Get()
         {
             try
             {
                 var list = await _context.Leagues.ToArrayAsync();
                 return list;
             }
-            catch(Exception ex)
+            catch(Exception)
             {
                 return null;
             }

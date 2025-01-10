@@ -45,7 +45,7 @@ const TeamsCreate = () => {
                 break;
         }
         SeterrorMsg("");
-        axios.post('https://localhost:7002/api/Teams/', data)
+        axios.post(import.meta.env.VITE_SERVER_URL+'api/Teams/', data)
             .then((response) => {
                 console.log(response.data);
                 navigate("/League/Teams");
@@ -57,7 +57,7 @@ const TeamsCreate = () => {
     }
 
     async function GetData() {
-        const url: string = "https://localhost:7002/api/Teams/NotOnTeam/".concat(league.id.toString());
+        const url: string = import.meta.env.VITE_SERVER_URL+"api/Teams/NotOnTeam/".concat(league.id.toString());
         axios.get(url)
             .then(response => {
                 setMembership(response.data);

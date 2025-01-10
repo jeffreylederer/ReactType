@@ -1,61 +1,92 @@
-import Container from 'react-bootstrap/Container';
-import Nav from 'react-bootstrap/Nav';
-import Navbar from 'react-bootstrap/Navbar';
-import NavDropdown from 'react-bootstrap/NavDropdown';
-import { useCookies } from 'react-cookie';
-import { UserTypeDetail } from "./Pages/Admin/Login/UserTypeDetail.tsx";
-import { useEffect } from 'react';
-import { useNavigate } from "react-router-dom";
+
+import { UserType } from "./Pages/leagueObject.tsx";
+import { useEffect, useState } from 'react';
+import { useNavigate,NavLink } from "react-router-dom";
+
 
 function Menu() {
-    const [cookies] = useCookies(['league', 'login']);  
-    const data: UserTypeDetail = cookies.login === undefined ? { id: 0, role: "Observer", username: "unknown" } : cookies.login;
+
+    const login: UserType = localStorage.getItem("login") === null ? null : JSON.parse(localStorage.getItem("login") as string);
+    //const league: LeagueType = localStorage.getItem("league") === null ? null : JSON.parse(localStorage.getItem("league") as string);
+
     const navigate = useNavigate();
+    const [hideSiteAdmin] = useState<boolean>(login == null ? false : (login.role != "SiteAdmin" ? false : true));
+    const [hideAdmin] = useState<boolean>(login === null ? false : (login.role != "Admin" || hideSiteAdmin ? false : true));
+    const [hideLeague] = useState<boolean>(localStorage.getItem("league") === null);
+    const username: string = login === null ? "" : login.username;
+
     useEffect(() => {
-        if (cookies.login === undefined) {
+        if (localStorage.getItem("login") === null) {
             navigate("/Login");
         }
-    }, [cookies.login, navigate]);
-   
+        
+         
+       
+    },[navigate]);
+
     return (
-        <Navbar expand="lg" className="bg-body-tertiary" hidden={cookies.login === undefined}>
-            <Container>
-                <Navbar.Brand href="/">Leagues</Navbar.Brand>
-                <Navbar.Toggle aria-controls="basic-navbar-nav" />
-                <Navbar.Collapse id="basic-navbar-nav">
-                    <Nav className="me-auto">
-                        {/*<Nav.Link href="/">Home</Nav.Link>*/}
-                        <Nav.Link href="/Membership">Membership</Nav.Link>
-                        <NavDropdown title="League Play" id="basic-nav-dropdown" hidden={cookies.league == undefined }>
-                            <NavDropdown.Item href="/League/Players">Players</NavDropdown.Item>
-                            <NavDropdown.Item href="/League/Schedules">Schedules</NavDropdown.Item>
-                            <NavDropdown.Item href="/League/Teams">Teams</NavDropdown.Item>
-                            <NavDropdown.Item href="/League/Matches?id=0">Matches</NavDropdown.Item>
-                            <NavDropdown.Item href="/League/ScheduleReport">Schedule Report</NavDropdown.Item>
-                            <NavDropdown.Item href="/League/Byes">Byes Report</NavDropdown.Item>
-                            <NavDropdown.Divider hidden={data.role != "SiteAdmin" && data.role != "Admin"} ></NavDropdown.Divider>
-                            <NavDropdown.Item href="/League/CreateMatches" hidden={data.role != "SiteAdmin" && data.role !="Admin"}>Create Matches</NavDropdown.Item>
-                            <NavDropdown.Item href="/League/ClearMatches" hidden={data.role != "SiteAdmin" && data.role != "Admin"}>Clear Matches</NavDropdown.Item>
-                            <NavDropdown.Divider hidden={data.role != "SiteAdmin" && data.role != "Admin"} ></NavDropdown.Divider>
-                            <NavDropdown.Item href="/League/Playoffs" hidden={data.role != "SiteAdmin" && data.role != "Admin"}>Playoff Matches</NavDropdown.Item>
-                        </NavDropdown>
-                        <NavDropdown title="Admin" id="basic-nav-dropdown" hidden={data.role != "SiteAdmin" }>
-                            <NavDropdown.Item href="/Admin/Users">Users</NavDropdown.Item>
-                            <NavDropdown.Item href="/Admin/Leagues">Leagues</NavDropdown.Item>
-                            <NavDropdown.Item href="/Admin/ErrorLog">Error Log</NavDropdown.Item>
-                        </NavDropdown>
-                        
-                        <Nav.Link href="/About">About</Nav.Link>
-                        <Nav.Link href="/Contact" style={{ width: '100px', textAlign: 'left' }} >Contact</Nav.Link>
-                        <Nav.Link href="#" disabled>{"Hello ".concat(data.username)}</Nav.Link>
-                        <Nav.Link href="/UpdatePassword">Change Password</Nav.Link>
-                        <Nav.Link href="/Logoff">Log Off</Nav.Link>
-                    </Nav>
-                </Navbar.Collapse>
-            </Container>
-        </Navbar>
+    
+            <>
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" ></script>
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" ></script>
+            <div className="navbar navbar-default navbar-fixed-top" >
+                <div className="container">
+                    <div className="navbar-header">
+                        <button type="button" className="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                            <span className="icon-bar"></span>
+                            <span className="icon-bar"></span>
+                            <span className="icon-bar"></span>
+                        </button>
+                        <NavLink to="/" className="navbar-brand" >Leagues</NavLink>
+                    </div>
+                    <div className="navbar-collapse collapse">
+                        <ul className="nav navbar-nav">
+                            <li><NavLink to="/">Home</NavLink></li>
+                            <li><NavLink to="/Membership">Membership</NavLink></li>
+
+                            
+                            <li className="menu-item dropdown" style={{ display: hideLeague? "none": "inline"} } >
+                                <a href="#" className="dropdown-toggle" data-toggle="dropdown">League Play<b className="caret"></b></a>
+                                <ul className="dropdown-menu">
+                                    <li><NavLink to="/League/Players">Players</NavLink></li>
+                                    <li><NavLink to="/League/Schedule">Schedule</NavLink></li>
+                                    <li><NavLink to="/League/Teams">Teams</NavLink></li>
+                                    <li><NavLink to="/League/Matches">Matches</NavLink></li>
+                                    <li><NavLink to="/League/Byes">Byes Report</NavLink></li>
+                                    <li><NavLink to="/League/ScheduleReport">Schedule Report</NavLink></li>
+                                    <li style={{ display: hideAdmin ? "none" : "inline" }}>----------------------------</li>
+                                    <li><NavLink to="/League/CreateMatches" style={{ display: hideAdmin ? "none" : "inline" }}>Create Matches</NavLink></li>
+                                    <li><NavLink to="/League/ClearMatches" style={{ display: hideAdmin ? "none" : "inline" }} >Delete Matches</NavLink></li>
+                                 </ul>
+                            </li>
+                             
+
+                         
+                            <li className="menu-item dropdown" style={{ display: hideSiteAdmin ? "none" : "inline" }} >
+                                <a href="#" className="dropdown-toggle" data-toggle="dropdown">Admin<b className="caret"></b></a>
+                                <ul className="dropdown-menu">
+                                    <li><NavLink to="/Admin//Users">Users</NavLink></li>
+                                    <li><NavLink to="/Admin//Leagues">Leagues</NavLink></li>
+                                 </ul>
+                            </li>
+                            
+                    
+                            <li><NavLink to="/About">About</NavLink></li>
+                            <li><NavLink to="/Contact">Contact</NavLink></li>
+                            <li><NavLink to="#" style={{ pointerEvents: "none" }}>Hello {username}</NavLink></li>
+                            <li><NavLink to="/UpdatePassword">Change Password</NavLink></li>
+                            <li><NavLink reloadDocument  to="/Logoff">Logoff</NavLink></li>
+                        </ul>
+                    </div>
+            </div>
+        </div>
+
+        </>
+    
+                   
     );
 }
+
 
 
 export default Menu;

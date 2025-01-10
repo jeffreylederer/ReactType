@@ -52,7 +52,7 @@ namespace ReactType.Server.Controllers
                     newList.Add(item);
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return newList;
             }
@@ -106,7 +106,7 @@ namespace ReactType.Server.Controllers
         [HttpPost]
         public async Task Create(DTOUserRoleCreate item)
         {
-            var password = GetSha256Hash.Encode(item.Password);
+            string password = GetSha256Hash.Encode(item?.Password);
             try
             {
                 var user = new User()
@@ -150,7 +150,7 @@ namespace ReactType.Server.Controllers
             }
 
             user.IsActive = item.IsActive;
-            user.DisplayName = item.DisplayName;
+            user.DisplayName = item?.DisplayName;
             _context.Entry(user).State = EntityState.Modified;
 
             //UserRole? userRole = await _context.UserRoles.Where(x => x.UserId == user.Id).FirstOrDefaultAsync();

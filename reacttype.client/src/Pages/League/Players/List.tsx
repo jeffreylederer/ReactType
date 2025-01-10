@@ -2,15 +2,12 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from "axios";
 import { UpdateFormData } from "./UpdateFormData.tsx";
-import { LeagueType } from "../../leagueObject.tsx";
-import { useCookies } from 'react-cookie';
-import { UserTypeDetail } from '../../Admin/Login/UserTypeDetail.tsx';
+import { UserType, LeagueType } from "../../leagueObject.tsx";
 
 function Players() {
     const [player, setplayer] = useState<UpdateFormData[]>();
     const league: LeagueType = JSON.parse(localStorage.getItem("league") as string);
-    const cookie = useCookies(['login'])[0];
-    const user: UserTypeDetail = cookie.login;
+    const user: UserType = JSON.parse(localStorage.getItem("login") as string);
     const permission: string = user.role;
     const allowed: boolean = (permission == "SiteAdmin" || permission == "Admin") ? false : true;
 
@@ -54,7 +51,7 @@ function Players() {
     async function GetData() {
        
 
-        const url: string = "https://localhost:7002/api/players/".concat(league.id.toString());
+        const url: string = import.meta.env.VITE_SERVER_URL+"api/players/".concat(league.id.toString());
         axios.get(url)
             .then(response => {
                 setplayer(response.data);

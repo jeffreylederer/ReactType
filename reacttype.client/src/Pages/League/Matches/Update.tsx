@@ -12,7 +12,7 @@ import { MatchFormData } from "./MatchFormData.tsx";
 
 const MatchUpdate = () => {
 
-    const [match, setMatch] = useState(
+    const [match, setMatch] = useState<MatchFormData>(
         {
             id: 0,
             rink: 0,
@@ -33,7 +33,7 @@ const MatchUpdate = () => {
     const location = useLocation();
     const id: number = location.state;
 
-    const [ hidden, setHidden ] = useState<boolean>();
+    const [hidden, setHidden] = useState<boolean>(match.forFeitId != 0);
 
     const {
         register,
@@ -50,6 +50,7 @@ const MatchUpdate = () => {
         const value = event.target.value;
         if (value == '0') {
             setHidden(false);
+            
         }
         else {
             setHidden(true);
@@ -129,10 +130,11 @@ const MatchUpdate = () => {
                     </td>
                 </tr>
 
-            <tr>
-                    <td colSpan={1} style={{ textAlign: "center" }}>
-                        <Button type="submit" color="gray">Submit</Button>
-                        <button onClick={() => navigate(-1)}>Go back to list</button>
+                <tr>
+     
+                    <td colSpan={2} style={{ textAlign: "center" }}>
+                        <Button color="Default" type="submit" >Submit</Button>
+                        <Button color="Default" onClick={() => navigate(-1)}>Go back to list</Button>
                 </td>
             </tr>
 
@@ -157,7 +159,7 @@ const MatchUpdate = () => {
 
 
     async function GetData(id: number) {
-        const url: string = 'https://localhost:7002/api/Matches/GetOne/'.concat(id.toString());
+        const url: string = import.meta.env.VITE_SERVER_URL+'api/Matches/GetOne/'.concat(id.toString());
         axios.get(url)
             .then(response => {
                 const data: MatchFormData = response.data;
@@ -177,7 +179,7 @@ const MatchUpdate = () => {
     }
 
     function updateData(data: UpdateFormData) {
-        const url: string = 'https://localhost:7002/api/Matches/'.concat(id.toString());
+        const url: string = import.meta.env.VITE_SERVER_URL+'api/Matches/'.concat(id.toString());
         if (data.forFeitId != 0) {
             data.team1Score = 0;
             data.team2Score = 0;

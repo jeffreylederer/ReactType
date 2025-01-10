@@ -24,7 +24,7 @@ import Players from "./Pages/League/Players/List.tsx";
 import PlayersDelete from "./Pages/League/Players/Delete.tsx";
 import PlayersCreate from "./Pages/League/Players/Create.tsx";
 
-import Schedules from "./Pages/League/Schedule/List.tsx";
+import Schedule from "./Pages/League/Schedule/List.tsx";
 import SchedulesDelete from "./Pages/League/Schedule/Delete.tsx";
 import SchedulesCreate from "./Pages/League/Schedule/Create.tsx";
 import SchedulesUpdate from "./Pages/League/Schedule/Update.tsx";
@@ -40,9 +40,9 @@ import ScoreCard from "./Pages/League/Matches/ScoreCard.tsx";
 import Standings from "./Pages/League/Matches/Standings.tsx";
 import MatchUpdate from "./Pages/League/Matches/Update.tsx";
 import Byes from "./Pages/League/Matches/Byes.tsx";
+import ScheduleReport from "./Pages/League/Matches/ScheduleReport.tsx";
 import { CreateMatches } from "./Pages/League/Matches/CreateMatches.tsx";
 import { ClearMatches } from "./Pages/League/Matches/ClearMatches.tsx";
-import { Playoffs } from "./Pages/League/Matches/Playoffs.tsx";
 
 
 
@@ -56,7 +56,7 @@ import About from "./Pages/About.tsx";
 import Contact from "./Pages/Contact.tsx";
 
 
-/*import Welcome from "./Pages/Welcome.tsx";*/
+import Welcome from "./Pages/Welcome.tsx";
 import Home from './Pages/Home.tsx'; 
 
 
@@ -90,7 +90,7 @@ function RouteMenu() {
                 <Route path="/League/Players/Delete" element={<PlayersDelete />} />
                 <Route path="/League/Players/Create" element={<PlayersCreate />} />
 
-                <Route path="/League/Schedules" element={<Schedules />} />
+                <Route path="/League/Schedule" element={<Schedule />} />
                 <Route path="/League/Schedule/Delete" element={<SchedulesDelete />} />
                 <Route path="/League/Schedule/Create" element={<SchedulesCreate />} />
                 <Route path="/League/Schedule/Update" element={<SchedulesUpdate />} />
@@ -106,17 +106,19 @@ function RouteMenu() {
                 <Route path="/League/Matches/Standings" element={<Standings />} />
                 <Route path="/League/Matches/ScoreCard" element={<ScoreCard />} />
                 <Route path="/League/Byes" element={<Byes />} />
+                <Route path="/League/ScheduleReport" element={<ScheduleReport />} />
                 <Route path="/League/CreateMatches" element={<CreateMatches />} />
                 <Route path="/League/ClearMatches" element={<ClearMatches />} />
-                <Route path="/League/Playoffs" element={<Playoffs />} />
+                
 
-                {/*<Route path="/Welcome" element={<Welcome />} />*/}
+                
                 <Route path="/Contact" element={<Contact />} />
                 <Route path="/About" element={<About />} />
                 <Route path="/Logoff" element={<Logoff />} />
                 <Route path="/Login" element={<Login />} />
                 <Route path="/UpdatePassword" element={<UpdatePassword />} />
                 <Route path='*' element={<NotLogin />} />
+                <Route path="/Welcome" element={<Welcome/>} />
          
             </Routes>
 

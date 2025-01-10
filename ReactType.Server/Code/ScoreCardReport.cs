@@ -27,8 +27,8 @@ namespace ReactType.Server.Code
             List<GetMatchAllView> matches = db.GetMatchAllViews
                      .FromSql($"EXEC GetMatchAll {id}")
                     .ToList();
-            string LeagueName = league?.LeagueName;
-            string GameDate = schedule?.GameDate.ToShortDateString();
+            string? LeagueName = league?.LeagueName;
+            string? GameDate = schedule?.GameDate.ToShortDateString();
             return Document.Create(container =>
             {
                 container.Page(page =>
@@ -107,9 +107,9 @@ namespace ReactType.Server.Code
 
 
                             table.Cell().Element(CellStyle).Text(GameDate);
-                            table.Cell().Element(CellStyle).Text(item.Rink);
-                            table.Cell().Element(CellStyle).Text(item.Team1);
-                            table.Cell().Element(CellStyle).Text(item.Team2);
+                            table.Cell().Element(CellStyle).Text(item.Rink.ToString());
+                            table.Cell().Element(CellStyle).Text(item.Team1.ToString());
+                            table.Cell().Element(CellStyle).Text(item.Team2.ToString());
                             table.Cell().Element(CellStyle1).Text(item.Skip1);
                             if (TeamSize.Value == 3)
                             {

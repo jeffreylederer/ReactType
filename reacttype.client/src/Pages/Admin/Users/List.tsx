@@ -52,7 +52,7 @@ function Users() {
     );
 
     async function GetData() {
-        axios.get("https://localhost:7002/api/Users")
+        axios.get(import.meta.env.VITE_SERVER_URL+"api/Users")
             .then(response => {
                 setUsers(response.data);
             })

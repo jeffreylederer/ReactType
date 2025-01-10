@@ -90,11 +90,11 @@ namespace ReactType.Server.Code
                                 table.Cell().Element(CellStyle).Text(item.TeamNo.ToString()).FontSize(10).AlignCenter(); 
 
 
-                                string team = item.Skip;
+                                string? team = item?.Skip;
                                 if (TeamSize == 2)
-                                    team += "," + item.Lead;
+                                    team += "," + item?.Lead;
                                 if (TeamSize == 3)
-                                    team += ", " + item.ViceSkip + "," + item.Lead;
+                                    team += ", " + item?.ViceSkip + "," + item?.Lead;
                                 table.Cell().Element(CellStyle).Text(team).FontSize(10).AlignLeft(); 
 
                                 

@@ -66,7 +66,7 @@ const TeamsDelete = () => {
     );
 
     async function GetData() {
-        const url: string = 'https://localhost:7002/api/Teams/getOne/'.concat(id.toString());
+        const url: string = import.meta.env.VITE_SERVER_URL+'api/Teams/getOne/'.concat(id.toString());
         axios.get(url)
             .then(response => {
                 setTeam(response.data);
@@ -79,7 +79,7 @@ const TeamsDelete = () => {
     }
 
     async function DeleteItem() {
-        const url: string = 'https://localhost:7002/api/Teams/'.concat(id.toString());
+        const url: string = import.meta.env.VITE_SERVER_URL+'api/Teams/'.concat(id.toString());
         axios.delete(url)
             .then(response => {
                 console.log(response.statusText);

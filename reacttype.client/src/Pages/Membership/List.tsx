@@ -2,15 +2,13 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from "axios";
 import { UpdateFormData } from "./UpdateFormData.tsx";
-import { useCookies } from 'react-cookie';
 import { UserTypeDetail } from '../Admin/Login/UserTypeDetail.tsx';
 
 
 
 function Membership() {
     const [membership, setmembership] = useState<UpdateFormData[]>();
-    const cookie = useCookies(['login'])[0];
-    const user: UserTypeDetail = cookie.login;
+    const user: UserTypeDetail = JSON.parse(localStorage.getItem("login") as string);
     const permission: string = user.role;
     const allowed: boolean = (permission == "SiteAdmin" || permission == "Admin") ? false : true;
 
@@ -56,7 +54,7 @@ function Membership() {
     );
 
     async function GetData() {
-        axios.get("https://localhost:7002/api/memberships")
+        axios.get(import.meta.env.VITE_SERVER_URL+"api/memberships")
             .then(response => {
                 setmembership(response.data);
             })

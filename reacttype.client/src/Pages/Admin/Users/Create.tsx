@@ -20,7 +20,7 @@ const UserCreate = () => {
     const navigate = useNavigate();
 
     function CreateData(data: FormData) {
-        axios.post('https://localhost:7002/api/Users', data)
+        axios.post(import.meta.env.VITE_SERVER_URL+'api/Users', data)
             .then((response) => {
                 console.log(response.data);
                 navigate("/Admin/Users");

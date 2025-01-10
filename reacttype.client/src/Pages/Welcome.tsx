@@ -1,43 +1,40 @@
-import { useLocation } from "react-router-dom";
-import axios from "axios";
-import { useState, useEffect } from 'react';
-import { UpdateFormData } from "./Admin/League/UpdateFormData.tsx";
+import { LeagueType, UserType } from "./leagueObject.tsx";
 
 function Welcome() {
-    const location = useLocation();
-    const id: number = location.state;
+    
+    const league: LeagueType = JSON.parse(localStorage.getItem("league") as string);
+    const login: UserType = JSON.parse(localStorage.getItem("logoin") as string);
 
-    const [league, setleague] = useState<UpdateFormData>();
-    useEffect(() => {
-        GetData();
-    });
-
-    const contents = league === undefined
-        ? <p><em>Loading ...</em></p> :
-        <>
-            <h3>Welcome to {league?.leagueName}</h3>
-            
-        </>
+    
+    
+    
         return (
-            
-                {contents}
-            
+            <>
+            <h3>Welcome to {league.leagueName}</h3>
+
+           
+                <h2>Current Role: {login.role} </h2>
+
+                <dl >
+                    <dt>Observers</dt>
+                    <dd>They can view all screens and reports in the league </dd>
+                </dl>
+                <dl >
+                    <dt>Scorers</dt>
+                    <dd>They can score matches and view all screens and reports in the league </dd>
+                </dl>
+                <dl >
+                    <dt>League Administrators</dt>
+                    <dd>They can edit the membership, players and schedule in the league, create and score matches </dd>
+                </dl>
+                <dl >
+                    <dt>Site Administrators</dt>
+                    <dd>They can be league administrator for any league and create leagues and users. </dd>
+                </dl>
+    </>        
         );
 
-    async function GetData() {
-        const url: string = 'https://localhost:7002/api/leagues/';
-        const num: string = id.toString();
-        const fullUrl = url.concat(num);
-        axios.get(fullUrl)
-            .then(response => {
-                setleague(response.data);
-                console.log('Record aquired successfully: ', response.data);
-            })
-            .catch(error => {
-                console.error('Error aquiring record: ', error);
-            });
-
-    }
+    
 }
 
 export default Welcome;

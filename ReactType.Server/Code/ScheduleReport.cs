@@ -19,7 +19,7 @@ namespace ReactType.Server.Code
         public IDocument CreateDocument(int id, DbLeagueApp db)
         {
             League? league = db.Leagues.Find(id);
-            List<Schedule>? schedule = db.Schedules.Where(x => x.Leagueid == league.Id).ToList();
+            List<Schedule>? schedule = db.Schedules.Where(x => x.Leagueid == league?.Id).ToList();
             int weeks = schedule.Count();
             List<MatchScheduleView> matches = db.MatchScheduleViews
                     .FromSql($"EXEC MatchSchedule {id}")
@@ -28,7 +28,7 @@ namespace ReactType.Server.Code
                      .FromSql($"EXEC AllTeams {id}")
                     .ToList();
             int rinks = teams.Count / 2;
-            int TeamSize = league.TeamSize;
+            int? TeamSize = league?.TeamSize;
 
             return Document.Create(container =>
             {
@@ -52,7 +52,7 @@ namespace ReactType.Server.Code
                             {
 
                                 header.Cell().
-                                    ColumnSpan((uint)TeamSize + 1)
+                                    ColumnSpan((uint)TeamSize.Value + 1)
                                     .AlignCenter()
                                     .AlignMiddle()
                                     .Text("Teams");
@@ -63,9 +63,9 @@ namespace ReactType.Server.Code
 
                                 columns.ConstantColumn(40); //team number
                                 columns.ConstantColumn(90); //Skip
-                                if (TeamSize == 3)
+                                if (TeamSize.Value == 3)
                                     columns.ConstantColumn(90); //ViceSkip
-                                if (TeamSize > 1)
+                                if (TeamSize.Value > 1)
                                     columns.ConstantColumn(90); //Lead
 
                             });

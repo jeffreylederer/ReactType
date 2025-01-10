@@ -18,10 +18,11 @@ export const ClearMatches = () => {
     );
 
     async function GetData() {
-        const url: string = "https://localhost:7002/api/Matches/ClearSchedule/".concat(league.id.toString());
+        const url: string = import.meta.env.VITE_SERVER_URL+"api/Matches/ClearSchedule/".concat(league.id.toString());
         axios.get(url)
             .then(response => {
-                setErrorMsg("Schedule cleared")
+                setErrorMsg("Schedule cleared");
+                console.log(response.data);
 
             })
             .catch(error => {

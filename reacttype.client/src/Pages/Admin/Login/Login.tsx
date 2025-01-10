@@ -2,11 +2,10 @@ import { FormData, FormDataSchema } from "./FormData.tsx";
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useNavigate } from "react-router-dom";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { useCookies } from 'react-cookie';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { TextInput, Button } from "flowbite-react";
 import axios from "axios";
-import { UserTypeDetail } from "./UserTypeDetail";
+import { UserType } from "../../leagueObject.tsx";
 function Login() {
 
     const {
@@ -16,14 +15,9 @@ function Login() {
     } = useForm<FormData>({
         resolver: zodResolver(FormDataSchema),
     });
-    const [cookie, setCookie] = useCookies(['login']);
     const navigate = useNavigate();
 
-    useEffect(() => {
-        if (cookie.login !== undefined) {
-            navigate("/");
-        }
-    }, [cookie.login, navigate]);
+   
 
     const onSubmit: SubmitHandler<FormData> = (data) => LoginData(data)
     const [errorMsg, setErrorMsg] = useState('');
@@ -31,14 +25,14 @@ function Login() {
    
 
     function LoginData(data: FormData) {
-        axios.post('https://localhost:7002/api/Admin', data)
+        axios.post(import.meta.env.VITE_SERVER_URL+ 'api/Admin', data)
             .then((response) => {
                 if (response.data == null) {
                     setErrorMsg("Login not successful");
                  }
                 else {
-                    const data: UserTypeDetail = response.data;
-                    setCookie('login', data);
+                    const data: UserType = response.data;
+                    localStorage.setItem('login', JSON.stringify(data));;
                     
                     navigate("/");
                 }

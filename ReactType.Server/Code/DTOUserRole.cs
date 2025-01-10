@@ -10,11 +10,11 @@ namespace ReactType.Server.Code
 
     public class DTOUserRoleCreate
     {
-        public string Username { get; set; }
+        public string? Username { get; set; }
 
-        public string Password { get; set; }
+        public string? Password { get; set; }
 
-        public string DisplayName { get; set; }
+        public string? DisplayName { get; set; }
 
         public bool IsActive { get; set; }
 
@@ -25,7 +25,7 @@ namespace ReactType.Server.Code
     {
         public int Id { get; set; } 
 
-        public string DisplayName { get; set; }
+        public string? DisplayName { get; set; }
 
         public bool IsActive { get; set; }
 

@@ -1,19 +1,18 @@
-import { useEffect, useState  } from 'react';
+import { useState, useEffect  } from 'react';
 import { MatchFormData } from "./MatchFormData.tsx";
 import axios from "axios";
 import { LeagueType } from "../../leagueObject.tsx";
-import uparrow from '../../../images/uparrow.png';
+import uparrow from "../../../images/uparrow.png";
 import { UpdateFormData } from "../Schedule/UpdateFormData.tsx";
 import { Link } from 'react-router-dom';
 import { useLocation } from "react-router-dom";
-import { useCookies } from 'react-cookie';
-import { UserTypeDetail } from '../../Admin/Login/UserTypeDetail.tsx';
+import { UserType } from '../../leagueObject.tsx';
 
 
 function Matches() {
     const [match, setMatch] = useState<MatchFormData[]>();
-    const cookie = useCookies(['login'])[0];
-    const user: UserTypeDetail = cookie.login;
+    ;
+    const user: UserType = JSON.parse(localStorage.getItem("login") as string);
     const permission: string = user.role;
     const allowed: boolean = (permission == "SiteAdmin" || permission == "Admin" || permission == "Scorer") ? false : true;
     const admin: boolean = (permission == "SiteAdmin" || permission == "Admin" )? false : true;
@@ -25,21 +24,23 @@ function Matches() {
     const [weekid, setWeekid] = useState(+id);
 
     useEffect(() => {
+
         
-        GetDates();
-        if (weekid !== undefined  && weekid != 0)
+        if (weekid !== undefined && weekid != 0)
             GetData(weekid);
+        else
+            GetDates();
     }, [weekid]);
 
     const selectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         //event.preventDefault();
         const value = event.target.value;
         setWeekid(+value);
-        GetData(weekid);
+       
     };
 
     async function GetData(weekid: number) {
-        const url: string = "https://localhost:7002/api/matches/".concat(weekid.toString());
+        const url: string = import.meta.env.VITE_SERVER_URL+"api/matches/".concat(weekid.toString());
         axios.get(url)
             .then(response => {
 
@@ -56,7 +57,7 @@ function Matches() {
         event.preventDefault();
         const button: HTMLButtonElement = event.currentTarget;
         const id: string = button.name;
-        const url: string = "https://localhost:7002/api/Matches/Reorder".concat(id);
+        const url: string = import.meta.env.VITE_SERVER_URL+"api/Matches/Reorder".concat(id);
         axios.get(url)
             .then(response => {
                 GetData(weekid);
@@ -66,13 +67,13 @@ function Matches() {
             .catch(error => {
                 console.error('Error fetching data: ', error);
             })
-        GetData(weekid);
     };
 
     const contents = schedule === undefined
         ? <p><em>Loading ...</em></p>
         :
         <>
+        <div className="toLeft">
             <p className="toLeft">Date: <select onChange={selectChange} defaultValue={weekid}>
                 <option value="0" key="0" disabled>Select date</option>
                 {schedule?.map(item =>
@@ -81,7 +82,8 @@ function Matches() {
             </select><br/>
                 <Link to="/league/matches/Standings" state={weekid.toString()} hidden={weekid == 0} >This week's standings report</Link><br/>
                 <Link to="/league/matches/ScoreCard" state={weekid.toString()} hidden={weekid == 0}>This week's score card</Link>
-            </p>
+                </p>
+            </div>
         </>;
 
     const matchcontents = match === undefined ? <p></p> :
@@ -99,10 +101,10 @@ function Matches() {
                             Rink
                         </th>
 
-                        <th>
+                        <th style={{ textAlign: "center" }}>
                             Team 1
                         </th>
-                        <th>
+                        <th style={{ textAlign: "center" }}>
                             Team 2
                         </th>
                         <th>
@@ -124,10 +126,10 @@ function Matches() {
                             
                             <td>{item.gameDate}</td>
                             <td>{item.rink}</td>
-                            <td style={{ color: item.wheelchair1 }} >
+                            <td style={{ color: item.wheelchair1, textAlign: "right" }} >
                                 {item.team1No} ({item.team1})</td>
 
-                            <td style={{ color: item.wheelchair2 }} >
+                            <td style={{ color: item.wheelchair2, textAlign: "right" }} >
                                 {item.team2No} ({item.team2})</td>
 
                             <td style={{textAlign: 'center'} }>{item.forFeitId != 0?'' : item.team1Score}</td>
@@ -151,7 +153,7 @@ function Matches() {
    
     async function GetDates() {
         if (schedule === undefined) {
-            const url: string = "https://localhost:7002/api/Schedules/".concat(league.id.toString());
+            const url: string = import.meta.env.VITE_SERVER_URL+"api/Schedules/".concat(league.id.toString());
             axios.get(url)
                 .then(response => {
                     setSchedule(response.data);

@@ -156,7 +156,7 @@ const TeamUpdate = () => {
 
 
     async function GetData() {
-        const url: string = 'https://localhost:7002/api/Teams/getOne/';
+        const url: string = import.meta.env.VITE_SERVER_URL+'api/Teams/getOne/';
         const num: string = id.toString();
         const fullUrl = url.concat(num);
         axios.get(fullUrl)
@@ -174,7 +174,7 @@ const TeamUpdate = () => {
     }
 
     async function GetMembers() {
-        const url: string = "https://localhost:7002/api/Teams/NotOnTeam/".concat(league.id.toString());
+        const url: string = import.meta.env.VITE_SERVER_URL+"api/Teams/NotOnTeam/".concat(league.id.toString());
         axios.get(url)
             .then(response => {
                 setMembership(response.data);
@@ -210,7 +210,7 @@ const TeamUpdate = () => {
                 break;
         }
         SeterrorMsg("");
-        const url: string = 'https://localhost:7002/api/Teams/'.concat(id.toString());
+        const url: string = import.meta.env.VITE_SERVER_URL+'api/Teams/'.concat(id.toString());
         axios.put(url, data)
             .then(response => {
                 console.log('Record updated successfully: ', response.data);

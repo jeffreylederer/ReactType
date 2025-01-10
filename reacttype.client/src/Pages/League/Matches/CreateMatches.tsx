@@ -18,11 +18,11 @@ export const CreateMatches = () => {
     );
 
     async function GetData() {
-        const url: string = "https://localhost:7002/api/Matches/CreateSchedule/".concat(league.id.toString());
+        const url: string = import.meta.env.VITE_SERVER_URL+"api/Matches/CreateSchedule/".concat(league.id.toString());
         axios.get(url)
             .then(response => {
                 setErrorMsg("Matches created");
-
+                console.log(response.data);
             })
             .catch(error => {
                 if (error.response.status === 404)

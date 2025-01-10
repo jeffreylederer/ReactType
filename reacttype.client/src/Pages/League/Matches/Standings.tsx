@@ -21,7 +21,7 @@ function Standings() {
     );
 
     async function GetReport() {
-        const url: string = "https://localhost:7002/api/Matches/Standings/".concat(id.toString());
+        const url: string = import.meta.env.VITE_SERVER_URL+"api/Matches/Standings/".concat(id.toString());
         axios.get(url)
             .then(response => {
                 const data: string = "data:application/pdf;base64,".concat(response.data);

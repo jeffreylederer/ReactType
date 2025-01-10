@@ -54,7 +54,7 @@ function League() {
     );
 
     async function GetData() {
-        axios.get("https://localhost:7002/api/leagues")
+        axios.get(import.meta.env.VITE_SERVER_URL+"api/leagues")
             .then(response => {
                 setleague(response.data);
             })

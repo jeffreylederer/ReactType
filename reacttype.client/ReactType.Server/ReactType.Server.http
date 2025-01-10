@@ -1,6 +1,0 @@
-@ReactType.Server_HostAddress = http://localhost:5109
-
-GET {{ReactType.Server_HostAddress}}/api/login
-Accept: application/json
-
-###

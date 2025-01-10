@@ -92,4 +92,13 @@ h3 {
 }
 
 .toLeft {
-    float: inline-start;
+    float: left;
+}
+
+.hide {
+    display: none;
+}
+
+.show {
+    display: inline;
+}
