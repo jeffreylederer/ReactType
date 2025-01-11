@@ -51,20 +51,20 @@ namespace ReactType.Server.Code
                             columns.ConstantColumn(40); //team1
                             columns.ConstantColumn(40); //team2
                             columns.ConstantColumn(60); //skip1
-                            if (TeamSize.Value == 3)
+                            if (TeamSize.HasValue && TeamSize.Value == 3)
                             {
                                 columns.ConstantColumn(60);
                             }
-                            if (TeamSize.Value > 1)
+                            if (TeamSize.HasValue && TeamSize.Value > 1)
                             {
                                 columns.ConstantColumn(60);
                             }
                             columns.ConstantColumn(60); //skip2
-                            if (TeamSize.Value == 3)
+                            if (TeamSize.HasValue && TeamSize.Value == 3)
                             {
                                 columns.ConstantColumn(60);
                             }
-                            if (TeamSize.Value > 1)
+                            if (TeamSize.HasValue && TeamSize.Value > 1)
                             {
                                 columns.ConstantColumn(60);
                             }
@@ -79,20 +79,20 @@ namespace ReactType.Server.Code
                         table.Cell().Element(CellStyle2).Text("Team1").SemiBold();
                         table.Cell().Element(CellStyle2).Text("Team2").SemiBold();
                         table.Cell().Element(CellStyle2).Text("Skip1").SemiBold();
-                        if (TeamSize.Value == 3)
+                        if (TeamSize.HasValue && TeamSize.Value == 3)
                         {
                             table.Cell().Element(CellStyle2).Text("Vice1").SemiBold();
                         }
-                        if (TeamSize.Value > 1)
+                        if (TeamSize.HasValue && TeamSize.Value > 1)
                         {
                             table.Cell().Element(CellStyle2).Text("Lead1").SemiBold();
                         }
                         table.Cell().Element(CellStyle2).Text("Skip2").SemiBold();
-                        if (TeamSize.Value == 3)
+                        if (TeamSize.HasValue && TeamSize.Value == 3)
                         {
                             table.Cell().Element(CellStyle2).Text("Vice2").SemiBold();
                         }
-                        if (TeamSize.Value > 1)
+                        if (TeamSize.HasValue && TeamSize.Value > 1)
                         {
                             table.Cell().Element(CellStyle2).Text("Lead2").SemiBold();
                         }
@@ -111,21 +111,21 @@ namespace ReactType.Server.Code
                             table.Cell().Element(CellStyle).Text(item.Team1.ToString());
                             table.Cell().Element(CellStyle).Text(item.Team2.ToString());
                             table.Cell().Element(CellStyle1).Text(item.Skip1);
-                            if (TeamSize.Value == 3)
+                            if (TeamSize.HasValue && TeamSize.Value == 3)
                             {
                                 table.Cell().Element(CellStyle1).Text(item.Vice1);
                             }
-                            if (TeamSize.Value > 1)
+                            if (TeamSize.HasValue && TeamSize.Value > 1)
                             {
                                 table.Cell().Element(CellStyle1).Text(item.Lead1);
                             }
 
                             table.Cell().Element(CellStyle1).Text(item.Skip2);
-                            if (TeamSize.Value == 3)
+                            if (TeamSize.HasValue && TeamSize.Value == 3)
                             {
                                 table.Cell().Element(CellStyle1).Text(item.Vice2);
                             }
-                            if (TeamSize.Value > 1)
+                            if (TeamSize.HasValue && TeamSize.Value > 1)
                             {
                                 table.Cell().Element(CellStyle1).Text(item.Lead2);
                             }

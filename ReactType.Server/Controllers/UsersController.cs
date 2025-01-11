@@ -104,9 +104,9 @@ namespace ReactType.Server.Controllers
 
         // GET: Users/Create
         [HttpPost]
-        public async Task Create(DTOUserRoleCreate item)
+        public async Task<IActionResult> Create(DTOUserRoleCreate item)
         {
-            string password = GetSha256Hash.Encode(item?.Password);
+            string password = GetSha256Hash.Encode(item.Password);
             try
             {
                 var user = new User()
@@ -128,9 +128,9 @@ namespace ReactType.Server.Controllers
             }
             catch (Exception ex)
             {
-                var message = ex.ToString();
+                return StatusCode(500, ex.Message);
             }
-
+            return Ok();
 
         }
 

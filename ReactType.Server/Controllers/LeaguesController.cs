@@ -55,7 +55,7 @@ namespace ReactType.Server.Controllers
 
         // GET: Leagues/Create
         [HttpPost]
-        public async Task Create(League item)
+        public async Task<IActionResult> Create(League item)
         {
             try
             {
@@ -64,9 +64,9 @@ namespace ReactType.Server.Controllers
             }
             catch(Exception ex)
             {
-               var message = ex.ToString();
+                return StatusCode(500, ex.Message); ;
             }
-
+            return Ok();
 
         }
 
@@ -119,7 +119,7 @@ namespace ReactType.Server.Controllers
                 await _context.SaveChangesAsync();
                 return NoContent();
             }
-            catch (DbUpdateException ex1)
+            catch (DbUpdateException )
             {
                 return StatusCode(409, "This league cannot be deleted, it has players and game dates assigned.");
             }

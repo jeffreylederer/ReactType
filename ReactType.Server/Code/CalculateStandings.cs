@@ -240,7 +240,7 @@ namespace ReactType.Server.Code
         public static List<Standing> DoitPlayoffs(int weekid, int leagueid, DbLeagueApp db)
         {
             League? league = db.Leagues.Find(leagueid);
-            int teamsize = league.TeamSize;
+            int? teamsize = league.TeamSize;
 
             var list = new List<Standing>();
 

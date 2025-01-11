@@ -3,7 +3,7 @@ import { LeagueType, UserType } from "./leagueObject.tsx";
 function Welcome() {
     
     const league: LeagueType = JSON.parse(localStorage.getItem("league") as string);
-    const login: UserType = JSON.parse(localStorage.getItem("logoin") as string);
+    const login: UserType = JSON.parse(localStorage.getItem("login") as string);
 
     
     

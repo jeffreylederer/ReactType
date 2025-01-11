@@ -92,9 +92,9 @@ namespace ReactType.Server.Controllers
                 }
                 return match;
             }
-            catch(Exception ex)
+            catch(Exception)
             {
-                var mess = ex.Message;
+                
             }
             return null;
         }
@@ -122,6 +122,7 @@ namespace ReactType.Server.Controllers
             try
             {
                 await _context.SaveChangesAsync();
+                return Ok();
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -138,7 +139,7 @@ namespace ReactType.Server.Controllers
             {
                 return StatusCode(500, ex.Message);
             }
-            return NoContent();
+            
         }
 
         // GET: Players/Details/5
@@ -173,7 +174,7 @@ namespace ReactType.Server.Controllers
         }
 
         [HttpGet("ScheduleReport/{id}")]
-        public string ScheduleReport(int? id)
+        public string? ScheduleReport(int? id)
         {
             if (id == null)
             {

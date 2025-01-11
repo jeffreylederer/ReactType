@@ -57,11 +57,11 @@ namespace ReactType.Server.Code
                                 columns.ConstantColumn(60);
                                 columns.ConstantColumn(30);
                                 columns.ConstantColumn(120);
-                                if (TeamSize.Value == 3)
+                                if (TeamSize.HasValue && TeamSize.Value == 3)
                                 {
                                     columns.ConstantColumn(120);
                                 }
-                                if (TeamSize.Value > 1)
+                                if (TeamSize.HasValue && TeamSize.Value > 1)
                                 {
                                     columns.ConstantColumn(120);
                                 }
@@ -77,11 +77,11 @@ namespace ReactType.Server.Code
                             table.Cell().Element(CellStyle2).Text("Division").SemiBold().FontSize(10);
                             table.Cell().Element(CellStyle2).Text("Team No").SemiBold().FontSize(10);
                             table.Cell().Element(CellStyle2).Text("Skip").SemiBold().FontSize(10);
-                            if (TeamSize.Value == 3)
+                            if (TeamSize.HasValue && TeamSize.Value == 3)
                             {
                                 table.Cell().Element(CellStyle2).Text("Vice Skip").SemiBold();
                             }
-                            if (TeamSize.Value > 1)
+                            if (TeamSize.HasValue && TeamSize.Value > 1)
                             {
                                 table.Cell().Element(CellStyle2).Text("Lead").SemiBold();
                             }
@@ -98,11 +98,11 @@ namespace ReactType.Server.Code
                                 table.Cell().Element(CellStyle).Text(item.Division.ToString()).FontSize(10).AlignCenter();
                                 table.Cell().Element(CellStyle).Text(item.TeamNo.ToString()).FontSize(10).AlignCenter();
                                 table.Cell().Element(CellStyle).Text(item.Skip).FontSize(10).AlignLeft();
-                                if (TeamSize.Value == 3)
+                                if (TeamSize.HasValue && TeamSize.Value == 3)
                                 {
                                     table.Cell().Element(CellStyle).Text(item.ViceSkip).FontSize(10).AlignLeft();
                                 }
-                                if (TeamSize.Value > 1)
+                                if (TeamSize.HasValue && TeamSize.Value > 1)
                                 {
                                     table.Cell().Element(CellStyle).Text(item.Lead).FontSize(10).AlignLeft();
                                 }

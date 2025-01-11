@@ -19,7 +19,7 @@ namespace ReactType.Server.Code
         public IDocument CreateDocument(int id, DbLeagueApp db)
         {
             League? league = db.Leagues.Find(id);
-            List<Schedule>? schedule = db.Schedules.Where(x => x.Leagueid == league?.Id).ToList();
+            List<Schedule>? schedule = db.Schedules.Where(x => x.Leagueid == league.Id).ToList();
             int weeks = schedule.Count();
             List<MatchScheduleView> matches = db.MatchScheduleViews
                     .FromSql($"EXEC MatchSchedule {id}")
@@ -40,7 +40,7 @@ namespace ReactType.Server.Code
                     page.Header()
                         .AlignCenter()
                         .AlignMiddle()
-                        .Text(league.LeagueName);
+                        .Text(league?.LeagueName);
 
                     page.Content().PaddingVertical(20).Column(column =>
                     {
@@ -63,9 +63,9 @@ namespace ReactType.Server.Code
 
                                 columns.ConstantColumn(40); //team number
                                 columns.ConstantColumn(90); //Skip
-                                if (TeamSize.Value == 3)
+                                if (TeamSize.HasValue && TeamSize.Value == 3)
                                     columns.ConstantColumn(90); //ViceSkip
-                                if (TeamSize.Value > 1)
+                                if (TeamSize.HasValue && TeamSize.Value > 1)
                                     columns.ConstantColumn(90); //Lead
 
                             });

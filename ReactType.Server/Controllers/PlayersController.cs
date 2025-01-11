@@ -125,7 +125,7 @@ namespace ReactType.Server.Controllers
                 await _context.SaveChangesAsync();
                 return NoContent();
             }
-            catch(DbUpdateException ex1)
+            catch(DbUpdateException )
             {
                 return StatusCode(409, "Player cannot be deleted, the player is already on a team.");
             }
