@@ -2,7 +2,7 @@ import { useState, useEffect  } from 'react';
 import { MatchFormData } from "./MatchFormData.tsx";
 import axios from "axios";
 import { LeagueType } from "../../leagueObject.tsx";
-import uparrow from "../../../images/uparrow.png";
+import uparrow  from "../../../images/uparrow.png";
 import { UpdateFormData } from "../Schedule/UpdateFormData.tsx";
 import { Link } from 'react-router-dom';
 import { useLocation } from "react-router-dom";

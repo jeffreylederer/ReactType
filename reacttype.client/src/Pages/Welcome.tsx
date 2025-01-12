@@ -13,7 +13,7 @@ function Welcome() {
             <h3>Welcome to {league.leagueName}</h3>
 
            
-                <h2>Current Role: {login.role} </h2>
+                <h4>Current Role: {login.role} </h4>
 
                 <dl >
                     <dt>Observers</dt>
