@@ -3,7 +3,7 @@
 This application is a rewrite (in react) of an MVC application [Tournament](https://github.com/jeffreylederer/Tournament). That repository explains how the application works. I wrote this react/typescript application to teach myself react and typescript.
 It uses a Web API server backend to attach the client with an SQL database.
 
-This a single page application (SPA) that looks like a Win Form application. The major difference is it uses states for URL parameters than command line ones.
+This a single page application (SPA) that looks like a Win Form application. The major difference is it uses states for URL parameters rather than command line ones.
 ## React client
 I used the following react packages:
 - @hookform/resolvers@3.9.1
