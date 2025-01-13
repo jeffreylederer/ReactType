@@ -15,4 +15,9 @@
   <ItemGroup>
     <None Remove="src\Pages\player\Update - Copy.tsx" />
   </ItemGroup>
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties package_1json__JsonSchema="" />
+    </VisualStudio>
+  </ProjectExtensions>
 </Project>
