@@ -6,7 +6,8 @@ import { UpdateFormData, UpdateFormDataSchema } from "./UpdateFormData.tsx";
 import { zodResolver } from '@hookform/resolvers/zod';
 import { LeagueType } from "../../leagueObject.tsx";
 import { Membership } from "./Membership.tsx";
-import { TextInput } from "flowbite-react";
+import { TextInput, Button } from "flowbite-react";
+import Menu from "../../../Menu.tsx";
 
 const TeamUpdate = () => {
 
@@ -103,7 +104,7 @@ const TeamUpdate = () => {
                             )
                     </select></td>
             </tr>
-            <tr>
+                <tr>
                 <td className="Label">Division:</td>
                 <td>
                     <select style={{ width: '85%' }} defaultValue={team.divisionId} {...register("divisionId")}>
@@ -122,13 +123,13 @@ const TeamUpdate = () => {
             {
                 league.teamSize < 2 && <input type="hidden" defaultValue="0" {...register("lead")} />
             }
-
             <tr>
-                    <td colSpan={1}  style={{ textAlign: "center" }}>
-                        <TextInput type="submit" />
-                        <button onClick={() => navigate(-1)}>Back to list</button>
+                <td></td>
+                <td>
+                    <Button color="Default" type="submit" >Submit</Button>
+                    <Button color="Default" onClick={() => navigate(-1)}>Go back to list</Button>
                 </td>
-                </tr>
+            </tr>
                 <tr>
                     <td colSpan={1}>
                 {errors.skip && <p className="errorMessage">skip: {errors.skip.message}</p>}
@@ -147,6 +148,7 @@ const TeamUpdate = () => {
     
     return (
         <>
+        <Menu/>
             <h3>Update Team {team.teamNo} for league {league.leagueName}</h3>
             {contents}
             <p className="errorMessage">{errorMsg}</p>

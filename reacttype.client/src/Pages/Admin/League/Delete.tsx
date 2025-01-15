@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import axios from "axios";
 import { FormData } from "./FormData.tsx";
 import { Button } from "flowbite-react";
-
+import Menu from "../../../Menu.tsx";
 
 
 const LeagueDelete = () => {
@@ -81,6 +81,7 @@ const LeagueDelete = () => {
 
     return (
         <div>
+        <Menu/>
             <h3>Delete league {league?.leagueName}</h3>
             {contents}
             <p className="errorMessage">{errorMsg}</p>

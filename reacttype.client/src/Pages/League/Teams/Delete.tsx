@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import axios from "axios";
 import { TeamMember } from "./TeamMember.tsx";
 import { LeagueType } from "../../leagueObject.tsx";
+import Menu from "../../../Menu.tsx";
 
 
 const TeamsDelete = () => {
@@ -58,6 +59,7 @@ const TeamsDelete = () => {
         
     return (
         <div>
+        <Menu/>
             <h3>Delete Team from league {league.leagueName} </h3>
             {contents}
             <p className="errorMessage">{errorMsg}</p>

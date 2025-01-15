@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { FormData } from "./FormData.tsx";
 import axios from "axios";
 import { Button } from "flowbite-react";
-
+import Menu from "../../Menu.tsx";
 
 const MembershipDelete = () => {
     const location = useLocation();
@@ -51,6 +51,7 @@ const MembershipDelete = () => {
         
     return (
         <div>
+        <Menu/>
         <h3>Delete Member</h3>
             {contents}
             <p className="errorMessage">{errorMsg}</p>

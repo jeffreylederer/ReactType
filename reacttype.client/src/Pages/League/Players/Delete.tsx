@@ -4,6 +4,7 @@ import axios from "axios";
 import { UpdateFormData } from "./UpdateFormData.tsx";
 import { LeagueType } from "../../leagueObject.tsx";
 import { Button } from "flowbite-react";
+import Menu from "../../../Menu.tsx";
 
 
 const PlayersDelete = () => {
@@ -39,6 +40,7 @@ const PlayersDelete = () => {
         
     return (
         <div>
+        <Menu/>
             <h2>Delete player from league {league.leagueName} </h2>
             {contents}
             <p className="errorMessage">{errorMsg}</p>

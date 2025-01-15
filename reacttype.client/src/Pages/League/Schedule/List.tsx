@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import axios from "axios";
 import { UpdateFormData } from "./UpdateFormData.tsx";
 import { LeagueType, UserType } from "../../leagueObject.tsx";
-
+import Menu from "../../../Menu.tsx";
 
 
 function Schedule() {
@@ -47,6 +47,7 @@ function Schedule() {
 
     return (
         <div>
+        <Menu/>
             <h3 id="tableLabel">Schedule for League {league.leagueName}</h3>
             <Link to="/League/Schedule/Create" hidden={allowed}>Add</Link>
             {contents}

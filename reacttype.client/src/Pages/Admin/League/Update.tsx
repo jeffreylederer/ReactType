@@ -5,7 +5,7 @@ import axios from "axios";
 import { UpdateFormData, UpdateFormDataSchema } from "./UpdateFormData.tsx";
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Checkbox, TextInput, Button } from "flowbite-react";
-
+import Menu from "../../../Menu.tsx";
 
 
 
@@ -171,6 +171,7 @@ const LeagueUpdate = () => {
 
     return (
         <>
+        <Menu/>
             <h3>Update record for league {league.leagueName}</h3>
             {contents}
 

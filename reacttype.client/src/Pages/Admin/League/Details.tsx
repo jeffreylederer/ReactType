@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import axios from "axios";
 import { FormData } from "./FormData.tsx";
 import { useNavigate } from "react-router-dom";
+import Menu from "../../../Menu.tsx";
 
 
 const LeagueDetails = () => {
@@ -74,6 +75,7 @@ const LeagueDetails = () => {
 
     return (
         <div>
+        <Menu/>
             <h3>Details for league {league?.leagueName}</h3>
             {contents}
         </div>

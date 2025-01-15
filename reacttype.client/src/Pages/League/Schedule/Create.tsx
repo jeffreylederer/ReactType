@@ -5,6 +5,7 @@ import { FormData, FormDataSchema } from "./FormData.tsx";
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Checkbox, TextInput } from "flowbite-react";
 import { LeagueType } from "../../leagueObject.tsx";
+import Menu from "../../../Menu.tsx";
 
 const ScheduleCreate = () => {
     const league: LeagueType = JSON.parse(localStorage.getItem("league") as string);
@@ -34,6 +35,7 @@ const ScheduleCreate = () => {
 
     return (
         <>
+        <Menu/>
             <h3>Create new game date for league {league.leagueName}</h3>
             <form onSubmit={handleSubmit(onSubmit)} >
                 <table>

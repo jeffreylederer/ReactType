@@ -4,7 +4,8 @@ import axios from "axios";
 import { FormData, FormDataSchema } from "./FormData.tsx";
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Checkbox, TextInput, Button } from "flowbite-react";
-import { LeagueType } from "../../leagueObject.tsx";
+
+import Menu from "../../../Menu.tsx";
 
 const LeagueCreate = () => {
 
@@ -17,7 +18,6 @@ const LeagueCreate = () => {
     });
 
     const onSubmit: SubmitHandler<FormData> = (data) => CreateData(data)
-    const league: LeagueType = JSON.parse(localStorage.getItem("league") as string);
     const navigate = useNavigate();
 
     function CreateData(data: FormData) {
@@ -35,7 +35,8 @@ const LeagueCreate = () => {
 
     return (
         <>
-            <h3>Add new member to league {league.leagueName}</h3>
+        <Menu/>
+            <h3>Add new league</h3>
             <form onSubmit={handleSubmit(onSubmit)} >
                
                 <table>

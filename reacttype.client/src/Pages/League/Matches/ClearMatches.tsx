@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import axios from "axios";
 import { LeagueType } from "../../leagueObject.tsx";
+import Menu from "../../../Menu.tsx";
 
 
 
@@ -12,6 +13,7 @@ export const ClearMatches = () => {
     });
     return (
         <>
+        <Menu/>
             <h3>Clear Matches</h3>
             <p style={{ textAlign: "center"} }>{errorMsg}</p>
         </>

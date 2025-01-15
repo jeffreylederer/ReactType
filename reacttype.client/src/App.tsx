@@ -8,7 +8,6 @@ import './App.css';
 function App() {
     return (
         <BrowserRouter>
-            <Menu />
             <RouteMenu />
            
         </BrowserRouter>

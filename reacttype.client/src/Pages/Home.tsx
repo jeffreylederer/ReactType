@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import axios from "axios";
 import { LeagueType } from "./leagueObject.tsx";
 import { useNavigate } from "react-router-dom";
+import Menu from '../Menu.tsx';
 
 function Home() {
 
@@ -22,7 +23,7 @@ function Home() {
 
     useEffect(() => {
         GetData();
-
+        localStorage.removeItem("league");
     });
 
     const contents = leagueList === undefined
@@ -59,6 +60,7 @@ function Home() {
     return (
         <div>
             <h3 id="tableLabel">Select League</h3>
+            <Menu/>
             {contents}
            
         </div>

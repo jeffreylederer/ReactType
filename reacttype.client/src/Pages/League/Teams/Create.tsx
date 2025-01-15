@@ -7,6 +7,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useEffect, useState } from 'react';
 import { TextInput } from "flowbite-react";
 import { LeagueType } from "../../leagueObject.tsx";
+import Menu from "../../../Menu.tsx";
 
 const TeamsCreate = () => {
    
@@ -81,6 +82,7 @@ const TeamsCreate = () => {
 
     return (
         <>
+        <Menu/>
             <h3>Create new Team in league {league.leagueName} </h3>
             <form onSubmit={handleSubmit(onSubmit)} >
                 <table>

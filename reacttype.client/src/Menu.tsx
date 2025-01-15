@@ -10,13 +10,15 @@ function Menu() {
     const navigate = useNavigate();
     const [showSiteAdmin] = useState<boolean>(login !== null && login.role == "SiteAdmin" );
     const [showAdmin] = useState<boolean>(login !== null && (login.role == "Admin" || showSiteAdmin ));
-    const [showLeague] = useState<boolean>(localStorage.getItem("league") !== null);
+    const [showLeague, setShowLeague] = useState<boolean>();
     const username: string = login === null ? "" : login.username;
 
     useEffect(() => {
         if (localStorage.getItem("login") === null) {
             navigate("/Login");
         }
+        setShowLeague(localStorage.getItem("league") !== null);
+       
     }, [navigate]);
 
 
@@ -48,9 +50,9 @@ function Menu() {
                                     <li><NavLink className="dropdown-item" to="/League/Players">Players</NavLink></li>
                                     <li><NavLink className="dropdown-item" to="/League/Schedule">Schedule</NavLink></li>
                                     <li><NavLink className="dropdown-item" to="/League/Teams">Teams</NavLink></li>
-                                    <li><NavLink className="dropdown-item" to="/League/Matches?id=0">Teams</NavLink></li>
-                                    <li><NavLink className="dropdown-item" to="/League/Byes">Byes Report</NavLink></li>
-                                    <li><NavLink className="dropdown-item" to="/League/ScheduleReport">Schedule Report</NavLink></li>
+                                    <li><NavLink className="dropdown-item" to="/League/Matches?id=0">Matches</NavLink></li>
+                                    <li><a className="dropdown-item" target='blank' href="/League/Byes">Byes Report</a></li>
+                                    <li><a className="dropdown-item" target='blank' href="/League/ScheduleReport">Schedule Report</a></li>
                                     <li style={{ display: showAdmin ? "inline" : "none" }}>---------------------</li>
                                     <li style={{ display: showAdmin ? "inline" : "none" }}><NavLink className="dropdown-item" to="/League/CreateMatches">Create Matches</NavLink></li>
                                     <li style={{ display: showAdmin ? "inline" : "none" }}><NavLink className="dropdown-item" to="/League/ClearMatches">Delete Matches</NavLink></li>

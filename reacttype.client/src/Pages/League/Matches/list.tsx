@@ -7,6 +7,7 @@ import { UpdateFormData } from "../Schedule/UpdateFormData.tsx";
 import { Link } from 'react-router-dom';
 import { useLocation } from "react-router-dom";
 import { UserType } from '../../leagueObject.tsx';
+import Menu from "../../../Menu.tsx";
 
 
 function Matches() {
@@ -22,6 +23,9 @@ function Matches() {
     const location = useLocation();
     const id:string = location.search.substring(4);
     const [weekid, setWeekid] = useState(+id);
+    const standingUrl: string = "/League/Matches/Standings?id=".concat(weekid.toString());
+    const scoreUrl: string = "/league/matches/ScoreCard?id=".concat(weekid.toString());
+   
 
     useEffect(() => {
 
@@ -45,6 +49,7 @@ function Matches() {
             .then(response => {
 
                 setMatch(response.data);
+                GetDates();
 
 
             })
@@ -80,9 +85,9 @@ function Matches() {
                     <option key={item.id} value={item.id.toString()}>{item.gameDate}</option>
                 )};
             </select><br/>
-                <Link to="/league/matches/Standings" state={weekid.toString()} hidden={weekid == 0} >This week's standings report</Link><br/>
-                <Link to="/league/matches/ScoreCard" state={weekid.toString()} hidden={weekid == 0}>This week's score card</Link>
-                </p>
+                    <a href={standingUrl} target='blank' hidden={weekid == 0}>This week's standings report</a><br/>
+                    <a href={scoreUrl} target='blank' hidden={weekid == 0}>This week's score card</a>
+               </p> 
             </div>
         </>;
 
@@ -142,7 +147,8 @@ function Matches() {
             </table>
         </>;   
         return(
-    <div>
+            <div>
+        <Menu/>
         <h3>Players in league {league.leagueName}</h3>
                 {contents}
                 {matchcontents}
@@ -157,6 +163,7 @@ function Matches() {
             axios.get(url)
                 .then(response => {
                     setSchedule(response.data);
+  
                 })
                 .catch(error => {
                     console.error('Error fetching data: ', error);

@@ -4,6 +4,7 @@ import axios from "axios";
 import { FormData } from "./FormData.tsx";
 import { LeagueType } from "../../leagueObject.tsx";
 import { Button } from "flowbite-react";
+import Menu from "../../../Menu.tsx";
 
 
 const ScheduleDelete = () => {
@@ -48,6 +49,7 @@ const ScheduleDelete = () => {
         
     return (
         <div>
+        <Menu/>
             <h3>Delete game date in league {league.leagueName}</h3>
             {contents}
             <p className="errorMessage">{errorMsg}</p>

@@ -5,7 +5,7 @@ import axios from "axios";
 import { FormData, FormDataSchema } from "./FormData.tsx";
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Checkbox, TextInput } from "flowbite-react";
-
+import Menu from "../../Menu.tsx";
 
 const MembershipCreate = () => {
    
@@ -40,7 +40,7 @@ const MembershipCreate = () => {
 
     return (
         <>
-
+        <Menu/>
             <form onSubmit={handleSubmit(onSubmit)} >
 
 

@@ -134,7 +134,7 @@ const MatchUpdate = () => {
      
                     <td colSpan={2} style={{ textAlign: "center" }}>
                         <Button color="Default" type="submit" >Submit</Button>
-                        <Button color="Default" onClick={() => navigate(-1)}>Go back to list</Button>
+                        <Button color="Default" onClick={() => Goback()}>Go back to list</Button>
                 </td>
             </tr>
 
@@ -195,7 +195,11 @@ const MatchUpdate = () => {
             });
     }
 
-   
+    function Goback() {
+        const url: string = "/League/Matches?id=".concat(match.weekId.toString());
+        navigate(url);
+    }
+
 
 
 }

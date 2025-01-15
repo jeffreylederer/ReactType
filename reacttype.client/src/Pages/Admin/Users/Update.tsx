@@ -5,7 +5,7 @@ import axios from "axios";
 import { UpdateFormData, UpdateFormDataSchema } from "./UpdateFormData.tsx";
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Checkbox, Button, TextInput, Select } from "flowbite-react";
-
+import Menu from "../../../Menu.tsx";
 
 
 
@@ -96,7 +96,7 @@ const UsersUpdate = () => {
             <tr>
                 <td colSpan={1}  style={{ textAlign: "center" }}>
                         <Button type="submit" color="gray">Submit</Button>
-                        <Button onClick={() => navigate(-1)}>Go back to list</Button>
+                        <Button onClick={() => navigate(-1)} color="gray">Go back to list</Button>
                 </td>
             </tr>
                 <tr><td colSpan={1}>
@@ -111,6 +111,7 @@ const UsersUpdate = () => {
 
     return (
         <>
+        <Menu/>
             <h3>Update user record</h3>
             {contents}
 

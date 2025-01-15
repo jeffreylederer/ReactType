@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import axios from "axios";
 import { DetailsType } from "./DetailsType.tsx";
 import { Button } from "flowbite-react";
-
+import Menu from "../../../Menu.tsx";
 
 
 const UsersDelete = () => {
@@ -53,6 +53,7 @@ const UsersDelete = () => {
 
     return (
         <div>
+        <Menu/>
             <h3>Delete user</h3>
             {contents}
         </div>

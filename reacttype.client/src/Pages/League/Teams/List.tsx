@@ -4,7 +4,7 @@ import axios from "axios";
 import { TeamMember } from "./TeamMember.tsx";
 import { LeagueType } from "../../leagueObject.tsx";
 import { UserType } from '../../leagueObject.tsx'; 
-
+import Menu from "../../../Menu.tsx";
 
 
 
@@ -53,9 +53,10 @@ function Teams() {
 
     return (
         <div>
+        <Menu/>
             <h3>Teams in league {league.leagueName}</h3>
             <Link to="/League/Teams/Create" hidden={allowed}>Add</Link><br/>
-            <Link to="/League/Teams/Report" target="_blank" >Team Report</Link>
+            <a href="/League/Teams/Report" target="_blank" >Team Report</a>
             {contents}
             <p>Number of Teams: {team?.length}</p>
             

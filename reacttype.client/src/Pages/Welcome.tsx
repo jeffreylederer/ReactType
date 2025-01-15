@@ -1,4 +1,5 @@
 import { LeagueType, UserType } from "./leagueObject.tsx";
+import Menu from '../Menu.tsx';
 
 function Welcome() {
     
@@ -10,6 +11,7 @@ function Welcome() {
     
         return (
             <>
+            <Menu/>
             <h3>Welcome to {league.leagueName}</h3>
 
            

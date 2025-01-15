@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from "axios";
 import { DetailsType } from "./DetailsType.tsx";
-
+import Menu from "../../../Menu.tsx";
 
 
 function Users() {
@@ -45,6 +45,7 @@ function Users() {
 
     return (
         <div>
+        <Menu/>
             <h3 id="tableLabel">Users</h3>
             <Link to="/Admin/Users/Create">Add</Link>
             {contents}

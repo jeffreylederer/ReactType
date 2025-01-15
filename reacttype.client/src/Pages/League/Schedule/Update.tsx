@@ -6,6 +6,7 @@ import { UpdateFormData, UpdateFormDataSchema } from "./UpdateFormData.tsx";
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Checkbox, TextInput } from "flowbite-react";
 import { LeagueType } from "../../leagueObject.tsx";
+import Menu from "../../../Menu.tsx";
 
 
 const ScheduleUpdate = () => {
@@ -92,6 +93,7 @@ const ScheduleUpdate = () => {
     
     return (
         <>
+        <Menu/>
             <h3>Update schedule for league {league.leagueName}</h3>
             {contents}
 
@@ -127,7 +129,7 @@ const ScheduleUpdate = () => {
           axios.put(fullUrl, data)
             .then(response => {
                 console.log('Record updated successfully: ', response.data);
-                navigate("/League/Schedules");
+                navigate("/League/Schedule");
             })
             .catch(error => {
                 console.error('Error updating record: ', error);

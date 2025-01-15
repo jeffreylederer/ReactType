@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import axios from "axios";
 import { UpdateFormData } from "./UpdateFormData.tsx";
 import { UserTypeDetail } from '../Admin/Login/UserTypeDetail.tsx';
-
+import Menu from "../../Menu.tsx";
 
 
 function Membership() {
@@ -47,6 +47,7 @@ function Membership() {
 
     return (
         <div>
+        <Menu/>
             <h3 id="tableLabel">Membership</h3>
             <Link to="/Membership/Create" hidden={ allowed}>Add</Link>
             {contents}

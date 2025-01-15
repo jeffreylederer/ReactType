@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import axios from "axios";
 import { UpdateFormData } from "./UpdateFormData.tsx";
 import { UserType, LeagueType } from "../../leagueObject.tsx";
+import Menu from "../../../Menu.tsx";
 
 function Players() {
     const [player, setplayer] = useState<UpdateFormData[]>();
@@ -41,6 +42,7 @@ function Players() {
 
     return (
         <div>
+        <Menu/>
             <h3>Players in league {league.leagueName}</h3>
             <Link to="/League/Players/Create" hidden={allowed}>Add</Link>
             {contents}

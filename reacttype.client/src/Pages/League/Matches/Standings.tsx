@@ -6,8 +6,7 @@ import { useLocation } from "react-router-dom";
 function Standings() {
     const [report, setReport] = useState('');
     const location = useLocation();
-    const id: number = location.state;
-
+    const id: string = location.search.substring(4);
 
 
 
@@ -21,7 +20,7 @@ function Standings() {
     );
 
     async function GetReport() {
-        const url: string = import.meta.env.VITE_SERVER_URL+"api/Matches/Standings/".concat(id.toString());
+        const url: string = import.meta.env.VITE_SERVER_URL+"api/Matches/Standings/".concat(id);
         axios.get(url)
             .then(response => {
                 const data: string = "data:application/pdf;base64,".concat(response.data);

@@ -5,7 +5,8 @@ import axios from "axios";
 import { UpdateFormData, UpdateFormDataSchema } from "./UpdateFormData.tsx";
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Checkbox, TextInput, Button } from "flowbite-react";
-import { LeagueType } from "../leagueObject.tsx";
+
+import Menu from "../../Menu.tsx";
 
 const MembershipUpdate = () => {
     const [membership, setMembership] = useState(
@@ -21,7 +22,6 @@ const MembershipUpdate = () => {
     );
     const location = useLocation();
     const id: number = location.state;
-    const league: LeagueType = JSON.parse(localStorage.getItem("league") as string);
     const {
         register,
         handleSubmit,
@@ -98,7 +98,8 @@ const MembershipUpdate = () => {
     
     return (
         <>
-            <h3>Update record for league {league.leagueName}</h3>
+        <Menu/>
+            <h3>Update mwmbership record</h3>
             {contents}
             
             
