@@ -14,7 +14,7 @@ function Welcome() {
             <Menu/>
             <h3>Welcome to {league.leagueName}</h3>
 
-           
+           <div className="toLeft">
                 <h4>Current Role: {login.role} </h4>
 
                 <dl >
@@ -33,7 +33,8 @@ function Welcome() {
                     <dt>Site Administrators</dt>
                     <dd>They can be league administrator for any league and create leagues and users. </dd>
                 </dl>
-    </>        
+        </div >  
+    </>
         );
 
     
