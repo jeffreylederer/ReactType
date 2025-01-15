@@ -5,14 +5,12 @@ import axios from "axios";
 import { UpdateFormData, UpdateFormDataSchema } from "./UpdateFormData.tsx";
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Checkbox, TextInput } from "flowbite-react";
-import { LeagueType } from "../../leagueObject.tsx";
+import { league } from "../../../components/leagueObject.tsx";;
 import SubmitButton from '../../../components/Buttons.tsx';
 import Menu from "../../../components/Menu.tsx";
 
 
 const ScheduleUpdate = () => {
-
-    const league: LeagueType = JSON.parse(localStorage.getItem("league") as string);
     const [schedule, setSchedule] = useState(
         {
             id: 0,
@@ -94,7 +92,7 @@ const ScheduleUpdate = () => {
     return (
         <>
         <Menu/>
-            <h3>Update schedule for league {league.leagueName}</h3>
+            <h3>Update schedule for league {league().leagueName}</h3>
             {contents}
 
             

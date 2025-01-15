@@ -1,5 +1,5 @@
 
-import { UserType  } from "./Pages/leagueObject.tsx";
+import { UserType  } from "../components/leagueObject.tsx";
 import { useState, useEffect } from 'react';
 import { NavLink, useNavigate } from "react-router-dom";
 

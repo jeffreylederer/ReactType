@@ -4,14 +4,14 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import axios from "axios";
 import { UpdateFormData, UpdateFormDataSchema } from "./UpdateFormData.tsx";
 import { zodResolver } from '@hookform/resolvers/zod';
-import { LeagueType } from "../../leagueObject.tsx";
+import { league } from "../../../components/leagueObject.tsx";;
 import { Membership } from "./Membership.tsx";
 import Menu from "../../../components/Menu.tsx";
 import SubmitButton from '../../../components/Buttons.tsx';
 
 const TeamUpdate = () => {
 
-    const league: LeagueType = JSON.parse(localStorage.getItem("league") as string);
+    
     const [team, setTeam] = useState(
         {
             id: 0,
@@ -66,8 +66,8 @@ const TeamUpdate = () => {
                     <select style={{ width: '85%' }} defaultValue={team.skipid} {...register("skip")}>
                             <option value="0" key="0">Select member</option>
                             <option value={team.skipid.toString()} key={team.skipid.toString()}>{team.skip}</option>
-                            <option value={team.viceSkipid} key={team.viceSkipid==null? "viceSkip" : team.viceSkipid.toString()} hidden={league.divisions > 1}>{team.viceSkip}</option>
-                            <option value={team.leadid} key={team.leadid==null? "lead" :  team.leadid.toString()} hidden={league.divisions > 2}>{team.lead}</option>
+                            <option value={team.viceSkipid} key={team.viceSkipid==null? "viceSkip" : team.viceSkipid.toString()} hidden={league().divisions > 1}>{team.viceSkip}</option>
+                            <option value={team.leadid} key={team.leadid==null? "lead" :  team.leadid.toString()} hidden={league().divisions > 2}>{team.lead}</option>
                             {membership?.map((item) => (
                                 <option value={item.id.toString()} key={item.id.toString()}>{item.fullName}</option>
                             ))}
@@ -75,14 +75,14 @@ const TeamUpdate = () => {
                     </select></td>
             </tr>
 
-            <tr hidden={league.teamSize < 3}>
+            <tr hidden={league().teamSize < 3}>
                 <td className="Label">Vice Skip:</td>
                 <td>
                     <select style={{ width: '85%' }} defaultValue={team.viceSkipid} {...register("viceSkip")}>
                             <option value="0" key="0">Select member</option>
                             <option value={team.skipid.toString()} key={team.skipid.toString()}>{team.skip}</option>
-                            <option value={team.viceSkipid} key={team.viceSkipid == null ? "viceSkip" : team.viceSkipid.toString()} hidden={league.divisions > 1}>{team.viceSkip}</option>
-                            <option value={team.leadid} key={team.leadid == null ? "lead" : team.leadid.toString()} hidden={league.divisions > 2}>{team.lead}</option>
+                            <option value={team.viceSkipid} key={team.viceSkipid == null ? "viceSkip" : team.viceSkipid.toString()} hidden={league().divisions > 1}>{team.viceSkip}</option>
+                            <option value={team.leadid} key={team.leadid == null ? "lead" : team.leadid.toString()} hidden={league().divisions > 2}>{team.lead}</option>
                             {membership?.map((item) => (
                                 <option value={item.id.toString()} key={item.id.toString()}>{item.fullName}</option>
                             ))}
@@ -90,14 +90,14 @@ const TeamUpdate = () => {
                     </select></td>
             </tr>
 
-            <tr hidden={league.teamSize < 2}>
+            <tr hidden={league().teamSize < 2}>
                 <td className="Label">Lead:</td>
                 <td>
                     <select style={{ width: '85%' }} {...register("lead")} defaultValue={team.leadid}>
                             <option value="0" key="0">Select member</option>
                             <option value={team.skipid.toString()} key={team.skipid.toString()}>{team.skip}</option>
-                            <option value={team.viceSkipid} key={team.viceSkipid == null ? "viceSkip" : team.viceSkipid.toString()} hidden={league.divisions > 1}>{team.viceSkip}</option>
-                            <option value={team.leadid} key={team.leadid == null ? "lead" : team.leadid.toString()} hidden={league.divisions > 2}>{team.lead}</option>
+                            <option value={team.viceSkipid} key={team.viceSkipid == null ? "viceSkip" : team.viceSkipid.toString()} hidden={league().divisions > 1}>{team.viceSkip}</option>
+                            <option value={team.leadid} key={team.leadid == null ? "lead" : team.leadid.toString()} hidden={league().divisions > 2}>{team.lead}</option>
                             {membership?.map((item) => (
                                 <option value={item.id.toString()} key={item.id.toString()}>{item.fullName}</option>
                             ))}
@@ -110,18 +110,18 @@ const TeamUpdate = () => {
                     <select style={{ width: '85%' }} defaultValue={team.divisionId} {...register("divisionId")}>
                         <option value="0" key="0">Select Devision</option>
                         <option value="1" key="1">1</option>
-                        <option value="2" key="2" hidden={league.divisions < 2 }>2</option>
-                        <option value="3" key="3" hidden={league.divisions < 3}>3</option>
+                        <option value="2" key="2" hidden={league().divisions < 2 }>2</option>
+                        <option value="3" key="3" hidden={league().divisions < 3}>3</option>
                     </select></td>
             </tr>
 
 
 
             {
-                league.teamSize < 3 && <input type="hidden" defaultValue="0" {...register("viceSkip")} />
+                league().teamSize < 3 && <input type="hidden" defaultValue="0" {...register("viceSkip")} />
             }
             {
-                league.teamSize < 2 && <input type="hidden" defaultValue="0" {...register("lead")} />
+                league().teamSize < 2 && <input type="hidden" defaultValue="0" {...register("lead")} />
             }
             <tr>
               
@@ -148,7 +148,7 @@ const TeamUpdate = () => {
     return (
         <>
         <Menu/>
-            <h3>Update Team {team.teamNo} for league {league.leagueName}</h3>
+            <h3>Update Team {team.teamNo} for league {league().leagueName}</h3>
             {contents}
             <p className="errorMessage">{errorMsg}</p>
             
@@ -175,7 +175,7 @@ const TeamUpdate = () => {
     }
 
     async function GetMembers() {
-        const url: string = import.meta.env.VITE_SERVER_URL+"api/Teams/NotOnTeam/".concat(league.id.toString());
+        const url: string = import.meta.env.VITE_SERVER_URL+"api/Teams/NotOnTeam/".concat(league().id.toString());
         axios.get(url)
             .then(response => {
                 setMembership(response.data);
@@ -186,7 +186,7 @@ const TeamUpdate = () => {
     }
 
     function updateData(data: UpdateFormData) {
-        switch (league.teamSize) {
+        switch (league().teamSize) {
             case 1:
                 break;
             case 2:

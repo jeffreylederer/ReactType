@@ -2,7 +2,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from 'react';
 import axios from "axios";
 import { TeamMember } from "./TeamMember.tsx";
-import { LeagueType } from "../../leagueObject.tsx";
+import { league } from "../../../components/leagueObject.tsx";;
 import { DeleteButton } from '../../../components/Buttons.tsx';
 import Menu from "../../../components/Menu.tsx";
 
@@ -10,7 +10,7 @@ import Menu from "../../../components/Menu.tsx";
 const TeamsDelete = () => {
     const location = useLocation();
     const id: number = location.state;
-    const league: LeagueType = JSON.parse(localStorage.getItem("league") as string);  
+   
     const [errorMsg, SeterrorMsg] = useState("");
     const [team, setTeam] = useState<TeamMember>();
 
@@ -35,12 +35,12 @@ const TeamsDelete = () => {
                 <td className="Field">{team?.skip}</td>
             </tr>
 
-            <tr hidden={league.teamSize < 3}>
+            <tr hidden={league().teamSize < 3}>
                 <td style={{ width: "200px" }}>Vice Skip:</td>
                 <td className="Field">{team?.viceSkip}</td>
             </tr>
 
-            <tr hidden={league.teamSize < 2}>
+            <tr hidden={league().teamSize < 2}>
                 <td style={{ width: "200px" }}>Lead:</td>
                 <td className="Field">{team?.lead}</td>
             </tr>
@@ -60,7 +60,7 @@ const TeamsDelete = () => {
     return (
         <div>
         <Menu/>
-            <h3>Delete Team from league {league.leagueName} </h3>
+            <h3>Delete Team from league {league().leagueName} </h3>
             {contents}
             <p className="errorMessage">{errorMsg}</p>
 

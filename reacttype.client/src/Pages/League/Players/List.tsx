@@ -2,14 +2,12 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from "axios";
 import { UpdateFormData } from "./UpdateFormData.tsx";
-import { UserType, LeagueType } from "../../leagueObject.tsx";
+import { user, league } from "../../../components/leagueObject.tsx";;
 import Menu from "../../../components/Menu.tsx";
 
 function Players() {
     const [player, setplayer] = useState<UpdateFormData[]>();
-    const league: LeagueType = JSON.parse(localStorage.getItem("league") as string);
-    const user: UserType = JSON.parse(localStorage.getItem("login") as string);
-    const permission: string = user.role;
+    const permission: string = user().role;
     const allowed: boolean = (permission == "SiteAdmin" || permission == "Admin") ? false : true;
 
 
@@ -43,7 +41,7 @@ function Players() {
     return (
         <div>
         <Menu/>
-            <h3>Players in league {league.leagueName}</h3>
+            <h3>Players in league {league().leagueName}</h3>
             <Link to="/League/Players/Create" hidden={allowed}>Add</Link>
             {contents}
             <p>Number of players: {player?.length}</p>
@@ -53,7 +51,7 @@ function Players() {
     async function GetData() {
        
 
-        const url: string = import.meta.env.VITE_SERVER_URL+"api/players/".concat(league.id.toString());
+        const url: string = import.meta.env.VITE_SERVER_URL+"api/players/".concat(league().id.toString());
         axios.get(url)
             .then(response => {
                 setplayer(response.data);

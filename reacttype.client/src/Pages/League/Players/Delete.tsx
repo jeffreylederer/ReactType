@@ -2,7 +2,7 @@ import { useLocation, useNavigate, } from "react-router-dom";
 import { useEffect, useState } from 'react';
 import axios from "axios";
 import { UpdateFormData } from "./UpdateFormData.tsx";
-import { LeagueType } from "../../leagueObject.tsx";
+import { league } from "../../../components/leagueObject.tsx";;
 import { DeleteButton } from '../../../components/Buttons.tsx';
 import Menu from "../../../components/Menu.tsx";
 
@@ -10,7 +10,6 @@ import Menu from "../../../components/Menu.tsx";
 const PlayersDelete = () => {
     const location = useLocation();
     const id: number = location.state;
-    const league: LeagueType = JSON.parse(localStorage.getItem("league") as string);  
     const [errorMsg, SeterrorMsg] = useState("");
     const [players, setPlayers] = useState<UpdateFormData>();
 
@@ -40,7 +39,7 @@ const PlayersDelete = () => {
     return (
         <div>
         <Menu/>
-            <h2>Delete player from league {league.leagueName} </h2>
+            <h2>Delete player from league {league().leagueName} </h2>
             {contents}
             <p className="errorMessage">{errorMsg}</p>
            

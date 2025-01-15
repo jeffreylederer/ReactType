@@ -1,25 +1,21 @@
 import { useState, useEffect  } from 'react';
 import { MatchFormData } from "./MatchFormData.tsx";
 import axios from "axios";
-import { LeagueType } from "../../leagueObject.tsx";
 import uparrow  from "../../../images/uparrow.png";
 import { UpdateFormData } from "../Schedule/UpdateFormData.tsx";
 import { Link } from 'react-router-dom';
 import { useLocation } from "react-router-dom";
-import { UserType } from '../../leagueObject.tsx';
+import { user, league } from '../../../components/leagueObject.tsx';
 import Menu from "../../../components/Menu.tsx";;
 
 
 function Matches() {
     const [match, setMatch] = useState<MatchFormData[]>();
-    ;
-    const user: UserType = JSON.parse(localStorage.getItem("login") as string);
-    const permission: string = user.role;
+    const permission: string = user().role;
     const allowed: boolean = (permission == "SiteAdmin" || permission == "Admin" || permission == "Scorer") ? false : true;
     const admin: boolean = (permission == "SiteAdmin" || permission == "Admin" )? false : true;
     
     const [schedule, setSchedule] = useState<UpdateFormData[]>();
-    const league: LeagueType = JSON.parse(localStorage.getItem("league") as string);
     const location = useLocation();
     const id:string = location.search.substring(4);
     const [weekid, setWeekid] = useState(+id);
@@ -149,7 +145,7 @@ function Matches() {
         return(
             <div>
         <Menu/>
-        <h3>Players in league {league.leagueName}</h3>
+        <h3>Players in league {league().leagueName}</h3>
                 {contents}
                 {matchcontents}
                 <p style={{ color: 'red', textAlign: 'left' }} hidden={weekid==0}>Teams with wheel chair members are in red</p>
@@ -159,7 +155,7 @@ function Matches() {
    
     async function GetDates() {
         if (schedule === undefined) {
-            const url: string = import.meta.env.VITE_SERVER_URL+"api/Schedules/".concat(league.id.toString());
+            const url: string = import.meta.env.VITE_SERVER_URL+"api/Schedules/".concat(league().id.toString());
             axios.get(url)
                 .then(response => {
                     setSchedule(response.data);

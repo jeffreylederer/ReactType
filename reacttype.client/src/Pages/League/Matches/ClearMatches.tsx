@@ -1,12 +1,11 @@
 import { useEffect, useState } from 'react';
 import axios from "axios";
-import { LeagueType } from "../../leagueObject.tsx";
+import { league } from "../../../components/leagueObject.tsx";;
 import Menu from "../../../components/Menu.tsx";
 
 
 
 export const ClearMatches = () => {
-    const league: LeagueType = JSON.parse(localStorage.getItem("league") as string);
     const [errorMsg, setErrorMsg] = useState('');
     useEffect(() => {
         GetData();
@@ -20,7 +19,7 @@ export const ClearMatches = () => {
     );
 
     async function GetData() {
-        const url: string = import.meta.env.VITE_SERVER_URL+"api/Matches/ClearSchedule/".concat(league.id.toString());
+        const url: string = import.meta.env.VITE_SERVER_URL+"api/Matches/ClearSchedule/".concat(league().id.toString());
         axios.get(url)
             .then(response => {
                 setErrorMsg("Schedule cleared");

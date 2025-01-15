@@ -27,3 +27,12 @@ export type UserType = {
     role: string
 }
 
+export function user(): UserType  {
+    const UserType: UserType = JSON.parse(localStorage.getItem("login") as string);
+    return UserType;
+}
+
+export function league(): LeagueType {
+    const league: LeagueType = JSON.parse(localStorage.getItem("league") as string);
+    return league;
+}

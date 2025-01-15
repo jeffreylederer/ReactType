@@ -1,22 +1,17 @@
-import { LeagueType, UserType } from "./leagueObject.tsx";
+import { league, user, UserType, LeagueType } from "../components//leagueObject.tsx";
 import Menu from "../components/Menu.tsx";
 
 
 function Welcome() {
-    
-    const league: LeagueType = JSON.parse(localStorage.getItem("league") as string);
-    const login: UserType = JSON.parse(localStorage.getItem("login") as string);
-
-    
-    
-    
+    const User: UserType = user();
+    const League: LeagueType = league()
         return (
             <>
             <Menu/>
-            <h3>Welcome to {league.leagueName}</h3>
+                <h3>Welcome to {League.leagueName}</h3>
 
            <div className="toLeft">
-                <h4>Current Role: {login.role} </h4>
+                    <h4>Current Role: {User.role} </h4>
 
                 <dl >
                     <dt>Observers</dt>

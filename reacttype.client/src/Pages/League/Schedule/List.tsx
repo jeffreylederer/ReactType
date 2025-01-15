@@ -2,16 +2,14 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from "axios";
 import { UpdateFormData } from "./UpdateFormData.tsx";
-import { LeagueType, UserType } from "../../leagueObject.tsx";
+import { league, user} from "../../../components/leagueObject.tsx";;
 import Menu from "../../../components/Menu.tsx";
 
 
 function Schedule() {
     const [schedule, setschedule] = useState<UpdateFormData[]>();
-    const league: LeagueType = JSON.parse(localStorage.getItem("league") as string);
-   
-    const user: UserType = JSON.parse(localStorage.getItem("login") as string);
-    const permission: string = user.role;
+    
+    const permission: string = user().role;
     const allowed: boolean = (permission == "SiteAdmin" || permission == "Admin") ? false : true;
 
     useEffect(() => {
@@ -48,14 +46,14 @@ function Schedule() {
     return (
         <div>
         <Menu/>
-            <h3 id="tableLabel">Schedule for League {league.leagueName}</h3>
+            <h3 id="tableLabel">Schedule for League {league().leagueName}</h3>
             <Link to="/League/Schedule/Create" hidden={allowed}>Add</Link>
             {contents}
         </div>
     );
 
     async function GetData() {
-        const url: string = import.meta.env.VITE_SERVER_URL+"api/Schedules/".concat(league.id.toString());
+        const url: string = import.meta.env.VITE_SERVER_URL+"api/Schedules/".concat(league().id.toString());
         axios.get(url)
             .then(response => {
                 setschedule(response.data);

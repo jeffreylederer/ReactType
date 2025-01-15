@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import axios from "axios";
-import { LeagueType } from "./leagueObject.tsx";
+import { LeagueType } from  "../components//leagueObject.tsx";
 import { useNavigate } from "react-router-dom";
 import Menu from "../components/Menu.tsx";
 

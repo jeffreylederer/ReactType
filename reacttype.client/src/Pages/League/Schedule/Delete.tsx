@@ -2,7 +2,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from 'react';
 import axios from "axios";
 import { FormData } from "./FormData.tsx";
-import { LeagueType } from "../../leagueObject.tsx";
+import { league } from "../../../components/leagueObject.tsx";;
 import { DeleteButton } from '../../../components/Buttons.tsx';
 import Menu from "../../../components/Menu.tsx";
 
@@ -10,7 +10,6 @@ import Menu from "../../../components/Menu.tsx";
 const ScheduleDelete = () => {
     const location = useLocation();
     const id: number = location.state;
-    const league: LeagueType = JSON.parse(localStorage.getItem("league") as string);
     const [schedule, setSchedule] = useState<FormData>();
     const [errorMsg, SeterrorMsg] = useState("");
     
@@ -49,7 +48,7 @@ const ScheduleDelete = () => {
     return (
         <div>
         <Menu/>
-            <h3>Delete game date in league {league.leagueName}</h3>
+            <h3>Delete game date in league {league().leagueName}</h3>
             {contents}
             <p className="errorMessage">{errorMsg}</p>
         </div>
