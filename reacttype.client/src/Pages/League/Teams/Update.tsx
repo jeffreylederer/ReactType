@@ -6,8 +6,8 @@ import { UpdateFormData, UpdateFormDataSchema } from "./UpdateFormData.tsx";
 import { zodResolver } from '@hookform/resolvers/zod';
 import { LeagueType } from "../../leagueObject.tsx";
 import { Membership } from "./Membership.tsx";
-import { TextInput, Button } from "flowbite-react";
-import Menu from "../../../Menu.tsx";
+import Menu from "../../../components/Menu.tsx";
+import SubmitButton from '../../../components/Buttons.tsx';
 
 const TeamUpdate = () => {
 
@@ -124,11 +124,10 @@ const TeamUpdate = () => {
                 league.teamSize < 2 && <input type="hidden" defaultValue="0" {...register("lead")} />
             }
             <tr>
-                <td></td>
-                <td>
-                    <Button color="Default" type="submit" >Submit</Button>
-                    <Button color="Default" onClick={() => navigate(-1)}>Go back to list</Button>
-                </td>
+              
+                    <td colSpan={2}>
+                        <SubmitButton />
+                    </td>
             </tr>
                 <tr>
                     <td colSpan={1}>

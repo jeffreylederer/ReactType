@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import axios from "axios";
 import { UpdateFormData } from "./UpdateFormData.tsx";
 import { UserType, LeagueType } from "../../leagueObject.tsx";
-import Menu from "../../../Menu.tsx";
+import Menu from "../../../components/Menu.tsx";
 
 function Players() {
     const [player, setplayer] = useState<UpdateFormData[]>();

@@ -4,60 +4,60 @@ import {
 } from "react-router-dom";
 
 
-import Membership from "./Pages/Membership/List.tsx";
-import MembershipDelete from "./Pages/Membership/Delete.tsx";
-import MembershipUpdate from "./Pages/Membership/Update.tsx";
-import MembershipCreate from "./Pages/Membership/Create.tsx";
+import Membership from "../Pages/Membership/List.tsx";
+import MembershipDelete from "../Pages/Membership/Delete.tsx";
+import MembershipUpdate from "../Pages/Membership/Update.tsx";
+import MembershipCreate from "../Pages/Membership/Create.tsx";
 
-import League from "./Pages/Admin/League/List.tsx";
-import LeagueDelete from "./Pages/Admin/League/Delete.tsx";
-import LeagueUpdate from "./Pages/Admin/League/Update.tsx";
-import LeagueCreate from "./Pages/Admin/League/Create.tsx";
-import LeagueDetails from "./Pages/Admin/League/Details.tsx";
+import League from "../Pages/Admin/League/List.tsx";
+import LeagueDelete from "../Pages/Admin/League/Delete.tsx";
+import LeagueUpdate from "../Pages/Admin/League/Update.tsx";
+import LeagueCreate from "../Pages/Admin/League/Create.tsx";
+import LeagueDetails from "../Pages/Admin/League/Details.tsx";
 
-import Users from "./Pages/Admin/Users/List.tsx";
-import UsersDelete from "./Pages/Admin/Users/Delete.tsx";
-import UsersUpdate from "./Pages/Admin/Users/Update.tsx";
-import UsersCreate from "./Pages/Admin/Users/Create.tsx";
+import Users from "../Pages/Admin/Users/List.tsx";
+import UsersDelete from "../Pages/Admin/Users/Delete.tsx";
+import UsersUpdate from "../Pages/Admin/Users/Update.tsx";
+import UsersCreate from "../Pages/Admin/Users/Create.tsx";
 
-import Players from "./Pages/League/Players/List.tsx";
-import PlayersDelete from "./Pages/League/Players/Delete.tsx";
-import PlayersCreate from "./Pages/League/Players/Create.tsx";
+import Players from "../Pages/League/Players/List.tsx";
+import PlayersDelete from "../Pages/League/Players/Delete.tsx";
+import PlayersCreate from "../Pages/League/Players/Create.tsx";
 
-import Schedule from "./Pages/League/Schedule/List.tsx";
-import SchedulesDelete from "./Pages/League/Schedule/Delete.tsx";
-import SchedulesCreate from "./Pages/League/Schedule/Create.tsx";
-import SchedulesUpdate from "./Pages/League/Schedule/Update.tsx";
+import Schedule from "../Pages/League/Schedule/List.tsx";
+import SchedulesDelete from "../Pages/League/Schedule/Delete.tsx";
+import SchedulesCreate from "../Pages/League/Schedule/Create.tsx";
+import SchedulesUpdate from "../Pages/League/Schedule/Update.tsx";
 
-import Teams from "./Pages/League/Teams/List.tsx";
-import TeamsDelete from "./Pages/League/Teams/Delete.tsx";
-import TeamsCreate from "./Pages/League/Teams/Create.tsx";
-import TeamsUpdate from "./Pages/League/Teams/Update.tsx";
-import TeamReport from "./Pages/League/Teams/Report.tsx";
+import Teams from "../Pages/League/Teams/List.tsx";
+import TeamsDelete from "../Pages/League/Teams/Delete.tsx";
+import TeamsCreate from "../Pages/League/Teams/Create.tsx";
+import TeamsUpdate from "../Pages/League/Teams/Update.tsx";
+import TeamReport from "../Pages/League/Teams/Report.tsx";
 
-import Matches from "./Pages/League/Matches/list.tsx";
-import ScoreCard from "./Pages/League/Matches/ScoreCard.tsx";
-import Standings from "./Pages/League/Matches/Standings.tsx";
-import MatchUpdate from "./Pages/League/Matches/Update.tsx";
-import Byes from "./Pages/League/Matches/Byes.tsx";
-import ScheduleReport from "./Pages/League/Matches/ScheduleReport.tsx";
-import { CreateMatches } from "./Pages/League/Matches/CreateMatches.tsx";
-import { ClearMatches } from "./Pages/League/Matches/ClearMatches.tsx";
-
-
-
-import Logoff from "./Pages/Admin/Login/Logoff.tsx";
-import Login from "./Pages/Admin/Login/Login.tsx";
-import UpdatePassword from "./Pages/Admin/Login/UpdatePassword.tsx";
-import NotLogin from "./Pages/Admin/Login/NotLogin.tsx";
+import Matches from "../Pages/League/Matches/list.tsx";
+import ScoreCard from "../Pages/League/Matches/ScoreCard.tsx";
+import Standings from "../Pages/League/Matches/Standings.tsx";
+import MatchUpdate from "../Pages/League/Matches/Update.tsx";
+import Byes from "../Pages/League/Matches/Byes.tsx";
+import ScheduleReport from "../Pages/League/Matches/ScheduleReport.tsx";
+import { CreateMatches } from "../Pages/League/Matches/CreateMatches.tsx";
+import { ClearMatches } from "../Pages/League/Matches/ClearMatches.tsx";
 
 
-import About from "./Pages/About.tsx";
-import Contact from "./Pages/Contact.tsx";
+
+import Logoff from "../Pages/Admin/Login/Logoff.tsx";
+import Login from "../Pages/Admin/Login/Login.tsx";
+import UpdatePassword from "../Pages/Admin/Login/UpdatePassword.tsx";
+import NotLogin from "../Pages/Admin/Login/NotLogin.tsx";
 
 
-import Welcome from "./Pages/Welcome.tsx";
-import Home from './Pages/Home.tsx'; 
+import About from "../Pages/About.tsx";
+import Contact from "../Pages/Contact.tsx";
+
+
+import Welcome from "../Pages/Welcome.tsx";
+import Home from '../Pages/Home.tsx'; 
 
 
 

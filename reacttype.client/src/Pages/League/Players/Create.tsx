@@ -5,9 +5,9 @@ import { PlayerFormData, PlayerFormDataSchema } from "./FormData.tsx";
 import { UpdateFormData } from "../../Membership/UpdateFormData.tsx";
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useEffect, useState } from 'react';
-import { TextInput } from "flowbite-react";
 import { LeagueType } from "../../leagueObject.tsx";
-import Menu from "../../../Menu.tsx";
+import SubmitButton from '../../../components/Buttons.tsx';
+import Menu from "../../../components/Menu.tsx";
 
 
 const PlayersCreate = () => {
@@ -76,13 +76,12 @@ const PlayersCreate = () => {
                 
                 
                     <tr>
-                        <td colSpan={1}  style={{ textAlign: "center" }}>
-                            <TextInput type="submit" />
-                            <button onClick={() => navigate(-1)}>Back to list</button>
+                        <td colSpan={2}  style={{ textAlign: "center" }}>
+                          <SubmitButton/>
                         </td>
                     </tr>
                     <tr>
-                        <td colSpan={1}>
+                        <td colSpan={2}>
                             {errors.membershipId && <p className="errorMessage">{errors.membershipId.message}</p>}
                         </td>
                     </tr>

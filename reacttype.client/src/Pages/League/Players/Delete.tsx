@@ -3,8 +3,8 @@ import { useEffect, useState } from 'react';
 import axios from "axios";
 import { UpdateFormData } from "./UpdateFormData.tsx";
 import { LeagueType } from "../../leagueObject.tsx";
-import { Button } from "flowbite-react";
-import Menu from "../../../Menu.tsx";
+import { DeleteButton } from '../../../components/Buttons.tsx';
+import Menu from "../../../components/Menu.tsx";
 
 
 const PlayersDelete = () => {
@@ -31,9 +31,8 @@ const PlayersDelete = () => {
                 <td className="Field">{players.fullName}</td>
             </tr>
             <tr>
-                <td colSpan={1} style={{ textAlign: "center" }}>
-                    <Button color="Default" onClick={DeleteItem}>Delete Record</Button>
-                    <Button color="Default" onClick={() => navigate(-1)}>Go back to list</Button>
+                <td colSpan={2} >
+                    <DeleteButton DeleteItem={DeleteItem }/>
                 </td>
             </tr>
         </table>;

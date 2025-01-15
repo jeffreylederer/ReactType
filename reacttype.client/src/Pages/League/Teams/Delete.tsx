@@ -3,7 +3,8 @@ import { useEffect, useState } from 'react';
 import axios from "axios";
 import { TeamMember } from "./TeamMember.tsx";
 import { LeagueType } from "../../leagueObject.tsx";
-import Menu from "../../../Menu.tsx";
+import { DeleteButton } from '../../../components/Buttons.tsx';
+import Menu from "../../../components/Menu.tsx";
 
 
 const TeamsDelete = () => {
@@ -50,9 +51,8 @@ const TeamsDelete = () => {
             </tr>
 
             <tr>
-                <td style={{ width: "300px" }}>
-                    <input type='button' onClick={DeleteItem} value="Delete Record" />
-                    <button onClick={() => navigate(-1)}>Back to list</button>
+                <td colSpan={2 }>
+                    <DeleteButton DeleteItem={DeleteItem } />
                 </td>
             </tr>
         </table>

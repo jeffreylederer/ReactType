@@ -6,7 +6,8 @@ import { UpdateFormData, UpdateFormDataSchema } from "./UpdateFormData.tsx";
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Checkbox, TextInput } from "flowbite-react";
 import { LeagueType } from "../../leagueObject.tsx";
-import Menu from "../../../Menu.tsx";
+import SubmitButton from '../../../components/Buttons.tsx';
+import Menu from "../../../components/Menu.tsx";
 
 
 const ScheduleUpdate = () => {
@@ -61,7 +62,7 @@ const ScheduleUpdate = () => {
                 <tr>
                     <td className="Label">Game Date:</td>
 
-                    <td style={{ textAlign: "left", width: '85%' }}>
+                    <td className="Field">
                         <TextInput type="date" {...register('gameDate')} defaultValue={schedule.gameDate} />
                     </td>
                 </tr>
@@ -69,7 +70,7 @@ const ScheduleUpdate = () => {
                 <tr>
                     <td className="Label">Playoffs:</td>
 
-                    <td style={{ textAlign: "left", width: '85%' }}>
+                    <td className="Field">
                         <Checkbox {...register('playOffs')} defaultChecked={schedule.playOffs } />
                     </td>
                 </tr>
@@ -77,14 +78,13 @@ const ScheduleUpdate = () => {
                 <tr>
                     <td className="Label">Cancelled:</td>
 
-                    <td style={{ textAlign: "left", width: '85%' }}>
+                    <td className="Field">
                         <Checkbox {...register('cancelled')} defaultChecked={schedule.cancelled} />
                     </td>
                 </tr>
                 <tr>
-                    <td colSpan={1} style={{ textAlign: "center" }}>
-                        <TextInput type="submit" />
-                        <button onClick={() => navigate(-1)}>Go back to list</button>
+                    <td colSpan={2} >
+                        <SubmitButton/>
                     </td>
                 </tr>
 

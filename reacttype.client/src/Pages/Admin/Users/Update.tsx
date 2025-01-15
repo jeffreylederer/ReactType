@@ -4,8 +4,9 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import axios from "axios";
 import { UpdateFormData, UpdateFormDataSchema } from "./UpdateFormData.tsx";
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Checkbox, Button, TextInput, Select } from "flowbite-react";
-import Menu from "../../../Menu.tsx";
+import { Checkbox, TextInput, Select } from "flowbite-react";
+import Menu from "../../../components/Menu.tsx";
+import SubmitButton from '../../../components/Buttons.tsx';
 
 
 
@@ -94,9 +95,8 @@ const UsersUpdate = () => {
             
 
             <tr>
-                <td colSpan={1}  style={{ textAlign: "center" }}>
-                        <Button type="submit" color="gray">Submit</Button>
-                        <Button onClick={() => navigate(-1)} color="gray">Go back to list</Button>
+                <td colSpan={2}  style={{ textAlign: "center" }}>
+                        <SubmitButton/>
                 </td>
             </tr>
                 <tr><td colSpan={1}>

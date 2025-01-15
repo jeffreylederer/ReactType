@@ -1,5 +1,6 @@
 import { LeagueType, UserType } from "./leagueObject.tsx";
-import Menu from '../Menu.tsx';
+import Menu from "../components/Menu.tsx";
+
 
 function Welcome() {
     

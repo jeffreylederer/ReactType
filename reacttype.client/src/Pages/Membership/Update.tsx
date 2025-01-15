@@ -4,9 +4,9 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import axios from "axios";
 import { UpdateFormData, UpdateFormDataSchema } from "./UpdateFormData.tsx";
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Checkbox, TextInput, Button } from "flowbite-react";
-
-import Menu from "../../Menu.tsx";
+import { Checkbox, TextInput, } from "flowbite-react";
+import SubmitButton from '../../components/Buttons.tsx';
+import Menu from "../../components/Menu.tsx";
 
 const MembershipUpdate = () => {
     const [membership, setMembership] = useState(
@@ -79,10 +79,9 @@ const MembershipUpdate = () => {
                     </td>
                 </tr>
                 <tr className="center-td">
-                <td></td>
-                    <td>
-                        <Button color="Default" type="submit" >Submit</Button>
-                        <Button color="Default" onClick={() => navigate(-1)}>Go back to list</Button>
+    
+                        <td colSpan={2} >
+                        <SubmitButton/>
                     </td>
                 </tr>
                 <tr><td colSpan={1}>

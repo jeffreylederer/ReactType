@@ -5,9 +5,10 @@ import { FormData, FormDataSchema } from "./FormData.tsx";
 import { Membership } from "./Membership.tsx";
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useEffect, useState } from 'react';
-import { TextInput } from "flowbite-react";
 import { LeagueType } from "../../leagueObject.tsx";
-import Menu from "../../../Menu.tsx";
+import SubmitButton from '../../../components/Buttons.tsx';
+import Menu from "../../../components/Menu.tsx";
+
 
 const TeamsCreate = () => {
    
@@ -137,9 +138,8 @@ const TeamsCreate = () => {
                 
                 
                     <tr>
-                        <td colSpan={1}  style={{ textAlign: "center" }}>
-                            <TextInput type="submit" />
-                            <button onClick={() => navigate(-1)}>Back to list</button>
+                        <td colSpan={2} >
+                            <SubmitButton/>
                         </td>
                     </tr>
                     <tr>

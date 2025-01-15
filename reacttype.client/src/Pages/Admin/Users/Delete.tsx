@@ -2,8 +2,8 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from 'react';
 import axios from "axios";
 import { DetailsType } from "./DetailsType.tsx";
-import { Button } from "flowbite-react";
-import Menu from "../../../Menu.tsx";
+import Menu from "../../../components/Menu.tsx";
+import {DeleteButton} from '../../../components/Buttons.tsx';
 
 
 const UsersDelete = () => {
@@ -44,9 +44,8 @@ const UsersDelete = () => {
             </tr>
 
             <tr>
-                <td colSpan={1} style={{ textAlign: "center" }}>
-                    <Button color="Default" onClick={DeleteItem}>Delete Record</Button>
-                    <Button color="Default" onClick={() => navigate(-1)}>Go back to list</Button>
+                <td colSpan={2} >
+                    <DeleteButton DeleteItem={DeleteItem} />
                 </td>
             </tr>
         </table>

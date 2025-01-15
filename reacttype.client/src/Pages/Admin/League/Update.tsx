@@ -4,8 +4,10 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import axios from "axios";
 import { UpdateFormData, UpdateFormDataSchema } from "./UpdateFormData.tsx";
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Checkbox, TextInput, Button } from "flowbite-react";
-import Menu from "../../../Menu.tsx";
+import { Checkbox, TextInput } from "flowbite-react";
+import { Button } from "flowbite-react";
+import Menu from "../../../components/Menu.tsx";
+
 
 
 
@@ -148,9 +150,11 @@ const LeagueUpdate = () => {
             </tr>
 
             <tr>
-                    <td colSpan={1} style={{ textAlign: "center" }}>
-                        <Button color="Default" type="submit" >Submit</Button>
-                        <Button color="Default"  onClick={() => navigate(-1)}>Go back to list</Button>
+                    <td colSpan={2} >
+                        <div className="flex flex-wrap gap-2" >
+                            <Button outline color="Default" type="submit" >Submit</Button>
+                            <Button outline color="Default" onClick={() => navigate("/Admin/Leagues")}>Go back to list</Button>
+                        </div>
                 </td>
             </tr>
 

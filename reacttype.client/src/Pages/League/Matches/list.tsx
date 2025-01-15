@@ -7,7 +7,7 @@ import { UpdateFormData } from "../Schedule/UpdateFormData.tsx";
 import { Link } from 'react-router-dom';
 import { useLocation } from "react-router-dom";
 import { UserType } from '../../leagueObject.tsx';
-import Menu from "../../../Menu.tsx";
+import Menu from "../../../components/Menu.tsx";;
 
 
 function Matches() {

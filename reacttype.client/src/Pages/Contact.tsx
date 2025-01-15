@@ -1,6 +1,9 @@
+import Menu from "../components/Menu.tsx";
+
 const Contact = () => {
     return (
         <>
+        <Menu/>
             <h3 style={{ textAlign: 'center' }}>Contact.</h3>
 
             <p style={{ width: '100%', textAlign: 'left' }}>This application is supported by Jeffrey Lederer.

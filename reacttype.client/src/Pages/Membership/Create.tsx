@@ -5,7 +5,8 @@ import axios from "axios";
 import { FormData, FormDataSchema } from "./FormData.tsx";
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Checkbox, TextInput } from "flowbite-react";
-import Menu from "../../Menu.tsx";
+import Menu from "../../components/Menu.tsx";
+import SubmitButton from '../../components/Buttons.tsx';
 
 const MembershipCreate = () => {
    
@@ -73,9 +74,9 @@ const MembershipCreate = () => {
                         </td>
                     </tr>
                     <tr>
-                        <td colSpan={1}  style={{ textAlign: "center" }}>
-                            <TextInput type="submit" />
-                            <button onClick={() => navigate(-1)}>Go back to list</button>
+
+                        <td colSpan={2} >
+                           <SubmitButton />
                         </td>
                     </tr>
                     <tr><td colSpan={1}>

@@ -2,8 +2,9 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from 'react';
 import { FormData } from "./FormData.tsx";
 import axios from "axios";
-import { Button } from "flowbite-react";
-import Menu from "../../Menu.tsx";
+import Menu from "../../components/Menu.tsx";
+import {DeleteButton} from '../../components/Buttons.tsx';
+
 
 const MembershipDelete = () => {
     const location = useLocation();
@@ -41,10 +42,9 @@ const MembershipDelete = () => {
                 <td className="Field">{membership.wheelchair?"Yes":"No"}</td>
             </tr>
             <tr>
-                   <td colSpan={2} style={{ textAlign: "center" }}>
+                   <td colSpan={2}>
 
-                    <Button color="Default" onClick={DeleteItem}>Delete Record</Button>
-                    <Button color="Default" onClick={() => navigate(-1)}>Go back to list</Button>
+                    <DeleteButton DeleteItem={DeleteItem }/>
                 </td>
             </tr>
         </table>

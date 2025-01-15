@@ -3,9 +3,9 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import axios from "axios";
 import { FormData, FormDataSchema } from "./FormData.tsx";
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Checkbox, TextInput, Button } from "flowbite-react";
-
-import Menu from "../../../Menu.tsx";
+import { Checkbox, TextInput } from "flowbite-react";
+import SubmitButton from '../../../components/Buttons.tsx';
+import Menu from "../../../components/Menu.tsx";
 
 const LeagueCreate = () => {
 
@@ -132,8 +132,7 @@ const LeagueCreate = () => {
                     <tr>
                         <td></td>
                         <td>
-                            <Button color="Default" type="submit" >Submit</Button>
-                            <Button color="Default" onClick={() => navigate(-1)}>Go back to list</Button>
+                            <SubmitButton/>
                         </td>
                         
                     </tr>

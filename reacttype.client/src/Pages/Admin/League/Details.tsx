@@ -3,7 +3,8 @@ import { useEffect, useState } from 'react';
 import axios from "axios";
 import { FormData } from "./FormData.tsx";
 import { useNavigate } from "react-router-dom";
-import Menu from "../../../Menu.tsx";
+import Menu from "../../../components/Menu.tsx";
+import { Button } from "flowbite-react";
 
 
 const LeagueDetails = () => {
@@ -65,10 +66,10 @@ const LeagueDetails = () => {
                 <td className="Field">{league.playOffs ? "Yes" : "No"}</td>
             </tr>
             <tr>
-                <td colSpan={1} style={{ textAlign: "center" }}>
+                <td colSpan={2}>
                     <Link to="/Admin/League/Update" state={id.toString()}>
-                        <button>Update</button></Link>
-                    <button onClick={() => navigate(-1)}>Go back to list</button>
+                        <Button outline color="Default">Update</Button></Link>
+                    <Button outline color="Default" onClick={() => navigate(-1)}>Go back to list</Button>
                 </td>
             </tr>
         </table>

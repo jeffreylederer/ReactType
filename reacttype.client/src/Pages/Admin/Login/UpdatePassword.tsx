@@ -4,8 +4,9 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import axios from "axios";
 import { UpdateFormData, UpdateFormDataSchema } from "./UpdateForm.tsx"
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Button, TextInput } from "flowbite-react";
+import { TextInput } from "flowbite-react";
 import { UserType } from "../../leagueObject.tsx";
+import SubmitButton from '../../../components/Buttons.tsx';
 
 
 
@@ -61,9 +62,8 @@ const UpdatePassword = () => {
                
 
                 <tr>
-                    <td colSpan={1} style={{ textAlign: "center" }}>
-                        <Button type="submit" color="gray">Submit</Button>
-                        <button onClick={() => navigate(-1)}>Go back to list</button>
+                    <td colSpan={2} >
+                       <SubmitButton/>
                     </td>
                 </tr>
                 <tr><td colSpan={1}>

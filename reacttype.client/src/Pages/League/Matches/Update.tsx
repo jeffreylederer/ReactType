@@ -4,9 +4,10 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import axios from "axios";
 import { UpdateFormData, UpdateFormDataSchema } from "./UpdateFormData.tsx";
 import { zodResolver } from '@hookform/resolvers/zod';
-import { TextInput, Button } from "flowbite-react";
+import { TextInput } from "flowbite-react";
 import { MatchFormData } from "./MatchFormData.tsx";
-
+import { ReturnButton } from '../../../components/Buttons.tsx';
+import Menu from "../../../components/Menu.tsx";
 
 
 
@@ -132,9 +133,8 @@ const MatchUpdate = () => {
 
                 <tr>
      
-                    <td colSpan={2} style={{ textAlign: "center" }}>
-                        <Button color="Default" type="submit" >Submit</Button>
-                        <Button color="Default" onClick={() => Goback()}>Go back to list</Button>
+                    <td colSpan={2} >
+                        <ReturnButton Back={Goback } />
                 </td>
             </tr>
 
@@ -150,7 +150,8 @@ const MatchUpdate = () => {
 
     return (
         <>
-            <h3>Update record for match on {match.gameDate}</h3>
+        <Menu/>
+            <h3>Enter scrore for match </h3>
             {contents}
 
 

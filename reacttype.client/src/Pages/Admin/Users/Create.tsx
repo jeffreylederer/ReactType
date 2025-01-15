@@ -3,8 +3,9 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import axios from "axios";
 import { FormData, FormDataSchema } from "./FormData.tsx";
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Checkbox, TextInput, Select } from "flowbite-react";
-import Menu from "../../../Menu.tsx";
+import { Checkbox, TextInput, Select, } from "flowbite-react";
+import Menu from "../../../components/Menu.tsx";
+import SubmitButton from '../../../components/Buttons.tsx';
 
 const UserCreate = () => {
 
@@ -81,9 +82,8 @@ const UserCreate = () => {
                     </tr>
 
                     <tr>
-                        <td colSpan={1}  style={{ textAlign: "center" }}>
-                            <TextInput type="submit" />
-                            <button onClick={() => navigate(-1)}>Go back to list</button>
+                        <td colSpan={2} >
+                            <SubmitButton/>
                         </td>
                     </tr>
                    

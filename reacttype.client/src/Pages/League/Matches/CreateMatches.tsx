@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import axios from "axios";
 import { LeagueType } from "../../leagueObject.tsx";
-import Menu from "../../../Menu.tsx";
+import Menu from "../../../components/Menu.tsx";
 
 
 

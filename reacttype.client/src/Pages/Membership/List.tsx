@@ -3,8 +3,7 @@ import { Link } from 'react-router-dom';
 import axios from "axios";
 import { UpdateFormData } from "./UpdateFormData.tsx";
 import { UserTypeDetail } from '../Admin/Login/UserTypeDetail.tsx';
-import Menu from "../../Menu.tsx";
-
+import Menu from "../../components/Menu.tsx";
 
 function Membership() {
     const [membership, setmembership] = useState<UpdateFormData[]>();
