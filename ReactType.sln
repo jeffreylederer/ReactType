@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35431.28
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReactType.Server", "ReactType.Server\ReactType.Server.csproj", "{C499CAAA-5959-48CE-8930-E3873EA98CFA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReactType.Server", "ReactType.Server\ReactType.Server.csproj", "{C499CAAA-5959-48CE-8930-E3873EA98CFA}"
 EndProject
 Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "reacttype.client", "reacttype.client\reacttype.client.esproj", "{C29A889F-0766-4849-9FEB-0AD6D40CB0AD}"
+EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "NewTournament", "NewTournament\NewTournament.sqlproj", "{6AD20C23-E879-48AE-ADAF-36AEB9470B04}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,6 +25,12 @@ Global
 		{C29A889F-0766-4849-9FEB-0AD6D40CB0AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C29A889F-0766-4849-9FEB-0AD6D40CB0AD}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C29A889F-0766-4849-9FEB-0AD6D40CB0AD}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{6AD20C23-E879-48AE-ADAF-36AEB9470B04}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6AD20C23-E879-48AE-ADAF-36AEB9470B04}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6AD20C23-E879-48AE-ADAF-36AEB9470B04}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{6AD20C23-E879-48AE-ADAF-36AEB9470B04}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6AD20C23-E879-48AE-ADAF-36AEB9470B04}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6AD20C23-E879-48AE-ADAF-36AEB9470B04}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
