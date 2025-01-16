@@ -4,7 +4,6 @@ as
 	SELECT S.id
 	 ,[GameDate]
       ,[Cancelled]
-      ,[WeekDate]
 	  ,PlayOffs
 	  ,m1.cnt
   FROM [dbo].[Schedule] S
