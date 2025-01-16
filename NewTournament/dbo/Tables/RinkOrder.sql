@@ -1,4 +1,4 @@
-﻿CREATE TABLE [dbo].[RinkOrder] (
+﻿create TABLE [dbo].[RinkOrder] (
     [id]        INT          NOT NULL,
     [Green]     VARCHAR (25) NOT NULL,
     [Direction] VARCHAR (25) NOT NULL,

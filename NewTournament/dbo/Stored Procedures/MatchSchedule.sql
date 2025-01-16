@@ -1,4 +1,4 @@
-﻿CREATE procedure dbo.MatchSchedule
+﻿create procedure dbo.MatchSchedule
 @leagueid int
 as
 

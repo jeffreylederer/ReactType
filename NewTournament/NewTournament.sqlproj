@@ -105,7 +105,6 @@
     <Build Include="dbo\Stored Procedures\MatchScore.sql" />
     <Build Include="dbo\Stored Procedures\AllTeams.sql" />
     <Build Include="dbo\Stored Procedures\MatchSchedule.sql" />
-    <Build Include="dbo\Stored Procedures\Team_Delete.sql" />
     <Build Include="dbo\Stored Procedures\OneTeam.sql" />
     <Build Include="dbo\Stored Procedures\NotOnTeam.sql" />
     <Build Include="dbo\Stored Procedures\OneMatchWeek.sql" />

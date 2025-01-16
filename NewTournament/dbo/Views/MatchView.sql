@@ -1,4 +1,4 @@
-﻿CREATE view dbo.MatchView
+﻿create view dbo.MatchView
 as
 select L.* from (
 select M.ID, M1.NickName as Skip1, m5.NickName as Vice1, M2.NickName as Lead1,  M3.NickName as Skip2, m6.NickName as Vice2,M4.NickName as Lead2, 

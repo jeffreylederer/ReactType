@@ -1,4 +1,4 @@
-﻿CREATE TABLE [dbo].[League] (
+﻿create TABLE [dbo].[League] (
     [id]          INT          IDENTITY (1, 1) NOT NULL,
     [LeagueName]  VARCHAR (50) NOT NULL,
     [Active]      BIT          CONSTRAINT [DF_League_Active] DEFAULT ((1)) NOT NULL,

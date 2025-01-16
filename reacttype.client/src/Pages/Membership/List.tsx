@@ -2,14 +2,12 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from "axios";
 import { UpdateFormData } from "./UpdateFormData.tsx";
-import { UserTypeDetail } from '../Admin/Login/UserTypeDetail.tsx';
 import Menu from "../../components/Menu.tsx";
+import { user } from "../../components/leagueObject.tsx";
 
 function Membership() {
     const [membership, setmembership] = useState<UpdateFormData[]>();
-    const user: UserTypeDetail = JSON.parse(localStorage.getItem("login") as string);
-    const permission: string = user.role;
-    const allowed: boolean = (permission == "SiteAdmin" || permission == "Admin") ? false : true;
+      const allowed: boolean = (user().role == "SiteAdmin" || user().role == "Admin") ? false : true;
 
     useEffect(() => {
         GetData();

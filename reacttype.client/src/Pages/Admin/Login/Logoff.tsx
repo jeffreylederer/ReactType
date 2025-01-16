@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useEffect } from 'react';
+import { removeAll } from '../../../components/leagueObject.tsx';
 
 function Logoff() {
     const navigate = useNavigate();
@@ -7,7 +8,7 @@ function Logoff() {
    
 
     useEffect(() => {
-        localStorage.clear();
+        removeAll();
         navigate("/Login");
     }, [navigate ]);
     return (

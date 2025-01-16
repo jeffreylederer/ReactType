@@ -1,8 +1,11 @@
 import { useEffect, useState } from 'react';
 import axios from "axios";
-import { LeagueType } from  "../components//leagueObject.tsx";
+import { LeagueType, setLeague } from  "../components//leagueObject.tsx";
 import { useNavigate } from "react-router-dom";
 import Menu from "../components/Menu.tsx";
+import { removeLeague } from '../components/leagueObject.tsx';
+
+
 
 function Home() {
 
@@ -15,15 +18,15 @@ function Home() {
         const idValue: number = +button.name;
         const result = leagueList.filter(function (o: LeagueType) { return o.id == idValue; });
         if (result?.length == 1) {
-            const item: LeagueType = result[0];
-            localStorage.setItem("league", JSON.stringify(item));
+            const data: LeagueType = result[0];
+            setLeague(data);
             navigate("/Welcome")
         }
     };
 
     useEffect(() => {
         GetData();
-        localStorage.removeItem("league");
+        removeLeague();
     });
 
     const contents = leagueList === undefined

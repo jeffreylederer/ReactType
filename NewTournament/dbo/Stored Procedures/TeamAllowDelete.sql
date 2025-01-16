@@ -1,4 +1,4 @@
-﻿CREATE procedure [dbo].[TeamAllowDelete]
+﻿create procedure [dbo].[TeamAllowDelete]
 @leagueid int
 as
 SELECT T.[id]

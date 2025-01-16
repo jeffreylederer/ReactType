@@ -1,5 +1,5 @@
 ﻿
-CREATE view [dbo].[OneMatchWeekView]
+create view [dbo].[OneMatchWeekView]
 AS
 SELECT m.[id],
 

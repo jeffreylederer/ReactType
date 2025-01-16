@@ -1,4 +1,4 @@
-﻿CREATE procedure [dbo].[MatchScore]
+﻿create procedure [dbo].[MatchScore]
 @weekid int
 as
 select 

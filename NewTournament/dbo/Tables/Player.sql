@@ -1,4 +1,4 @@
-﻿CREATE TABLE [dbo].[Player] (
+﻿create TABLE [dbo].[Player] (
     [id]           INT IDENTITY (1, 1) NOT NULL,
     [Leagueid]     INT NOT NULL,
     [MembershipId] INT NOT NULL,
@@ -9,6 +9,6 @@
 
 
 GO
-CREATE UNIQUE NONCLUSTERED INDEX [IX_Player]
+create UNIQUE NONCLUSTERED INDEX [IX_Player]
     ON [dbo].[Player]([MembershipId] ASC, [Leagueid] ASC);
 

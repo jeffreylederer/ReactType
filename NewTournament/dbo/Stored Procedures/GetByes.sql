@@ -1,4 +1,4 @@
-﻿CREATE procedure dbo.GetByes
+﻿create procedure dbo.GetByes
 @leagueid int
 as
 

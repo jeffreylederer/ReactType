@@ -1,4 +1,4 @@
-﻿CREATE view dbo.GetByesView
+﻿create view dbo.GetByesView
 as
 SELECT T.[id]
       ,m1.fullname as [skip]

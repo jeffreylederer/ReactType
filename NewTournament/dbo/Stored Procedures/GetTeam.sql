@@ -1,4 +1,4 @@
-﻿CREATE procedure [dbo].[GetTeam]
+﻿create procedure [dbo].[GetTeam]
 @id int
 as
 select t1.TeamNo as Team, t2.TeamNo as Team1 

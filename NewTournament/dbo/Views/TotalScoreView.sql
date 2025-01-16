@@ -1,4 +1,4 @@
-﻿CREATE View dbo.TotalScoreView
+﻿create View dbo.TotalScoreView
 
 as
 

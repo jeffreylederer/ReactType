@@ -1,4 +1,4 @@
-﻿Create View [dbo].[AllTeamsView]
+﻿create View [dbo].[AllTeamsView]
 
 as
 SELECT T.[id]

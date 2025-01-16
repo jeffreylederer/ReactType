@@ -1,4 +1,4 @@
-﻿CREATE procedure [dbo].[NotOnTeam]
+﻿create procedure [dbo].[NotOnTeam]
 @leagueid int
 as
 

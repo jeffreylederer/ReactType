@@ -1,4 +1,4 @@
-﻿Create procedure [dbo].[AllTeams]
+﻿create procedure [dbo].[AllTeams]
 @leagueid int
 as
 SELECT T.[id]

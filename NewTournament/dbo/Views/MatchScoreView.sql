@@ -1,5 +1,5 @@
 ﻿
-CREATE view [dbo].[MatchScoreView]
+create view [dbo].[MatchScoreView]
 as
 select 
 dbo.TeamPlayers(l.Teamsize, m.TeamNo1) as player1,

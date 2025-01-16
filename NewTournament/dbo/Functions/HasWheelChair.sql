@@ -1,5 +1,5 @@
 ﻿--
-CREATE FUNCTION [dbo].[HasWheelChair] 
+create FUNCTION [dbo].[HasWheelChair] 
 (
 	@W1 as bit,
 	@W2 as bit,

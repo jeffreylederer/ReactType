@@ -1,4 +1,4 @@
-﻿CREATE procedure [dbo].[LeagueAllowDelete]
+﻿create procedure [dbo].[LeagueAllowDelete]
 as
 SELECT L.[id]
       ,L.[LeagueName]

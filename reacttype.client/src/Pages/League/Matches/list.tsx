@@ -1,7 +1,7 @@
 import { useState, useEffect  } from 'react';
 import { MatchFormData } from "./MatchFormData.tsx";
 import axios from "axios";
-import uparrow  from "../../../images/uparrow.png";
+//import uparrow  from "../../../images/uparrow.png";
 import { UpdateFormData } from "../Schedule/UpdateFormData.tsx";
 import { Link } from 'react-router-dom';
 import { useLocation } from "react-router-dom";
@@ -30,7 +30,7 @@ function Matches() {
             GetData(weekid);
         else
             GetDates();
-    }, [weekid]);
+    });
 
     const selectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         //event.preventDefault();
@@ -123,7 +123,7 @@ function Matches() {
                 <tbody>
                     {match.map(item =>
                         <tr key={item.id}>
-                            <td hidden={admin}><button hidden={item.rink == 1} onClick={Reorder} name={item.id.toString()} style={{ backgroundColor: 'white'} }><img src={uparrow} /></button></td>
+                            <td hidden={admin}><button hidden={item.rink == 1} onClick={Reorder} name={item.id.toString()} style={{ backgroundColor: 'white' }}><img src='../../../images/uparrow.png' /></button></td>
                             
                             <td>{item.gameDate}</td>
                             <td>{item.rink}</td>

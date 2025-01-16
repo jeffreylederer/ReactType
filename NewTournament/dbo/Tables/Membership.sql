@@ -1,4 +1,4 @@
-﻿CREATE TABLE [dbo].[Membership] (
+﻿create TABLE [dbo].[Membership] (
     [id]         INT          IDENTITY (1, 1) NOT NULL,
     [FirstName]  VARCHAR (50) NOT NULL,
     [LastName]   VARCHAR (50) NOT NULL,
@@ -11,6 +11,6 @@
 
 
 GO
-CREATE UNIQUE NONCLUSTERED INDEX [IX_Membership]
+create UNIQUE NONCLUSTERED INDEX [IX_Membership]
     ON [dbo].[Membership]([LastName] ASC, [FirstName] ASC);
 

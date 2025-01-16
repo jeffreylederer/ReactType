@@ -1,5 +1,5 @@
 ﻿
-CREATE FUNCTION [dbo].[TeamPlayers]
+create FUNCTION [dbo].[TeamPlayers]
 (
 	@Teamsize int,
 	@TeamId int

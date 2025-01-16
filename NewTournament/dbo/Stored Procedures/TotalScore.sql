@@ -1,4 +1,4 @@
-﻿CREATE procedure [dbo].[TotalScore]
+﻿create procedure [dbo].[TotalScore]
 @id int
 as
 

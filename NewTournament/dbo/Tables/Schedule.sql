@@ -1,4 +1,4 @@
-﻿CREATE TABLE [dbo].[Schedule] (
+﻿create TABLE [dbo].[Schedule] (
     [id]        INT  IDENTITY (1, 1) NOT NULL,
     [GameDate]  DATE NOT NULL,
     [Leagueid]  INT  NOT NULL,
@@ -10,6 +10,6 @@
 
 
 GO
-CREATE UNIQUE NONCLUSTERED INDEX [IX_Schedule_1]
+create UNIQUE NONCLUSTERED INDEX [IX_Schedule_1]
     ON [dbo].[Schedule]([Leagueid] ASC, [GameDate] ASC);
 

@@ -1,4 +1,4 @@
-﻿CREATE TABLE [dbo].[Match] (
+﻿create TABLE [dbo].[Match] (
     [id]         INT IDENTITY (1, 1) NOT NULL,
     [WeekId]     INT NOT NULL,
     [Rink]       INT NOT NULL,

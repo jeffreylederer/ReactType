@@ -1,23 +1,20 @@
 
-import { UserType  } from "../components/leagueObject.tsx";
+import { IsUserNull, user, IsLeagueNull  } from "../components/leagueObject.tsx";
 import { useState, useEffect } from 'react';
 import { NavLink, useNavigate } from "react-router-dom";
 
 function Menu() {
-
-    const login: UserType = localStorage.getItem("login") === null ? null : JSON.parse(localStorage.getItem("login") as string);
-    
     const navigate = useNavigate();
-    const [showSiteAdmin] = useState<boolean>(login !== null && login.role == "SiteAdmin" );
-    const [showAdmin] = useState<boolean>(login !== null && (login.role == "Admin" || showSiteAdmin ));
+    const [showSiteAdmin] = useState<boolean>(!IsUserNull() && user().role == "SiteAdmin" );
+    const [showAdmin] = useState<boolean>(!IsUserNull() && (user().role == "Admin" || showSiteAdmin ));
     const [showLeague, setShowLeague] = useState<boolean>();
-    const username: string = login === null ? "" : login.username;
+    const username: string = IsUserNull() ? "" : user().username;
 
     useEffect(() => {
-        if (localStorage.getItem("login") === null) {
+        if (IsUserNull()) {
             navigate("/Login");
         }
-        setShowLeague(localStorage.getItem("league") !== null);
+        setShowLeague(!IsLeagueNull());
        
     }, [navigate]);
 

@@ -1,5 +1,5 @@
 ﻿/****** Script for SelectTopNRows command from SSMS  ******/
-CREATE procedure dbo.MembershipAllowDelete
+create procedure dbo.MembershipAllowDelete
 as
 SELECT  [id]
       ,[FirstName]

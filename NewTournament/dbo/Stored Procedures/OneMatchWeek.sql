@@ -1,4 +1,4 @@
-﻿CREATE procedure [dbo].[OneMatchWeek]
+﻿create procedure [dbo].[OneMatchWeek]
 @weekeid as int
 as
 SELECT m.[id],
@@ -26,7 +26,7 @@ t2.TeamNo as Team2No,
 s.GameDate
 
       
-  FROM [NewTournament].[dbo].[Match] m
+  FROM [Match] m
   join team t1 on m.TeamNo1 = t1.id
   join team t2 on m.TeamNo2 = t2.id
 

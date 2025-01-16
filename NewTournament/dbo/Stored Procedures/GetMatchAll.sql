@@ -1,4 +1,4 @@
-﻿CREATE procedure [dbo].[GetMatchAll]
+﻿create procedure [dbo].[GetMatchAll]
 @WeekId int
 as
 select L.* from (

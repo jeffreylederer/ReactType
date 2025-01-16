@@ -1,4 +1,4 @@
-﻿CREATE procedure [dbo].[ScheduleAllowDelete]
+﻿create procedure [dbo].[ScheduleAllowDelete]
 @leagueid int
 as
 	SELECT S.id

@@ -1,4 +1,4 @@
-﻿CREATE procedure [dbo].[OneTeam]
+﻿create procedure [dbo].[OneTeam]
 @teamid int
 as
 SELECT T.[id]

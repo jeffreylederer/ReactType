@@ -1,5 +1,5 @@
 ﻿/****** Script for SelectTopNRows command from SSMS  ******/
-CREATE procedure [dbo].[PlayerAllowDelete]
+create procedure [dbo].[PlayerAllowDelete]
 @leagueid int
 as
 SELECT P.[id]

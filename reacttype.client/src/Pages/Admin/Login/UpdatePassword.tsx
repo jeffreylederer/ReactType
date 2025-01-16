@@ -1,11 +1,10 @@
 import { useNavigate } from "react-router-dom";
-import { useState } from 'react';
 import { useForm, SubmitHandler } from "react-hook-form";
 import axios from "axios";
 import { UpdateFormData, UpdateFormDataSchema } from "./UpdateForm.tsx"
 import { zodResolver } from '@hookform/resolvers/zod';
 import { TextInput } from "flowbite-react";
-import { UserType } from "../../../components/leagueObject.tsx";;
+import { user } from "../../../components/leagueObject.tsx";;
 import SubmitButton from '../../../components/Buttons.tsx';
 
 
@@ -13,8 +12,7 @@ import SubmitButton from '../../../components/Buttons.tsx';
 
 const UpdatePassword = () => {
 
-    const [users] = useState<UserType>(JSON.parse(localStorage.getItem("login") as string));
-        
+      
    
     
 
@@ -43,11 +41,11 @@ const UpdatePassword = () => {
 
             <table>
 
-                <input type="hidden" {...register("id", { valueAsNumber: true })} defaultValue={users.id} />
+                <input type="hidden" {...register("id", { valueAsNumber: true })} defaultValue={user().id} />
                 <tr>
                     <td className="Label">User Name:</td>
 
-                    <td className="Field"><TextInput defaultValue={users.username} disabled />
+                    <td className="Field"><TextInput defaultValue={user().username} disabled />
                     </td>
                 </tr>
 
@@ -89,8 +87,7 @@ const UpdatePassword = () => {
     
 
     function updateData(data: UpdateFormData) {
-        const login: UserType = JSON.parse(localStorage.getItem("login") as string);
-        const url: string = import.meta.env.VITE_SERVER_URL+'api/Admin/'.concat(login.id.toString());
+       const url: string = import.meta.env.VITE_SERVER_URL+'api/Admin/'.concat(user().id.toString());
         axios.put(url, data)
             .then(response => {
                 console.log('Record updated successfully ', response.data);

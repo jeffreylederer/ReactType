@@ -1,4 +1,4 @@
-﻿Create View dbo.TeamsView as
+﻿create View dbo.TeamsView as
 SELECT T.[id]
       ,m1.fullname as [Skip]
       ,m2.fullname as [ViceSkip]
