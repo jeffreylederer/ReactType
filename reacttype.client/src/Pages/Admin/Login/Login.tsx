@@ -46,7 +46,7 @@ function Login() {
     return (
         <>
 
-            <h3>Please login to applcaton</h3>
+            <h3>Please login to application</h3>
             <form onSubmit={handleSubmit(onSubmit)} >
                 <table>
                     <tbody>
