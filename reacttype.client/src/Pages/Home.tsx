@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import axios from "axios";
-import { LeagueType, setLeague } from  "../components//leagueObject.tsx";
+import { LeagueType } from "../components/leagueObjectTypes.tsx";
+import { setLeague, removeLeague } from "../components/leagueObject.tsx";
 import { useNavigate } from "react-router-dom";
 import Menu from "../components/Menu.tsx";
-import { removeLeague } from '../components/leagueObject.tsx';
 
 
 
